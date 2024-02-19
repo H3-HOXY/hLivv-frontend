@@ -20,7 +20,21 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
-    extend: {},
+    extend: {
+      keyframes: {
+       slider: {
+          '0%': {
+            transform: 'translateX(0vw)'
+          },
+          '100%': {
+            transform: 'translateX(-200vw)'
+          }
+        },
+      },
+      animation: {
+      	slider: 'slider 10s linear infinite'
+      }
+    },
   },
   plugins: [],
 }
