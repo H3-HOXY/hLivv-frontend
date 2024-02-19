@@ -1,0 +1,35 @@
+.Login{
+  // background-color: aqua;
+  width: 99.2vw;
+  height: calc(73vh - 7em);
+  margin-top: 11.5em;
+}
+
+.LoginTitle{
+  font-size: 2em;
+}
+
+.LoginForm{
+  margin-top: 1em;
+}
+
+.LoginEmail, .LoginPassword {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.LoginSub{
+  display: flex;
+  justify-content: space-between;
+  margin: 2em 1em;
+}
+
+.LoginBtn{
+  font-weight: 900;
+  background-color: #d8d8d8;
+}
+
+.LoginBtn:hover{
+  background-color: #afafaf;
+}
