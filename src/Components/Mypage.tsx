@@ -1,9 +1,12 @@
+import Sidebar from "./Sidebar";
+import "../Components_scss/Mypage.scss"
+
 const Mypage = () => {
   return (
+    
     <div className="Mypage">
-      <div className="py-32 text-center">
-        <div className="text-4xl font-extrabold">마이페이지 화면이다.</div>
-      </div>
+      <Sidebar/>
+      안녕하세요~
     </div>
   );
 }

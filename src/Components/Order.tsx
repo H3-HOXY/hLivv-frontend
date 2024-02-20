@@ -1,97 +1,159 @@
 import "../Components_scss/Order.scss"
 import { Select, initTE } from "tw-elements";
+import { useEffect, useRef, useState } from "react"
+import { loadPaymentWidget, PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk"
+import { nanoid } from "nanoid"
+import axios from "axios";
 initTE({ Select });
 
+const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq"
+const customerKey = "YbX2HuSlsC9uVJW6NMRMj"
+
 const Order = () => {
+  const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null)
+  const paymentMethodsWidgetRef = useRef<ReturnType<
+    PaymentWidgetInstance["renderPaymentMethods"]
+  > | null>(null)
+  const [price, setPrice] = useState(50_000)
+
+  useEffect(() => {
+    (async () => {
+      const paymentWidget = await loadPaymentWidget(clientKey, customerKey)
+
+      paymentWidget.renderPaymentMethods("#payment-widget", price)
+
+      paymentWidgetRef.current = paymentWidget
+    })()
+  }, [])
+
+  useEffect(() => {
+    const paymentMethodsWidget = paymentMethodsWidgetRef.current
+
+    if (paymentMethodsWidget == null) {
+      return
+    }
+
+    paymentMethodsWidget.updateAmount(
+      price,
+      paymentMethodsWidget.UPDATE_REASON.COUPON
+    )
+  }, [price])
+
   return (
-    <div className="Order">
+    <div className="Order max-w-7xl mx-auto px-4">
       <div>주문/결제</div>
-      {/* 배송지 */}
-      <div className="OrderDestination">
-        <div className="OrderDestinationTitle">
-          <div className="OrderDestinationTitleLeft">배송지</div>
-          <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">변경</button>
+      <div className="OrderContent">
+        {/* 배송지 */}
+        <div className="OrderDestination">
+          <div className="OrderDestinationTitle">
+            <div className="OrderDestinationTitleLeft">배송지</div>
+            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">변경</button>
+          </div>
+          <hr/>
+          <div className="OrderDestinationFirst">
+            <div className="OrderDestinationName">홍길동</div>
+          </div>
+          <div className="OrderDestinationAddress">서울시 00구 00로 00아파트 000호</div>
+          <div className="OrderDestinationTel">010-1234-5678</div>
+          {/* 배송메세지 */}
+          <select title="message" data-te-select-init data-te-select-option-height="52">
+            <option value="1" data-te-select-secondary-text="Secondary text">
+              One
+            </option>
+            <option value="2" data-te-select-secondary-text="Secondary text">
+              Two
+            </option>
+            <option value="3" data-te-select-secondary-text="Secondary text">
+              Three
+            </option>
+            <option value="4" data-te-select-secondary-text="Secondary text">
+              Four
+            </option>
+            <option value="5" data-te-select-secondary-text="Secondary text">
+              Five
+            </option>
+          </select>
         </div>
-        <hr/>
-        <div className="OrderDestinationFirst">
-          <div className="OrderDestinationName">홍길동</div>
+
+        {/* 주문자 */}
+        <div className="OrderCustomer">
+          <div className="OrderCustomerTitle">주문자</div>
+          <hr/>
+          <div className="OrderCustomerName">이름 홍길동</div>
+          <div className="OrderCustomerEmail">이메일 abcd123@naver.com</div>
+          <div className="OrderCustomerTel">전화번호 01012345678</div>
         </div>
-        <div className="OrderDestinationAddress">서울시 00구 00로 00아파트 000호</div>
-        <div className="OrderDestinationTel">010-1234-5678</div>
-        {/* 배송메세지 */}
-        <select title="message" data-te-select-init data-te-select-option-height="52">
-          <option value="1" data-te-select-secondary-text="Secondary text">
-            One
-          </option>
-          <option value="2" data-te-select-secondary-text="Secondary text">
-            Two
-          </option>
-          <option value="3" data-te-select-secondary-text="Secondary text">
-            Three
-          </option>
-          <option value="4" data-te-select-secondary-text="Secondary text">
-            Four
-          </option>
-          <option value="5" data-te-select-secondary-text="Secondary text">
-            Five
-          </option>
-        </select>
-      </div>
 
-      {/* 주문자 */}
-      <div className="OrderCustomer">
-        <div className="OrderCustomerTitle">주문자</div>
-        <hr/>
-        <div className="OrderCustomerName">이름 홍길동</div>
-        <div className="OrderCustomerEmail">이메일 abcd123@naver.com</div>
-        <div className="OrderCustomerTel">전화번호 01012345678</div>
-      </div>
-
-      {/* 주문상품 */}
-      <div className="OrderProduct">
-        <div className="OrderProductTitle">주문상품</div>
-        <hr/>
-        <div className="OrderProductContainer">
-          <div className="OrderProductContainerHeader">COY</div>
-          <div className="OrderProductContainerContent">
-            <div className="OrderProductContainerContentLeft">(가구사진)</div>
-            <div className="OrderProductContainerContentRight">
-              <div className="OrderProductContainerContentRightName">코이 6단 이동식 책상세트</div>
-              <div className="OrderProductContainerContentRightSize">사이즈 1200</div>
-              <div className="OrderProductContainerContentRightColor">색상 화이트</div>
-              <div className="OrderProductContainerContentRightPrice">702,000원 | 1개</div>
+        {/* 주문상품 */}
+        <div className="OrderProduct">
+          <div className="OrderProductTitle">주문상품</div>
+          <hr/>
+          <div className="OrderProductContainer">
+            <div className="OrderProductContainerHeader">COY</div>
+            <div className="OrderProductContainerContent">
+              <div className="OrderProductContainerContentLeft">(가구사진)</div>
+              <div className="OrderProductContainerContentRight">
+                <div className="OrderProductContainerContentRightName">코이 6단 이동식 책상세트</div>
+                <div className="OrderProductContainerContentRightSize">사이즈 1200</div>
+                <div className="OrderProductContainerContentRightColor">색상 화이트</div>
+                <div className="OrderProductContainerContentRightPrice">702,000원 | 1개</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 쿠폰 */}
-      <div className="OrderCoupon">
-        <div className="OrderCouponTitle">
-          <div className="OrderCouponTitleLeft">쿠폰</div>
-          <div className="OrderCouponTitleRight">사용가능한 쿠폰이 없어요.</div>
+        {/* 쿠폰 */}
+        <div className="OrderCoupon">
+          <div className="OrderCouponTitle">
+            <div className="OrderCouponTitleLeft">쿠폰</div>
+            <div className="OrderCouponTitleRight">사용가능한 쿠폰이 없어요.</div>
+          </div>
+          <hr/>
         </div>
-        <hr/>
-      </div>
 
-      {/* 포인트 */}
-      <div className="OrderPoint">
-        <div className="OrderPointTitle">포인트</div>
-        <hr/>
-        <input type="text" title="point"></input>
-        <button>전액 사용</button>
-      </div>
+        {/* 포인트 */}
+        <div className="OrderPoint">
+          <div className="OrderPointTitle">포인트</div>
+          <hr/>
+          <input type="text" title="point"></input>
+          <button>전액 사용</button>
+        </div>
 
-      {/* 결제수단 */}
-      <div className="OrderMethod">
-        <div className="OrderMethodTitle">결제수단</div>
-        <hr/>
-      </div>
+        {/* 결제수단 */}
+        <div className="OrderMethod">
+          <div className="OrderMethodTitle">결제수단</div>
+          <hr/>
+          <div className="App">
+            <div id="payment-widget" />
+            <button
+              className="OrderMethodBtn"
+              onClick={async () => {
+                const paymentWidget = paymentWidgetRef.current
 
-      {/* 결제금액 */}
-      <div className="OrderAmount">
-        <div className="OrderAmountTitle">결제금액</div>
-        <hr/>
+                try {
+                  await paymentWidget?.requestPayment({
+                    orderId: nanoid(),
+                    orderName: "토스 티셔츠 외 2건",
+                    customerName: "김토스",
+                    customerEmail: "customer123@gmail.com",
+                    successUrl: `${window.location.origin}/success`,
+                    failUrl: `${window.location.origin}/fail`,
+                }) 
+                } catch (err) {
+                    console.log(err)
+                }
+            }}
+          >
+            결제하기
+          </button>
+          </div>
+        </div>
+
+        {/* 결제금액 */}
+        <div className="OrderAmount">
+          <div className="OrderAmountTitle">결제금액</div>
+          <hr/>
+        </div>
       </div>
 
       {/* 주소록 변경 모달창 */}

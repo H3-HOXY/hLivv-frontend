@@ -1,3 +1,71 @@
 .Order{
   margin-top: 4.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  background-color: aliceblue;
+}
+
+.OrderContent{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.OrderDestination{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.OrderDestinationTitle{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
+.OrderCustomer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 2em;
+}
+
+.OrderProduct{
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.OrderCoupon{
+  margin-top: 2em;
+}
+
+.OrderPoint{
+  margin-top: 2em;
+}
+
+.OrderMethod{
+  margin-top: 2em;
+}
+
+.OrderMethodBtn{
+  border-radius: 10px;
+  background-color: black;
+  padding: 0.7em 1em;
+  color: white;
+  margin-top: 1em;
+}
+
+.OrderMethodBtn:hover{
+  color: black;
+  background-color: white;
+}
+
+.OrderAmount{
+  margin-top: 2em;
+  margin-bottom: 5em;
 }

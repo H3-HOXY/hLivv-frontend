@@ -5,7 +5,7 @@ import "../Components_scss/Navbar.scss";
 
 const Navbar = () => {
   const [menuToggle, setMenuToggle] = useState(false);
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <nav className="navbar shadow-md border-t-2 border-gray-200 bg-white">
