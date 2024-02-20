@@ -35,8 +35,8 @@ export const HomeBanner = (props: HomeSliderProps) => {
                         {props.sliderItems.map((item, idx) => {
                                 // return (<HomeSliderItem key={idx} img={item.img} title={item.title}/>)
                                 return (
-                                    <div className="HomeSliderItem">
-                                        <img src={item.img} title={item.title}/>
+                                    <div key={idx} className="HomeSliderItem">
+                                        <img src={item.img} title={item.title} alt={`${item.title}`}/>
                                     </div>
                                 )
                             }

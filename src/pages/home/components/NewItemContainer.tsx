@@ -1,18 +1,17 @@
 import {useNavigate} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {ProductDto} from "../../../api/Api";
-import {getApi} from "../../../api/ApiWrapper";
 import Slider from "react-slick";
-import { getItemList} from "../Home";
+import {getItemList} from "../Home";
 
+export type NewItemContainerProps = {
+    products: ProductDto[]
+}
 /* 홈 신상품
     @since 2024.02.19
     @author 최정윤, 이호연 */
-export const NewItemContainer = () => {
+export const NewItemContainer = (props: NewItemContainerProps) => {
     const navigate = useNavigate()
-
-    const [products, setProducts] = useState<ProductDto[]>()
-
     const newItemSliderSettings = {
         className: "center",
         centerMode:
@@ -27,39 +26,21 @@ export const NewItemContainer = () => {
             500
     }
 
-    useEffect(() => {
-        try {
-            getApi().then(api => {
-                return api.getProduct({page: 0, pageSize: 20}, {})
-            }).then((res) => {
-                setProducts(res.data)
-            }).catch((err) => {
-                if (err instanceof Error) {
-                    console.log(err.message)
-                } else {
-                    console.log(err)
-                }
-            })
-
-        } catch (e) {
-            console.log(e)
-        }
-    }, [])
-
     return (
         <div className="NewProduct max-w-7xl mx-auto px-8">
             <div className="NewTitle">이 주의 신상품</div>
             <div className="NewContent">
                 <div className="NewSlider">
                     <Slider {...newItemSliderSettings}>
-                        {getItemList(products).map((product, idx) => {
+                        {getItemList(props.products).map((product, idx) => {
                             return (
-                                <div className="NewItem"
+                                <div key={idx} className="NewItem"
                                      onClick={() => {
                                          navigate(`/product/${product.id}`)
                                      }
                                      }>
-                                    <img src={`${product.productImages!![0].imageUrl}`} title="pic"/>
+                                    <img src={`${product.productImages!![0].imageUrl}`} title="pic"
+                                         alt={`${product.id}`}/>
                                 </div>
                             )
                         })}

@@ -1,8 +1,9 @@
 import {Api} from "./Api";
 import {getAuthToken, isAuthenticated} from "./auth/Token";
+import {MemberNotLoggedInError} from "./auth/errors";
 
 export function getApi() {
-    if (!isAuthenticated()) return Promise.reject(Error("Not authenticated"))
+    if (!isAuthenticated()) return Promise.reject(new MemberNotLoggedInError("Not authenticated"))
     const token = getAuthToken()!!
     const header = {
         headers: {

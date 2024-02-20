@@ -1,5 +1,5 @@
 import "./styles/Home.scss"
-import React from 'react';
+import React, {Suspense} from 'react';
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import {ProductDto} from "../../api/Api";
@@ -8,6 +8,8 @@ import {NewItemContainer} from "./components/NewItemContainer";
 import {HomeBanner, HomeSliderItemProps} from "./components/HomeBanner";
 import {Category, CategoryItemProps} from "./components/Category";
 import {PopularSearchTerms} from "./components/PopularSearchTerms";
+import {Await, useLoaderData} from "react-router-dom";
+import {HomeLoaderData} from "./HomeRouter";
 
 const categoryItems: CategoryItemProps[] = [
     {img: "img/소파.png", text: "소파"},
@@ -36,6 +38,7 @@ const homeBannerItems: HomeSliderItemProps[] = [
  */
 
 const Home = () => {
+    const {bestProduct, newProduct} = useLoaderData() as HomeLoaderData
 
     const popularTerms = ["Ambitious"
         , "Promising"
@@ -49,8 +52,16 @@ const Home = () => {
 
                 <HomeBanner sliderItems={homeBannerItems}/>
                 <Category categoryItems={categoryItems}/>
-                <BestItemContainer/>
-                <NewItemContainer/>
+                <Suspense fallback={<div>loading</div>}>
+                    <Await resolve={bestProduct}>
+                        {(product) => (<BestItemContainer products={product}/>)}
+                    </Await>
+                </Suspense>
+                <Suspense fallback={<div>loading</div>}>
+                    <Await resolve={newProduct}>
+                        {(product) => (<NewItemContainer products={product}/>)}
+                    </Await>
+                </Suspense>
             </div>
         </>
     );
@@ -60,8 +71,7 @@ const Home = () => {
 export const getItemList = (products: ProductDto[] | undefined) => {
     console.log(products)
     if (products === undefined) return (Array<ProductDto>())
-    const filtered = products.filter(products => products.productImages?.[0].imageUrl !== undefined)
-    return filtered
+    return products.filter(products => products.productImages?.[0].imageUrl !== undefined)
 }
 
 export default Home;
