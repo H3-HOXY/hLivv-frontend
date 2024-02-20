@@ -5,6 +5,7 @@ import "../Components_scss/Navbar.scss";
 
 const Navbar = () => {
   const [menuToggle, setMenuToggle] = useState(false);
+  const isLoggedIn = false;
 
   return (
     <nav className="navbar shadow-md border-t-2 border-gray-200 bg-white">
@@ -35,14 +36,29 @@ const Navbar = () => {
           </div>
 
           {/* 메뉴2 */}
-          <div className="hidden md:flex items-center space-x-1">
-            <Link className="py-5 px-3" to="/login">
-              Login
-            </Link>
-            <Link className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300" to="/signup">
-              Signup
-            </Link>
-          </div>
+          {/* Menu for authenticated users */}
+          {isLoggedIn && (
+            <div className="hidden md:flex items-center space-x-1">
+              <Link className="py-5 px-3" to="/logout">
+                Logout
+              </Link>
+              <Link className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300" to="/mypage">
+                Mypage
+              </Link>
+            </div>
+          )}
+
+          {/* Menu for non-authenticated users */}
+          {!isLoggedIn && (
+            <div className="hidden md:flex items-center space-x-1">
+              <Link className="py-5 px-3" to="/login">
+                Login
+              </Link>
+              <Link className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300" to="/signup">
+                Signup
+              </Link>
+            </div>
+          )}
 
           {/* mobile menu */}
           <div className="md:hidden flex items-center">
