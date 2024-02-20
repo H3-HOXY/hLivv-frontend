@@ -43,6 +43,7 @@
 # .idea/modules
 # *.iml
 # *.ipr
+/node_modules
 
 # CMake
 cmake-build-*/
