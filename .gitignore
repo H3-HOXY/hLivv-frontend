@@ -568,3 +568,5 @@ MigrationBackup/
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
 /.env
+/node_modules/
+/.idea/
