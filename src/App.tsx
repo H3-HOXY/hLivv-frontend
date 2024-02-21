@@ -1,86 +1,57 @@
-import {createBrowserRouter, Outlet, Route, RouterProvider, Routes} from "react-router-dom";
+import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
 import './App.css';
-import Navbar from "./Components/Navbar";
 import Intro from "./Components/Intro";
 import Store from "./Components/Store";
-import Order from "./Components/Order";
-import Success from "./Components/Success";
-import Fail from "./Components/Fail";
 import Restore from "./Components/Restore";
 import Raffle from "./Components/Raffle";
-import Login from "./Components/Login";
-import Signup from "./Components/Signup";
+import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
 import Mypage from "./Components/Mypage";
-import Cart from "./Components/Cart";
-import Footer from "./Components/Footer";
 import Order from "./Components/Order";
 import {homeLoader} from "./pages/home/HomeRouter";
 import Home from "./pages/home/Home";
+import {loginAction} from "./pages/login/LoginRouter";
+import {signUpAction} from "./pages/signup/SignUpRouter";
+import {Logout} from "./pages/logout/Logout";
+import {PageFrame} from "./pages/common/PageFrame";
 
 const App = () => {
     return (
-        <RouterProvider router={router}/>
+        <RouterProvider router={browserRouter}/>
     );
 }
-const router = createBrowserRouter(
+
+const browserRouter = createBrowserRouter(
     [
-        {
-            path: '/', Component: Layout, children: [
-                {index: true, element: <Home/>, loader: homeLoader},
-            ]
-        },
-        {path: "*", Component: Root},
+        homeRoutes(),
+        {path: "*", Component: RootRoutes},
     ]
 )
 
-function Root() {
+function homeRoutes() {
+    return ({
+        path: '/', Component: PageFrame, children: [
+            {index: true, element: <Home/>, loader: homeLoader},
+            {path: "/login", element: <Login/>, action: loginAction},
+            {path: "/signup", element: <Signup/>, action: signUpAction},
+            {path: "/logout", element: <Logout/>},
+        ]
+    })
+}
+
+function RootRoutes() {
     return (
         <Routes>
-            <Route element={<Layout/>}>
+            <Route element={<PageFrame/>}>
                 <Route path="/intro" element={<Intro/>}/>
                 <Route path="/store" element={<Store/>}/>
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 <Route path="/raffle" element={<Raffle/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/signup" element={<Signup/>}/>
                 <Route path="/mypage" element={<Mypage/>}/>
             </Route>
         </Routes>
     )
-}
-
-function Layout() {
-    return (
-        <div className="App">
-            <Navbar/>
-            <Outlet/>
-            <Footer/>
-        </div>
-    )
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar/>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/intro" element={<Intro />} />
-            <Route path="/store" element={<Store />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/success" element={<Fail />} />
-            <Route path="/restore" element={<Restore />} />
-            <Route path="/raffle" element={<Raffle />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/mypage" element={<Mypage />} >
-              <Route path="cart" element={<Cart />} />
-            </Route>
-          </Routes>
-        <Footer/>
-      </div>
-    </BrowserRouter>
-  );
 }
 
 export default App;

@@ -1,6 +1,6 @@
 import {defer} from "react-router-dom";
 import {getApi} from "../../api/ApiWrapper";
-import {MemberNotLoggedInError} from "../../api/auth/errors";
+import {MemberNotLoggedInError} from "../../api/auth/Errors";
 import {ProductDto} from "../../api/Api";
 
 export type HomeLoaderData = {
@@ -11,11 +11,9 @@ export type HomeLoaderData = {
 //@ts-ignore
 export async function homeLoader() {
     try {
-        console.log("asdf")
         const api = await getApi()
         const bestProduct = await api.getProduct({page: 0, pageSize: 20}, {})
         const newProduct = await api.getProduct({page: 0, pageSize: 20}, {})
-        console.log("asdf")
 
         return defer({
             bestProduct: bestProduct.data,
