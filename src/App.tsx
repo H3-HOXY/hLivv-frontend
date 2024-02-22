@@ -2,12 +2,14 @@ import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-d
 import './App.css';
 import Intro from "./Components/Intro";
 import Store from "./Components/Store";
+import Order from "./Components/Order";
+import Success from "./Components/Success";
+import Fail from "./Components/Fail";
 import Restore from "./Components/Restore";
 import Raffle from "./Components/Raffle";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Mypage from "./Components/Mypage";
-import Order from "./Components/Order";
 import {homeLoader} from "./pages/home/HomeRouter";
 import Home from "./pages/home/Home";
 import {loginAction} from "./pages/login/LoginRouter";
