@@ -1,3 +1,68 @@
 .Mypage{
   margin-top: 4.5em;
+  margin-left: 16em;
+  width: calc(100vw - 16em);
+}
+
+.MypageWrapper{
+  width: 100%;
+  height: 100vh;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+}
+
+.MypageProfile{
+  width: 80%;
+  height: 15em;
+  border: solid 2px #F2F2F2;
+  background-color: white;
+  margin-top: 6em;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 3em;
+}
+
+.ProfileImg{
+  width: 20%;
+  height: 100%;
+  background-color: red;
+  // background-image: url('img/flower.png');
+  // background-size: cover;
+}
+
+.ProfileInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 50%;
+  background-color: yellow;
+}
+
+.ProfileBenefit{
+  display: flex;
+  width: 30%;
+  background-color: aqua;
+}
+
+.MypageFooter{
+  margin-left: 16em;
+  width: calc(100vw - 16em);
+}
+
+// 모바일버전
+@media (max-width: 640px) {
+  /* 640px는 tailwindcss에서 'sm'의 기본 값입니다. */
+  
+  .Mypage{
+    margin-left: 0em; // 혹은 다른 값으로 조정하셔도 됩니다.
+    width: 100vw;
+  }
+
+  .MypageFooter {
+    margin-left: 0em; // 혹은 다른 값으로 조정하셔도 됩니다.
+    width: 100vw;
+  }
+  
 }

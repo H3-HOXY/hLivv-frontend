@@ -15,12 +15,14 @@ import {signUpAction} from "./pages/signup/SignUpRouter";
 import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
+import Cart from "./Components/Cart";
 
 const App = () => {
     return (
         <RouterProvider router={browserRouter}/>
     );
-}
+  }
+
 
 const browserRouter = createBrowserRouter(
     [
@@ -36,6 +38,8 @@ function homeRoutes() {
             {path: "/login", element: <Login/>, action: loginAction},
             {path: "/signup", element: <Signup/>, action: signUpAction},
             {path: "/logout", element: <Logout/>},
+            {path:"/mypage", element:<Mypage/>},
+            {path:"/mypage/cart", element:<Cart/>},
             productRoutes(),
         ]
     })
@@ -54,7 +58,7 @@ function RootRoutes() {
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 <Route path="/raffle" element={<Raffle/>}/>
-                <Route path="/mypage" element={<Mypage/>}/>
+
             </Route>
         </Routes>
     )
