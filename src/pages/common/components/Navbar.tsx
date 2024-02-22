@@ -1,18 +1,31 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import classNames from 'classnames';
 import "../styles/Navbar.scss";
 
 export type NavbarProps = {
+    marginTop: string,
+    setMarginTop: React.Dispatch<React.SetStateAction<string>>,
     authentication: boolean,
     setAuthentication: React.Dispatch<React.SetStateAction<boolean>>
 }
 const Navbar = (props: NavbarProps) => {
     //@ts-ignore
     const navigate = useNavigate()
+    const ref = useRef(null);
 
+    useEffect(() => {
+        if(ref.current === null) return
+        // @ts-ignore
+        if (ref.current.offsetHeight !== props.marginTop) {
+            // @ts-ignore
+            props.setMarginTop(ref.current.offsetHeight + "px")
+            // @ts-ignore
+            console.log(ref.current.offsetHeight);
+        }
+    }, [ref]);
     return (
-        <nav className="navbar shadow-md border-t-2 border-gray-200 bg-white">
+        <nav ref={ref} className="navbar shadow-md border-t-2 border-gray-200 bg-white">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex justify-between">
                     {/* 메뉴 */}

@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 
 export function PageFrame() {
     const [authentication, setAuthentication] = useState(isAuthenticated())
+    const [marginTop, setMarginTop] = useState<string>("3em")
+
 
     useEffect(() => {
         const whenUserNotLoggedIn = (e: Error) => {
@@ -31,8 +33,10 @@ export function PageFrame() {
 
     return (
         <div className="App">
-            <Navbar authentication={authentication} setAuthentication={setAuthentication}/>
-            <Outlet context={[authentication, setAuthentication]}/>
+            <Navbar marginTop={marginTop} setMarginTop={setMarginTop} authentication={authentication} setAuthentication={setAuthentication}/>
+            <div style={{marginTop: marginTop}}>
+                <Outlet context={[authentication, setAuthentication]}/>
+            </div>
             <Footer/>
         </div>
     )
