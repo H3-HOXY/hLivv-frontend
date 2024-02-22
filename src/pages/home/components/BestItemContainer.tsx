@@ -1,28 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {ProductDto} from "../../../api/Api";
 import {useNavigate} from "react-router-dom";
-import {getApi} from "../../../api/ApiWrapper";
 import Slider from "react-slick";
 import {getItemList} from "../Home";
 
 
+type BestItemContainerProps = {
+    products: ProductDto[]
+}
 /* 홈 베스트 상품
     @since 2024.02.19
     @author 최정윤, 이호연 */
-export const BestItemContainer = () => {
-    const [products, setProducts] = useState<ProductDto[]>()
+export const BestItemContainer = (props: BestItemContainerProps) => {
+
     const navigate = useNavigate()
-
-    useEffect(() => {
-        getApi().then(api => {
-            return api.getProduct({page: 0, pageSize: 20}, {})
-        }).then((res) => {
-            setProducts(res.data)
-        }).catch((err) => {
-            console.log(err)
-        })
-    }, [])
-
     const bestItemSliderSettings = {
         className: "center",
         centerMode:
@@ -43,14 +34,15 @@ export const BestItemContainer = () => {
                 <div className="BestSlider">
                     <Slider {...bestItemSliderSettings}>
                         {
-                            getItemList(products).map((product, idx) => {
+                            getItemList(props.products).map((product, idx) => {
                                     return (
-                                        <div className="BestItem" onClick={
+                                        <div key={idx} className="BestItem" onClick={
                                             () => {
                                                 navigate(`/product/${product.id}`)
                                             }
                                         }>
-                                            <img src={`${product.productImages!![0].imageUrl}`} title="pic"/>
+                                            <img src={`${product.productImages!![0].imageUrl}`} title="pic"
+                                                 alt={`${product.id}`}/>
                                         </div>
                                     )
                                 }

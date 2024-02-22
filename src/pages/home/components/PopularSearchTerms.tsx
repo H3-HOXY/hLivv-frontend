@@ -17,7 +17,7 @@ export const PopularSearchTerms = (props: PopularSearchTermsProps) => {
                     <ul className="descriptionList">
                         {props.searchTerms.map((term, idx) => {
                             return (
-                                <li><b>{idx + 1}</b>{term}</li>
+                                <li key={idx}><b>{idx + 1}</b>{term}</li>
                             )
                         })}
                     </ul>

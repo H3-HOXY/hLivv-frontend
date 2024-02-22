@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import Navbar from "../pages/common/components/Navbar";
 import "../Components_scss/Intro.scss";
 
 const Intro = () => {

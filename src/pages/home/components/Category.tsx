@@ -20,7 +20,7 @@ export const Category = (props: CategoryProps) => {
             <div className="CategoryContent">
                 {props.categoryItems.map((item, idx) => {
                         return (
-                            <CategoryItem img={item.img} text={item.text}/>
+                            <CategoryItem key={idx} img={item.img} text={item.text}/>
                         )
                     }
                 )}
