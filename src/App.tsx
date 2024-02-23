@@ -24,6 +24,7 @@ import MypageHome from "./Components/MypageHome";
 import ReviewWrite from "./Components/ReviewWrite";
 import MyReview from "./Components/MyReview";
 import PasswordEdit from "./Components/PasswordEdit";
+import {productLoader} from "./pages/product/ProductRouter";
 
 const App = () => {
     return (
@@ -63,7 +64,7 @@ function mypageRoutes(){
     ]}
 }
 function productRoutes() {
-    return {path: "/product/:productId", element: <Product/>, action: loginAction}
+    return {path: "/product/:productId", element: <Product/>, loader:productLoader}
 }
 
 function RootRoutes() {

@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import classNames from 'classnames';
 import "../styles/Navbar.scss";
+import {useImage} from "../hooks/useImage";
 
 export type NavbarProps = {
     marginTop: string,
@@ -13,9 +14,10 @@ const Navbar = (props: NavbarProps) => {
     //@ts-ignore
     const navigate = useNavigate()
     const ref = useRef(null);
+    const image = useImage()
 
     useEffect(() => {
-        if(ref.current === null) return
+        if (ref.current === null) return
         // @ts-ignore
         if (ref.current.offsetHeight !== props.marginTop) {
             // @ts-ignore
@@ -32,7 +34,7 @@ const Navbar = (props: NavbarProps) => {
                     <div className="flex space-x-4">
                         <div>
                             <Link className="flex items-center py-5 px-2 text-gray-700" to="/">
-                                <img className="h-7 w-7 mr-2" alt="logo" src="img/hlivv_logo.png"/>
+                                <img className="h-7 w-7 mr-2" alt="logo" src={image("hlivv_logo.png")}/>
                                 <span className="font-bold">H.Livv</span>
                             </Link>
                         </div>
