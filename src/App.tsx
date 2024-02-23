@@ -15,6 +15,7 @@ import {signUpAction} from "./pages/signup/SignUpRouter";
 import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
+import {productLoader} from "./pages/product/ProductRouter";
 
 const App = () => {
     return (
@@ -42,7 +43,7 @@ function homeRoutes() {
 }
 
 function productRoutes() {
-    return {path: "/product/:productId", element: <Product/>, action: loginAction}
+    return {path: "/product/:productId", element: <Product/>, loader:productLoader}
 }
 
 function RootRoutes() {
