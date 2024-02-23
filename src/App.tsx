@@ -18,6 +18,12 @@ import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
 import Cart from "./Components/Cart";
+import ProfileEdit from "./Components/ProfileEdit";
+import MyRestore from "./Components/MyRestore";
+import MypageHome from "./Components/MypageHome";
+import ReviewWrite from "./Components/ReviewWrite";
+import MyReview from "./Components/MyReview";
+import PasswordEdit from "./Components/PasswordEdit";
 
 const App = () => {
     return (
@@ -40,13 +46,22 @@ function homeRoutes() {
             {path: "/login", element: <Login/>, action: loginAction},
             {path: "/signup", element: <Signup/>, action: signUpAction},
             {path: "/logout", element: <Logout/>},
-            {path:"/mypage", element:<Mypage/>},
-            {path:"/mypage/cart", element:<Cart/>},
+            mypageRoutes(),
             productRoutes(),
         ]
     })
 }
-
+function mypageRoutes(){
+    return {path:"/mypage", Component: Mypage, children:[
+        {path:"/mypage", element:<MypageHome/>},
+        {path:"/mypage/cart", element:<Cart/>},
+        {path:"/mypage/profileedit", element:<ProfileEdit/>},
+        {path:"/mypage/passwordedit", element:<PasswordEdit/>},
+        {path:"/mypage/myrestore", element:<MyRestore/>},
+        {path:"/mypage/reviewwrite", element:<ReviewWrite/>},
+        {path:"/mypage/myreview", element:<MyReview/>},
+    ]}
+}
 function productRoutes() {
     return {path: "/product/:productId", element: <Product/>, action: loginAction}
 }
@@ -60,7 +75,6 @@ function RootRoutes() {
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 <Route path="/raffle" element={<Raffle/>}/>
-
             </Route>
         </Routes>
     )

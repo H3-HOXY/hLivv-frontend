@@ -1,0 +1,84 @@
+.MypageWrapper{
+  width: 100%;
+  height: 100vh;
+  // background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MypageProfile{
+  width: 70%;
+  height: 15em;
+  border: solid 2px #F2F2F2;
+  background-color: white;
+  margin-top: 6em;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 3em;
+}
+
+.ProfileImg{
+  width: 20%;
+  height: 100%;
+  margin-right: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-image: url('img/flower.png');
+  // background-size: cover;
+}
+
+.ProfileImgSrc{
+  width: 6em;
+  height: 6em;
+
+}
+
+.ProfileInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 30%;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.ProfileBenefit{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: 10%;
+  width: 30%;
+  height: 100%;
+}
+
+.MypageBuy{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 70%;
+  // background-color: antiquewhite;
+  margin-top: 5em;
+}
+
+.MypageBuyTitle{
+  font-size: 1.5em;
+  font-weight: 900;
+}
+
+.MypageBuyContain{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 12em;
+  background-color: #F9F9F9;
+  border-radius: 10px;
+  margin-top: 1em;
+}
+
+.MypageBuyItemContent{
+  margin-top: 1.5em;
+}
