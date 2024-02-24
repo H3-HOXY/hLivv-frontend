@@ -1,0 +1,10 @@
+.CategoryMenuItem{
+  border-right: thin solid gray;
+}
+
+.CategoryMenuItem:lang{
+  border-right: none;
+}
+.CategoryMenuItem:last-child{
+  border-right: none;
+}

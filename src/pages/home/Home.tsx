@@ -27,23 +27,21 @@ const Home = () => {
         , "ambitious"]
 
     return (
-        <>
-            <div className="HomeWrapper">
-                <PopularSearchTerms searchTerms={popularTerms}/>
-                <HomeBanner sliderItems={homeBannerItems}/>
-                <Category categoryItems={categoryItems}/>
-                <Suspense fallback={<div>loading</div>}>
-                    <Await resolve={bestProduct}>
-                        {(product) => (<BestItemContainer products={product}/>)}
-                    </Await>
-                </Suspense>
-                <Suspense fallback={<div>loading</div>}>
-                    <Await resolve={newProduct}>
-                        {(product) => (<NewItemContainer products={product}/>)}
-                    </Await>
-                </Suspense>
-            </div>
-        </>
+        <div className="HomeWrapper">
+            <PopularSearchTerms searchTerms={popularTerms}/>
+            <HomeBanner sliderItems={homeBannerItems}/>
+            <Category categoryItems={categoryItems}/>
+            <Suspense fallback={<div>loading</div>}>
+                <Await resolve={bestProduct}>
+                    {(product) => (<BestItemContainer products={product}/>)}
+                </Await>
+            </Suspense>
+            <Suspense fallback={<div>loading</div>}>
+                <Await resolve={newProduct}>
+                    {(product) => (<NewItemContainer products={product}/>)}
+                </Await>
+            </Suspense>
+        </div>
     );
 }
 

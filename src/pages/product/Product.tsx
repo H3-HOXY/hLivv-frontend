@@ -17,17 +17,17 @@ export const Product = () => {
 
     return (
         <div className="Product">
-            <div className="ProductInfo">
+            <div className="ProductInfo container mx-auto mt-8 p-4 flex flex-col md:flex-row">
                 <ProductImageContainer
                     productImages={productData.productImages ?? [] as ProductImageDto[]}
                     altText={productData.name ?? ""}/>
 
-                <div className="ProductPrice">
+                <div className="md:flex-1 md:ml-8 mt-4 md:mt-0">
                     {/* 상품이름 */}
-                    <h1>{productData.name}</h1>
+                    <h1 className="text-2xl font-bold mb-3">{productData.name}</h1>
 
                     {/* 상품가격 */}
-                    <h2>{productData.price}원</h2>
+                    <h2 className="text-xl mb-2">{productData.price}원</h2>
 
                     {/* QR코드  */}
 
@@ -52,12 +52,10 @@ export const Product = () => {
                     {/* 버튼 그룹  */}
                 </div>
             </div>
-            <div className="ProductInfo">
-                {/* 제품 설명 */}
-                <ProductDetail productLink={descriptionPage("P100001204.html")}
-                               iframeSize={iframeSize}
-                               setIFrameHeight={setIframeSize}/>
-            </div>
+            {/* 제품 설명 */}
+            <ProductDetail productLink={descriptionPage("P100001204.html")}
+                           iframeSize={iframeSize}
+                           setIFrameHeight={setIframeSize}/>
             <div>
                 {/* 리뷰 */}
                 <div style={{alignItems: "center", background: "cyan", height: "100px"}}>
