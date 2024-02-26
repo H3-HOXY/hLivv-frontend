@@ -52,7 +52,6 @@ function homeRoutes() {
             {path: "/signup", element: <Signup/>, action: signUpAction},
             {path: "/logout", element: <Logout/>},
             {path:"/mypage", element:<Mypage/>},
-            {path:"/mypage/cart", element:<Cart/>},
             productRoutes(),
             collaboRoutes(),
             mypageRoutes(),
