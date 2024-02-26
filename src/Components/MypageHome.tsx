@@ -1,4 +1,3 @@
-import Sidebar from "./Sidebar";
 import "../Components_scss/MypageHome.scss"
 
 const MypageHome = () => {
@@ -50,6 +49,21 @@ const MypageHome = () => {
               <div className="MypageBuyItem">
                 <div className="MypageBuyItemTitle">리뷰</div>
                 <div className="MypageBuyItemContent">0</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 나의유형 */}
+          <div className="MypageType">
+            <div className="MypageTypeTitle">나의 유형</div>
+            <div className="MypageTypeContain">
+              <div className="MypageTypeContainLeft">
+                <div className="MypageTypeContainLeftKind">유형</div>
+                <div className="MypageTypeContainLeftKindDescription">유형설명</div>
+              </div>
+              <div className="MypageTypeContainRight">
+                <div className="MypageTypeContainRightInterior">인테리어 취향 진단</div>
+                <div className="MypageTypeContainRightDescription">진단설명</div>
               </div>
             </div>
           </div>

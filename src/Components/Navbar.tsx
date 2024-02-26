@@ -20,11 +20,17 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="hidden md:flex items-center space-x-1">
-              <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
+              {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
                 INTRO
-              </Link>
+              </Link> */}
               <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/store">
                 STORE
+              </Link>
+              <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/collabo">
+                COLLABO
+              </Link>
+              <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/preference">
+                PREFERENCE
               </Link>
               <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/restore">
                 RE-STORE
@@ -102,11 +108,20 @@ const Navbar = () => {
       </div>
       {/* mobile menu items */}
       <div className={classNames("md:hidden", { hidden: !menuToggle })}>
-        <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">
-          INTRO
+        <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/">
+          HOME
         </Link>
-        <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/store">
+        {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">
+          INTRO
+        </Link> */}
+        <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/store">
           STORE
+        </Link>
+        <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/collabo">
+          COLLABO
+        </Link>
+        <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/preference">
+          PREFERENCE
         </Link>
         <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/restore">
           RESTORE

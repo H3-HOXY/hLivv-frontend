@@ -1,0 +1,50 @@
+.Restore{
+  width: 100vw;
+  height: calc(100vh - 4.5em);
+  // background-color: aliceblue;
+  background-image: url("img/restoreback.png");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RestoreWrapper{
+  background-color: white;
+  border-radius: 20px;
+  width: 70%;
+  height: 90%;
+  box-shadow: 5px 5px 10px 5px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 4em;
+  text-align: start;
+}
+
+.RestoreIntroTitle, .RestoreHowToUseTitle{
+  font-weight: 900;
+  font-size: 1.5em;
+}
+
+.RestoreIntroContentText{
+  margin-top: 0.6em;
+}
+
+.RestoreIntroInfo{
+  margin-top: 2em;
+}
+
+.RestoreBtn{
+  margin: 2em 0;
+  background-color: black;
+  color: white;
+  padding: 0.6em 1.5em;
+  border-radius: 30px;
+}
+
+.RestoreHowToUseContentMainText{
+  font-weight: 900;
+  margin-top: 0.5em;
+}

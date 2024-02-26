@@ -14,10 +14,10 @@ export const categoryItems: CategoryItemProps[] = [
 ];
 
 export const homeBannerItems: HomeSliderItemProps[] = [
-    {img: "img/리바트.png", title: "banner1"},
-    {img: "img/리바트.png", title: "banner2"},
-    {img: "img/리바트.png", title: "banner3"},
-    {img: "img/리바트.png", title: "banner4"},
-    {img: "img/리바트.png", title: "banner5"},
-    {img: "img/리바트.png", title: "banner6"},
+    {img: "banner.png", title: "banner1"},
+    {img: "banner.png", title: "banner2"},
+    {img: "banner.png", title: "banner3"},
+    {img: "banner.png", title: "banner4"},
+    {img: "banner.png", title: "banner5"},
+    {img: "banner.png", title: "banner6"},
 ]

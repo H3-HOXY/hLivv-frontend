@@ -1,9 +1,25 @@
+import "../Components_scss/PasswordEdit.scss"
+
 const PasswordEdit = () => {
   return (
     <div className="PasswordEdit">
-      {/* content goes here */}
-      <div className="py-32 text-center">
-        <div className="text-4xl font-extrabold">비밀번호 수정 페이지이다.</div>
+      <div className="PasswordEditWrapper">
+        <div className="PasswordEditTitle">비밀번호 수정</div>
+        <div className="PasswordEditContent">
+          <div className="PasswordEditContentItem">
+            <div className="PasswordEditContentItemTitle">현재 비밀번호</div>
+            <input className="PasswordEditContentItemInput" title="password"></input>
+          </div>
+          <div className="PasswordEditContentItem">
+            <div className="PasswordEditContentItemTitle">새 비밀번호</div>
+            <input className="PasswordEditContentItemInput" title="newpassword"></input>
+          </div>
+          <div className="PasswordEditContentItem">
+            <div className="PasswordEditContentItemTitle">새 비밀번호 확인</div>
+            <input className="PasswordEditContentItemInput" title="passwordfconfirm"></input>
+          </div>
+        </div>
+        <div className="PasswordEditBtn">변경 완료</div>
       </div>
     </div>
   );

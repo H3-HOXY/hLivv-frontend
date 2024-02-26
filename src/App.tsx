@@ -25,6 +25,8 @@ import ReviewWrite from "./Components/ReviewWrite";
 import MyReview from "./Components/MyReview";
 import PasswordEdit from "./Components/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
+import Preference from "./Components/Preference";
+import Collabo from "./Components/Collabo";
 
 const App = () => {
     return (
@@ -73,9 +75,11 @@ function RootRoutes() {
             <Route element={<PageFrame/>}>
                 <Route path="/intro" element={<Intro/>}/>
                 <Route path="/store" element={<Store/>}/>
+                <Route path="/collabo" element={<Collabo/>}/>
+                <Route path="/preference" element={<Preference/>}/>
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
-                <Route path="/raffle" element={<Raffle/>}/>
+                {/* <Route path="/raffle" element={<Raffle/>}/> */}
             </Route>
         </Routes>
     )
