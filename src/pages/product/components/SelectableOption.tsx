@@ -8,7 +8,7 @@ export type SelectableOptionProps = {
 
 export const SelectableOption = (props: SelectableOptionProps) => {
     return (
-        <select onChange={whenSelectionChanged(props.selectedOption, props.setSelectedOption)}>
+        <select title="옵션" onChange={whenSelectionChanged(props.selectedOption, props.setSelectedOption)}>
             {
                 [0, 1, 2, 3, 4].map((value, index) => {
                     return (

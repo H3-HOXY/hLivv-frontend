@@ -27,7 +27,7 @@ import React from "react";
 import {Store} from "./pages/store/Store";
 import {Collabo} from "./pages/collabo/Collabo";
 import Cart from "./Components/Cart";
-import {Restore} from "./pages/restore/Restore";
+import Restore from "./Components/Restore";
 
 const App = () => {
     console.log(process.env)
