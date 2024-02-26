@@ -1,0 +1,75 @@
+.MyRestore{
+  width: 100%;
+  height: calc(100vh - 4.5em);
+  // background-color: antiquewhite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MyRestoreWrapper{
+  margin: 6em 0;
+  width: 70%;
+  text-align: start;
+}
+
+.MyRestoreSearch{
+  margin-top: 1em;
+}
+
+.MyRestoreSearchInput{
+  border-radius: 5px;
+  margin-right: 1em;
+}
+
+.MyRestoreSearchBtn{
+  color: white;
+  background-color: #9A452B;
+  border-radius: 5px;
+}
+
+.MyRestoreContent{
+  margin-top: 2em;
+}
+
+.MyRestoreContentItem{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.MyRestoreContentItemImg{
+  width: 8em;
+  height: 8em;
+  border-radius: 10px;
+}
+
+.MyRestoreContentItemText{
+  width: 70%;
+  height: 100%;
+  // background-color: #9A452B;
+  margin: 0 3%;
+}
+
+.MyRestoreContentItemBrand{
+  // margin-top: 0.5em;
+}
+
+.MyRestoreContentItemName{
+  margin-top: 0.5em;
+}
+
+.MyRestoreContentItemInfo{
+  margin-top: 0.5em;
+}
+
+.MyRestoreContentItemBtn{
+  padding: 0.5em 1.5em;
+  width: 12%;
+  height: 3em;
+  border-radius: 5px;
+  color: #9A452B;
+  border: 2px solid #9A452B;
+  font-weight: 900;
+}

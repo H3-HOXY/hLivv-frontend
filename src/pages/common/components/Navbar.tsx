@@ -39,21 +39,24 @@ const Navbar = (props: NavbarProps) => {
                             </Link>
                         </div>
                         <div className="hidden md:flex items-center space-x-1">
-                            <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
+                            {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
                                 INTRO
-                            </Link>
+                            </Link> */}
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/store">
                                 STORE
                             </Link>
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/collabo">
-                               COLLABO
+                                COLLABO
+                            </Link>
+                            <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/preference">
+                                PREFERENCE
                             </Link>
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/restore">
                                 RE-STORE
                             </Link>
-                            <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/raffle">
+                            {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/raffle">
                                 RAFFLE
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
 
@@ -128,18 +131,27 @@ const Navbar = (props: NavbarProps) => {
             </div>
             {/* mobile menu items */}
             <div className={classNames("md:hidden", {hidden: !props.authentication})}>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">
-                    INTRO
+                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/">
+                    HOME
                 </Link>
+                {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">
+                    INTRO
+                </Link> */}
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/store">
                     STORE
+                </Link>
+                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/collabo">
+                    COLLABO
+                </Link>
+                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/preference">
+                    PREFERENCE
                 </Link>
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/restore">
                     RESTORE
                 </Link>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/raffle">
+                {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/raffle">
                     RAFFLE
-                </Link>
+                </Link> */}
             </div>
         </nav>
     );

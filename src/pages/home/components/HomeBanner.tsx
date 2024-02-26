@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import React from "react";
+import { useImage } from "../../common/hooks/useImage";
 
 /*
 홈 배너
@@ -15,6 +16,7 @@ export type HomeSliderItemProps = {
     title: string
 }
 export const HomeBanner = (props: HomeSliderProps) => {
+    const image = useImage()
     // 왼쪽 배너 세팅
     const leftsettings = {
         dots: true,
@@ -36,7 +38,7 @@ export const HomeBanner = (props: HomeSliderProps) => {
                                 // return (<HomeSliderItem key={idx} img={item.img} title={item.title}/>)
                                 return (
                                     <div key={idx} className="HomeSliderItem">
-                                        <img src={item.img} title={item.title} alt={`${item.title}`}/>
+                                        <img src={image(item.img)} title={item.title} alt={`${item.title}`}/>
                                     </div>
                                 )
                             }

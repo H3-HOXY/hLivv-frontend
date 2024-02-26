@@ -1,14 +1,19 @@
 import Sidebar from "./Sidebar";
 import "../Components_scss/Mypage.scss"
+import { Outlet } from "react-router-dom";
+import Footer from "../pages/common/components/Footer";
 
-const Mypage = () => {
-  return (
-    
+ const Mypage = () => {
+  
+  return (<>
+    <Sidebar/>
     <div className="Mypage">
-      <Sidebar/>
-      안녕하세요~
+      <Outlet/>
+      {/* <div className="MypageFooter">
+        <Footer />
+      </div> */}
     </div>
-  );
+    </>
+ );
 }
-
 export default Mypage;

@@ -11,6 +11,7 @@ import {PopularSearchTerms} from "./components/PopularSearchTerms";
 import {Await, useLoaderData} from "react-router-dom";
 import {HomeLoaderData} from "./HomeRouter";
 import {categoryItems, homeBannerItems} from "./data";
+import { useImage } from "../common/hooks/useImage";
 
 
 /**
@@ -20,6 +21,7 @@ import {categoryItems, homeBannerItems} from "./data";
 
 const Home = () => {
     const {bestProduct, newProduct} = useLoaderData() as HomeLoaderData
+ 
 
     const popularTerms = ["Ambitious"
         , "Promising"

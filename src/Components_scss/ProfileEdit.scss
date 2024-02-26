@@ -1,0 +1,74 @@
+.ProfileEdit{
+  // background-color: aqua;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProfileEditWrapper{
+  width: 70%;
+  height: 100%;
+  // background-color: antiquewhite;
+  margin: 6em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProfileEditContent{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  // background-color: aquamarine;
+}
+
+.ProfileEditContentTitle{
+  margin-top: 1.5em;
+}
+
+.ProfileEditContentId{
+  margin-top: 1em;
+}
+
+.ProfileEditContentIdEdit{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.ProfileEditContentPassword{
+  margin-top: 1em;
+}
+
+.ProfileEditContentIdInput{
+  width: 88%;
+  background-color: none;
+  border-bottom: 1px solid #909090;
+}
+
+.ProfileEditContentIdButton{
+  width: 10%;
+  border: 1px solid #909090;
+  border-radius: 10px;
+}
+
+.ProfileEditContentPasswordInput{
+  width: 100%;
+  margin-top: 0.5em;
+  width: 88%;
+  background-color: none;
+  border-bottom: 1px solid #909090;
+}
+
+.ProfileEditBtn{
+  width: 20%;
+  border-radius: 10px;
+  background-color: #DDDDDD;
+  color: white;
+  padding: 1em;
+  margin-top: 2em;
+}
