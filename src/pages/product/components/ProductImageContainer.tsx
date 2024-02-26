@@ -12,12 +12,11 @@ export const ProductImageContainer = (props: ProductImageContainerProps) => {
     const style = props.style ? props.style : {}
     return (
         <div className="ProductImageContainer">
-            <div className="PrimaryProductImage">
-                <img src={props.productImages[0].imageUrl}
+            <div className="md:flex-1">
+                <img className="w-full h-auto rounded-lg shadow-md" src={props.productImages[0].imageUrl}
                      alt={props.altText}/>
             </div>
-            <div className="productImages"
-                 style={{display: "flex", flexDirection: "row", overflow: "hidden", justifyContent: "center"}}>
+            <div className="productImages" style={{display: "flex", flexDirection: "row", overflow: "hidden", justifyContent: "center"}}>
                 {
                     props.productImages?.map(
                         (image, index) =>

@@ -27,7 +27,7 @@ const Navbar = (props: NavbarProps) => {
         }
     }, [ref]);
     return (
-        <nav ref={ref} className="navbar shadow-md border-t-2 border-gray-200 bg-white">
+        <nav ref={ref} className="navbar shadow-md border-t-4 border-gray-200 bg-white">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex justify-between">
                     {/* 메뉴 */}

@@ -1,11 +1,9 @@
 import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
 import './App.css';
 import Intro from "./Components/Intro";
-import Store from "./Components/Store";
 import Order from "./Components/Order";
 import Success from "./Components/Success";
 import Fail from "./Components/Fail";
-import Restore from "./Components/Restore";
 import Raffle from "./Components/Raffle";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
@@ -17,7 +15,6 @@ import {signUpAction} from "./pages/signup/SignUpRouter";
 import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
-import Cart from "./Components/Cart";
 import ProfileEdit from "./Components/ProfileEdit";
 import MyRestore from "./Components/MyRestore";
 import MypageHome from "./Components/MypageHome";
@@ -26,9 +23,14 @@ import MyReview from "./Components/MyReview";
 import PasswordEdit from "./Components/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
 import Preference from "./Components/Preference";
-import Collabo from "./Components/Collabo";
+import React from "react";
+import {Store} from "./pages/store/Store";
+import {Collabo} from "./pages/collabo/Collabo";
+import Cart from "./Components/Cart";
+import {Restore} from "./pages/restore/Restore";
 
 const App = () => {
+    console.log(process.env)
     return (
         <RouterProvider router={browserRouter}/>
     );
@@ -49,8 +51,13 @@ function homeRoutes() {
             {path: "/login", element: <Login/>, action: loginAction},
             {path: "/signup", element: <Signup/>, action: signUpAction},
             {path: "/logout", element: <Logout/>},
-            mypageRoutes(),
+            {path: "/store", element: <Store/>},
+            {path: "/restore", element: <Restore/>},
+            {path: "/raffle", element: <Raffle/>},
+            {path: "/intro", element: <Intro/>},
             productRoutes(),
+            collaboRoutes(),
+            mypageRoutes(),
         ]
     })
 }
@@ -66,7 +73,15 @@ function mypageRoutes(){
     ]}
 }
 function productRoutes() {
-    return {path: "/product/:productId", element: <Product/>, loader:productLoader}
+    return (
+        {path: "/product/:productId", element: <Product/>, loader: productLoader}
+    )
+}
+
+function collaboRoutes() {
+    return (
+        {path: "/collabo", element: <Collabo/>}
+    )
 }
 
 function RootRoutes() {
@@ -80,6 +95,7 @@ function RootRoutes() {
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 {/* <Route path="/raffle" element={<Raffle/>}/> */}
+                <Route path="/order" element={<Order/>}/>
             </Route>
         </Routes>
     )
