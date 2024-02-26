@@ -3,12 +3,13 @@ import {useEffect, useState} from "react";
 import {MemberNotLoggedInError} from "../../api/auth/Errors";
 import {getUserData} from "../../api/auth/UserInfo";
 import Navbar from "./components/Navbar";
-import {Outlet} from "react-router-dom";
+import {Outlet, useLocation} from "react-router-dom";
 import Footer from "./components/Footer";
 
 export function PageFrame() {
     const [authentication, setAuthentication] = useState(isAuthenticated())
     const [marginTop, setMarginTop] = useState<string>("3em")
+    const location = useLocation()
 
 
     useEffect(() => {
@@ -33,11 +34,16 @@ export function PageFrame() {
 
     return (
         <div className="App">
-            <Navbar marginTop={marginTop} setMarginTop={setMarginTop} authentication={authentication} setAuthentication={setAuthentication}/>
-            <div style={{marginTop: marginTop}}>
+            <Navbar marginTop={marginTop} setMarginTop={setMarginTop} authentication={authentication}
+                    setAuthentication={setAuthentication}/>
+            <div style={{marginTop: getMarginTop(location.pathname, marginTop)}}>
                 <Outlet context={[authentication, setAuthentication]}/>
             </div>
             <Footer/>
         </div>
     )
+}
+
+function getMarginTop(path: string, marginTop: string) {
+    return path === "/" ? "0" : `${marginTop}`
 }
