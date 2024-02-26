@@ -51,10 +51,8 @@ function homeRoutes() {
             {path: "/login", element: <Login/>, action: loginAction},
             {path: "/signup", element: <Signup/>, action: signUpAction},
             {path: "/logout", element: <Logout/>},
-            {path: "/store", element: <Store/>},
-            {path: "/restore", element: <Restore/>},
-            {path: "/raffle", element: <Raffle/>},
-            {path: "/intro", element: <Intro/>},
+            {path:"/mypage", element:<Mypage/>},
+            {path:"/mypage/cart", element:<Cart/>},
             productRoutes(),
             collaboRoutes(),
             mypageRoutes(),
@@ -94,8 +92,8 @@ function RootRoutes() {
                 <Route path="/preference" element={<Preference/>}/>
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
-                {/* <Route path="/raffle" element={<Raffle/>}/> */}
-                <Route path="/order" element={<Order/>}/>
+                <Route path="/raffle" element={<Raffle/>}/>
+
             </Route>
         </Routes>
     )

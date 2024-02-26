@@ -88,6 +88,30 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <div className="CartContain">
+        <div className="CartContainHeader">
+          <div className="CartContainTitle">COY</div>
+        </div>
+        <div className="CartContent">
+          <div className="CartContentItem">
+            <div className="CartContentItemProduct">
+              <div className="CartContentProductCheckbox"></div>
+              <div className="CartContentProductPic"><img className="ProfileImgSrc" src="img/flower.png" title="pic"></img></div>
+              <div className="CartContentProductName"></div>
+              <div className="CartContentProductDelivery"></div>
+              <div className="CartContentProductDel"></div>
+            </div>
+            <div className="CartContentOrder">
+              <div className="CartContentOrderHead"></div>
+              <div className="CartContentOrderBottom"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 결제 섹션 */}
+      <div className="CartPayTitle">결제금액</div>
+      <div className="CartPayContain"></div>
     </div>
   );
 }
