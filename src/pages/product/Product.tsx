@@ -1,13 +1,14 @@
 import "./styles/Product.scss"
-import React, {useState} from "react";
-import {IFrameSize, ProductDetail} from "./components/ProductDetail";
+import React, {useEffect, useRef, useState} from "react";
+import {IFrameSize, ProductDetailSection} from "./components/detail/ProductDetailSection";
 import {useLoaderData} from "react-router-dom";
-import {ProductDto, ProductImageDto} from "../../api/Api";
-import {ProductImageContainer} from "./components/ProductImageContainer";
-import {SelectableOption} from "./components/SelectableOption";
-import {SelectedOption} from "./components/SelectedOption";
-import {SelectedOptions} from "./components/SelectedOptions";
+import {ProductDto} from "../../api/Api";
 import {useDescriptionPage} from "../common/hooks/useDescriptionPage";
+import {ProductInfoSection} from "./components/info/ProductInfoSection";
+import {JumpToSection} from "./components/JumpToSection";
+import {useImage} from "../common/hooks/useImage";
+import {ReviewSection} from "./components/review/ReviewSection";
+import {SelectedOption} from "./components/info/SelectedOptionItem";
 
 export const Product = () => {
     const productData = useLoaderData() as ProductDto
@@ -15,73 +16,65 @@ export const Product = () => {
     const [selectedOption, setSelectedOption] = useState<SelectedOption[]>([])
     const descriptionPage = useDescriptionPage()
 
+    useEffect(() => {
+        if (productData != null) {
+            setSelectedOption(["1번 옵션", "2번 옵션", "3번 옵션", "4번 옵션"].map((option, index) => {
+                return {
+                    index: index,
+                    label: option,
+                    quantity: 0,
+                    price: 1000
+                }
+            }))
+        }
+    }, [productData]);
+    const image = useImage()
+
+    const descriptionRef = useRef<HTMLIFrameElement>(null);
+    const reviewRef = useRef<HTMLDivElement>(null);
+
+    const star = 4
+    const sections = [
+        {menu: "상품정보", onClick: () => descriptionRef.current?.scrollIntoView({behavior: "smooth"})},
+        {menu: "리뷰", onClick: () => reviewRef.current?.scrollIntoView({behavior: "smooth"})},
+        {
+            menu: "문의", onClick: () => {
+            }
+        }, {
+            menu: "배송/환불/교환", onClick: () => {
+            }
+        }]
+
     return (
         <div className="Product">
+
+            {/* 상품에 대한 정보 */}
             <div className="ProductInfo container mx-auto mt-8 p-4 flex flex-col md:flex-row">
-                <ProductImageContainer
-                    productImages={productData.productImages ?? [] as ProductImageDto[]}
-                    altText={productData.name ?? ""}/>
-
-                <div className="md:flex-1 md:ml-8 mt-4 md:mt-0">
-                    {/* 상품이름 */}
-                    <h1 className="text-2xl font-bold mb-3">{productData.name}</h1>
-
-                    {/* 상품가격 */}
-                    <h2 className="text-xl mb-2">{productData.price}원</h2>
-
-                    {/* QR코드  */}
-
-                    {/* 배송정보 */}
-
-                    {/* 주문옵션 */}
-                    <SelectableOption selectedOption={selectedOption}
-                                      setSelectedOption={setSelectedOption}/>
-
-                    {/* 선택된 옵션 */}
-                    <SelectedOptions selectedOptions={selectedOption}
-                                     whenQuantityChanged={
-                                         whenOptionQuantityChanged(selectedOption, setSelectedOption)
-                                     }/>
-
-                    {/* 주문금액 */}
-                    <div style={{display: "flex", flexDirection: "row"}}>
-                        <h3>주문금액</h3>
-                        <h4>{getTotalPrice(selectedOption)}</h4>
-                    </div>
-
-                    {/* 버튼 그룹  */}
-                </div>
+                <ProductInfoSection productData={productData}
+                                    selectedOptions={selectedOption}
+                                    setSelectedOptions={setSelectedOption}/>
             </div>
-            {/* 제품 설명 */}
-            <ProductDetail productLink={descriptionPage("P100001204.html")}
-                           iframeSize={iframeSize}
-                           setIFrameHeight={setIframeSize}/>
-            <div>
-                {/* 리뷰 */}
-                <div style={{alignItems: "center", background: "cyan", height: "100px"}}>
-                    <h1>리뷰 섹션</h1>
-                </div>
 
+            <div
+                className="flex w-full flex-row justify-center px-32 py-6 border-t-2 border-t-gray-200 border-b-2 border-b-gray-200"
+                style={{background: "#FAFAFA"}}>
+                <JumpToSection sections={sections}/>
+            </div>
+
+            {/* 제품 설명 */}
+            <div className="ProductDetail container mx-auto" ref={descriptionRef}>
+                <ProductDetailSection productLink={descriptionPage("P100001204.html")}
+                                      iframeSize={iframeSize}
+                                      setIFrameHeight={setIframeSize}/>
+            </div>
+
+            {/* 리뷰 */}
+            <div className="container mx-auto" ref={reviewRef}>
+                <ReviewSection/>
             </div>
         </div>
     )
 }
 
-export const whenOptionQuantityChanged = (selectedOptions: SelectedOption[], setSelectedOptions: React.Dispatch<React.SetStateAction<SelectedOption[]>>) => {
-    return (changedOption: SelectedOption) => {
-        const removed = selectedOptions.filter((value) => value.label !== changedOption.label)
-        if (changedOption.quantity > 0) {
-            // 수량이 남아있으면 변경
-            setSelectedOptions([...removed, changedOption])
-        } else {
-            // 수량이 0개 이하면 제거
-            setSelectedOptions(removed)
-        }
-    }
-}
-
-function getTotalPrice(selectedOptions: SelectedOption[]) {
-    return selectedOptions.map((value) => value.price * value.quantity).reduce((prev, curr) => prev + curr, 0)
-}
 
 
