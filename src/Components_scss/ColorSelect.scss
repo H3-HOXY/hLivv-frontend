@@ -1,0 +1,70 @@
+.ColorSelect{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ColorSelectWrapper{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ColorSelectTitle{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 6em;
+  width: 100%;
+}
+
+.ColorSelectLine{
+  border: 1px solid grey;
+  margin: 3em 0;
+  width: 100%;
+}
+
+.ColorSelectContent{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ColorSelectContentLine{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+.ColorSelectPrevBtn{
+  width: 15%;
+  height: 3em;
+  background-color: white;
+  border-radius: 35px;
+  border: 1px black solid;
+  font-weight: 900;
+  margin-right: 1.5em;
+}
+
+.ColorSelectMove{
+  width: 100%;
+  margin-top: 5em;
+}
+
+.ColorSelectNextBtn{
+  background-color: #F7F7F7;
+  color: #999999;
+  width: 40%;
+  height: 3em;
+  border-radius: 35px;
+}
+
+.ColorSelectNextBtn:hover{
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  transition: all 0.3s ease-out;
+}
