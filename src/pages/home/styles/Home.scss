@@ -61,6 +61,8 @@
   }
 }
 
+// 홈배너
+
 .HomeBannerWrapper{
   margin-top: 3.5em;
   display: flex;
@@ -143,6 +145,8 @@
   }
 }
 
+// 베스트 상품
+
 .BestProduct{
   display: flex;
   flex-direction: column;
@@ -162,21 +166,66 @@
 
 .BestSlider, .NewSlider{
   width: 100%;
+  height: 100%;
   // background-color: aqua;
 }
 
-.BestItem, .NewItem{
+.BestItem{
   // background-color: aquamarine;
   // border: 3px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8em;
   img{
-    border-radius: 20px;
-    width: 15em;
+    border-radius: 10px;
+    width: 16em;
   }
+}
+
+.BestItemWrapper, .NewItemWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.BestItemWrapperText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 1em;
+  margin-left: 1em;
+  font-weight: 800;
+  font-size: 0.9em;
+}
+
+.NewItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8em;
+  img{
+    border-radius: 10px;
+    width: 12em;
+  }
+}
+
+// 신상품
+.NewItemWrapperText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-weight: 800;
+  font-size: 0.7em;
+  margin-top: 1em;
+  margin-left: 1em;
 }
 
 .NewProduct{
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-top: 3em;
+  margin-top: 4em;
+  width: 100%;
+  // background-color: antiquewhite;
 }

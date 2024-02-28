@@ -119,6 +119,7 @@
   border-radius: 10px;
   border: 1px solid #B9B9B9;
   margin-top: 0.5em;
+  width: 100%;
 }
 
 .CartPayContainLeft{
@@ -166,6 +167,14 @@
   width: 50%;
   font-weight: 500;
   font-size: 1em;
+}
+
+.CartPayContainRightAgreeText{
+  text-align: start;
+}
+
+.CartPayContainRightDescription{
+  text-align: start;
 }
 
 .CartPayContainRightBtn{

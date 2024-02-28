@@ -38,7 +38,7 @@ const Preference = () => {
           <a href="/preference/keywordselect">
             <button className="ColorSelectPrevBtn" title="이전">이전</button>
           </a>
-          <a href="/preference/">
+          <a href="/preference/preferencetest">
             <button className="ColorSelectNextBtn" title="다음">다음</button>
           </a>
         </div>

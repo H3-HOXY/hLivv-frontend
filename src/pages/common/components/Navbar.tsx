@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import classNames from 'classnames';
 import "../styles/Navbar.scss";
@@ -15,6 +15,8 @@ const Navbar = (props: NavbarProps) => {
     const navigate = useNavigate()
     const ref = useRef(null);
     const image = useImage()
+
+    const [showMenu, setShowMenu] = useState<boolean>(false)
 
     useEffect(() => {
         if (ref.current === null) return
@@ -65,12 +67,13 @@ const Navbar = (props: NavbarProps) => {
                     {props.authentication && (
                         <div className="hidden md:flex items-center space-x-1">
                             <Link className="py-5 px-3" to="/logout">
-                                Logout
+                                로그아웃
                             </Link>
+                            {/* bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 */}
                             <Link
-                                className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
+                                className="py-2 px-3 rounded transition duration-300"
                                 to="/mypage">
-                                Mypage
+                                마이페이지
                             </Link>
                         </div>
                     )}
@@ -79,12 +82,12 @@ const Navbar = (props: NavbarProps) => {
                     {!props.authentication && (
                         <div className="hidden md:flex items-center space-x-1">
                             <Link className="py-5 px-3" to="/login">
-                                Login
+                                로그인
                             </Link>
                             <Link
-                                className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
+                                className="py-2 px-3  rounded transition duration-300"
                                 to="/signup">
-                                Signup
+                                회원가입
                             </Link>
                         </div>
                     )}
@@ -92,9 +95,9 @@ const Navbar = (props: NavbarProps) => {
                     {/* mobile menu */}
                     <div className="md:hidden flex items-center">
                         <button
-                            onClick={() => navigate("/logout")}
+                            onClick={() => setShowMenu(!showMenu)}
                         >
-                            {props.authentication ? (
+                            {showMenu? (
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6"
@@ -130,7 +133,7 @@ const Navbar = (props: NavbarProps) => {
                 </div>
             </div>
             {/* mobile menu items */}
-            <div className={classNames("md:hidden", {hidden: !props.authentication})}>
+            <div className={classNames("md:hidden", {hidden: !showMenu})}>
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/">
                     HOME
                 </Link>

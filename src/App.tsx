@@ -32,6 +32,9 @@ import KeywordSelect from "./Components/KeywordSelect";
 import PreferenceHome from "./Components/PreferenceHome";
 import ColorSelect from "./Components/ColorSelect";
 import Modal from "./Components/Modal";
+import PreferenceTest from "./Components/PreferenceTest";
+import PreferenceTestResult from "./Components/PreferenceTestResult";
+import InteriorRecommend from "./Components/InteriorRecommend";
 
 const App = () => {
     console.log(process.env)
@@ -81,6 +84,9 @@ function preferenceRoutes() {
             {path:"/preference", element:<PreferenceHome/>},
             {path:"/preference/keywordselect", element:<KeywordSelect/>},
             {path:"/preference/colorselect", element:<ColorSelect/>},
+            {path:"/preference/preferencetest", element:<PreferenceTest/>},
+            {path:"/preference/testresult", element:<PreferenceTestResult/>},
+            {path:"/preference/interiorrecommend", element:<InteriorRecommend/>},
         ]}
 }
 
