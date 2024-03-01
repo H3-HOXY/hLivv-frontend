@@ -1,0 +1,231 @@
+@keyframes rolling {
+  0% {
+    margin-top: 0;
+  }
+  33% {
+    margin-top: -1.5em;
+  }
+  66% {
+    margin-top: -3em;
+  }
+  100% {
+    margin-top: -4.5em;
+  }
+}
+
+.HomeWrapper{
+  // background-color: antiquewhite;
+  // height: calc(100vh - 4.5rem);
+  margin-bottom: 5em;
+}
+
+.HomeNav{
+  position: fixed;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100vw;
+  height: 3em;
+  z-index: 10;
+  margin-top: 1em;
+}
+
+// 홈내비 배경 범위 지정
+.describeWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+// 홈내비 실시간 순위 범위
+.describeMyself {
+  display: flex;
+  height: 1.5em;
+  overflow: hidden;
+  color:black;
+  z-index: 11;
+}
+
+// 홈내비 실시간 순위 내용 리스트
+.descriptionList {
+  animation-name: rolling;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  
+  .li{
+    list-style: none;
+    line-height: 1.5em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+}
+
+// 홈배너
+
+.HomeBannerWrapper{
+  margin-top: 3.5em;
+  display: flex;
+  // background-color: deepskyblue;
+}
+
+.HomeBanner{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 20em;;
+  margin-top: 6em;
+  // background-color: aqua;
+}
+
+.HomeSlider{
+  width: 100%;
+  height: 100%;
+  margin: 0 2%;
+  // background-color: blueviolet;
+  border-radius: 20px;
+}
+
+.HomeSliderItem{
+  display: flex;
+  // background-color: antiquewhite;
+  // background-image: url('img/리바트.png');
+  // background-size:contain;
+  width: 100vw;
+  height: 22em;
+  border-radius: 20px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.HomeSliderItemContent{
+  width: 100%;
+  height: 100%;
+}
+
+.Category{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 5em;
+
+  // background-color: antiquewhite;
+}
+
+.CategoryTitle, .BestTitle, .NewProduct{
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.CategoryContent{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 0.5em;
+}
+
+.CategoryItemCircle{
+  border-radius: 50%;
+  width: 5em;
+  height: 5em;
+  background-color: #F8F8F8;
+  margin-top: 1em;
+  // background-image: url('img/interior.jpg');
+  // background-size: cover;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+  div{
+    font-weight: 1000;
+    font-size: 0.8em;
+    margin-top: 1em;
+  }
+}
+
+// 베스트 상품
+
+.BestProduct{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 6em;
+  width: 100%;
+  // background-color: antiquewhite;
+}
+
+.BestContent, .NewContent{
+  width: 100%;
+  background-color: #F8F8F8;
+  border-radius: 10px;
+  padding: 2em;
+  margin-top: 1em;
+}
+
+.BestSlider, .NewSlider{
+  width: 100%;
+  height: 100%;
+  // background-color: aqua;
+}
+
+.BestItem{
+  // background-color: aquamarine;
+  // border: 3px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8em;
+  img{
+    border-radius: 10px;
+    width: 16em;
+  }
+}
+
+.BestItemWrapper, .NewItemWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.BestItemWrapperText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 1em;
+  margin-left: 1em;
+  font-weight: 800;
+  font-size: 0.9em;
+}
+
+.NewItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8em;
+  img{
+    border-radius: 10px;
+    width: 12em;
+  }
+}
+
+// 신상품
+.NewItemWrapperText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-weight: 800;
+  font-size: 0.7em;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+.NewProduct{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 4em;
+  width: 100%;
+  // background-color: antiquewhite;
+}

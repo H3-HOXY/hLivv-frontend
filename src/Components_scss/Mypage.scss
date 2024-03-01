@@ -1,0 +1,26 @@
+.Mypage{
+  // margin-top: 4.5em;
+  margin-left: 16em;
+  width: calc(100vw - 17em);
+}
+
+.MypageFooter{
+  // margin-left: 16em;
+  width: calc(100vw - 16em);
+}
+
+// 모바일버전
+@media (max-width: 640px) {
+  /* 640px는 tailwindcss에서 'sm'의 기본 값입니다. */
+  
+  .Mypage{
+    margin-left: 0em; // 혹은 다른 값으로 조정하셔도 됩니다.
+    width: 100vw;
+  }
+
+  .MypageFooter {
+    margin-left: 0em; // 혹은 다른 값으로 조정하셔도 됩니다.
+    width: 100vw;
+  }
+  
+}

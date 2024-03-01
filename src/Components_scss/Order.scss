@@ -1,0 +1,352 @@
+.Order{
+  margin-top: 4.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  // background-color: aliceblue;
+}
+
+.OrderTitle{
+  font-weight: 900;
+  font-size: 1.5em;
+  margin-top: 3em;
+}
+
+.OrderContent{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+// 배송지
+
+.OrderDestination{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.OrderDestinationTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.8em;
+  // background-color: #9E9E9E;
+}
+
+.OrderDestinationTitleLeft{
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.OrderLine{
+  border: 1px solid #9E9E9E;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.OrderDestinationContent{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.OrderDestinationFirst{
+  display: flex;
+}
+
+.OrderDestinationRequire{
+  width: 100%;
+  height: 2.5em;
+  border-radius: 10px;
+  padding: 0.5em;
+  border: 1px solid #A8A8A8;
+  color: #A8A8A8;
+  margin-top: 1em;
+}
+
+// 주문자
+
+.OrderCustomer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 3em;
+  width: 100%;
+  // background-color: red;
+}
+
+.OrderCustomerTitle{
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.OrderCustomerItem{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3em;
+  // background-color: purple;
+  margin-bottom: 1em;
+}
+
+.OrderCustomerItemText{
+  width: 10%;
+  display: flex;
+  justify-content: start;
+}
+
+.OrderCustomerItemInput{
+  width: 30%;
+  height: 2.5em;
+  border-radius: 10px;
+  border: 1px solid #A8A8A8;
+}
+
+.OrderCustomerItemEmoji{
+  margin: 0 1em;
+}
+
+.OrderCustomerItemSelect{
+  width: 30%;
+  height: 2.5em;
+  border-radius: 10px;
+  padding: 0.5em;
+  border: 1px solid #A8A8A8;
+  color: #A8A8A8;
+}
+
+// 주문상품
+
+.OrderProduct{
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.OrderProductTitle{
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.OrderProductContainer{
+  border: #B9B9B9 1px solid;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.OrderProductContainerHeader{
+  background-color: #FAFBFB;
+  border-radius: 10px 10px 0 0;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.OrderProductContainerContent{
+  display: flex;
+  align-items: center;
+  padding: 1.5em;
+}
+
+.OrderProductContainerContentImg{
+  margin-right: 2%;
+  width: 7em;
+  height: 7em;
+}
+
+.OrderProductContainerContentRight{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+
+// 쿠폰
+
+.OrderCoupon{
+  margin-top: 3em;
+}
+
+.OrderCouponTitle{
+  display: flex;
+  justify-content: space-between;
+}
+
+.OrderCouponTitleLeft{
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.OrderCouponTitleRight{
+  color: #B9B9B9;
+}
+
+.OrderCouponOption{
+  width: 100%;
+  height: 2.5em;
+  background-color: #FAFBFB;
+}
+
+// 포인트
+
+.OrderPoint{
+  margin-top: 3em;
+}
+
+.OrderPointTitle{
+  display: flex;
+  justify-content: start;
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.OrderPointContent{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+}
+
+.OrderPointContentFirst{
+  display: flex;
+  width: 100%;
+}
+
+.OrderPointPay{
+  border-radius: 5px;
+  background-color: #FAFBFB;
+  border: 1px solid #D1D1D1;
+  height: 3em;
+  margin-right: 1%;
+}
+
+.OrderPointUse{
+  color: #D1D1D1;
+  border: 1px solid #D1D1D1;
+  background-color: #FAFBFB;
+  height: 3em;
+  border-radius: 5px;
+  padding: 0 1em;
+}
+
+.OrderPointRest{
+  display: flex;
+  margin-left: 0.5em;
+  margin-top: 0.8em;
+}
+
+.OrderPointRestTitle{
+  font-weight: 900;
+  margin-right: 0.5em;
+}
+
+.OrderPointRestMoney{
+  color: #9A452B;
+  font-weight: 900;
+}
+
+// 결제수단
+
+.OrderMethod{
+  margin-top: 3em;
+}
+
+.OrderMethodTitle{
+  text-align: start;
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.OrderMethodBtn:hover{
+  color: black;
+  background-color: white;
+}
+
+// 결제금액
+
+.OrderAmount{
+  margin-top: 3em;
+  margin-bottom: 5em;
+}
+
+.OrderAmountTitle{
+  font-weight: 900;
+  font-size: 1.1em;
+  text-align: start;
+}
+
+.OrderAmountContent{
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid #B9B9B9;
+  margin-top: 1.5em;
+}
+
+.OrderAmountContentLeft{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5em;
+}
+
+.OrderAmountContentLeftPay{
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3em 0;
+}
+
+.OrderAmountContentLeftLine{
+  width: 80%;
+  border: 1px solid #B9B9B9;
+}
+
+.OrderAmountContentRight{
+  width: 50%;
+  background-color: #F7F9FA;
+  border-radius: 0 10px 10px 0;
+  padding: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.OrderAmountContentRightWrapper{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.OrderAmountContentRightTitle{
+  margin-top: 1em;
+  font-weight: 900;
+  font-size: 0.8em;
+  color: black;
+}
+
+.OrderAmountContentRightContent{
+  text-align: start;
+  margin-top: 1em;
+  font-weight: 900;
+  font-size: 0.8em;
+  color: #888888;
+}
+
+.OrderAmountBtn{
+  margin-top: 1em;
+  border-radius: 5px;
+  background-color: black;
+  padding: 0.5em 1em;
+  color: white;
+  width: 100%;
+  background-color: #413735;
+}

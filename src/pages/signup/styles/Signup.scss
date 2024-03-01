@@ -1,0 +1,31 @@
+.Signup{
+  // background-color: aqua;
+  width: 99.2vw;
+  // height: calc(73vh - 7em);
+  margin-top: 7.5em;
+  margin-bottom: 5em;
+}
+
+.SignupTitle{
+  font-weight: 900;
+  font-size: 2em;
+}
+
+.SignupForm{
+  margin-top: 1em;
+}
+
+.SignupFormItem{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.SignupBtn{
+  font-weight: 900;
+  background-color: #d8d8d8;
+}
+
+.SignupBtn:hover{
+  background-color: #afafaf;
+}

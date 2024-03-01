@@ -1,0 +1,188 @@
+.Cart{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  // background-color: aliceblue;
+}
+
+.CartWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 70%;
+  // background-color: aqua;
+  margin: 3em 0;
+}
+
+// 상품 아이템 섹션
+.CartTitle{
+  font-weight: 900;
+  font-size: 1.2em;
+}
+
+.CartContainSelection{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.CartContain{
+  border-radius: 10px;
+  border: #B9B9B9 solid 1px;
+  background-color: white;
+  width: 100%;
+  margin-top: 0.3em;
+}
+
+.CartContainHeader{
+  border-radius: 10px 10px 0 0;
+  background-color: #FAFBFB;
+  padding: 0.7em 1.8em;
+  text-align: left;
+  font-weight: 900;
+}
+
+.CartContent{
+  display: flex;
+  flex-direction: column;
+  margin: 1.5em;
+}
+
+.CartContentItem{
+  display: flex;
+  flex-direction: column;
+}
+
+.CartContentItemProduct{
+  display: flex;
+  justify-content: space-between;
+}
+
+.CartContentProductLeft{
+  display: flex;
+}
+
+.ProfileImgSrc{
+  border-radius: 10px;
+}
+
+.CartContentText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-left: 1em;
+}
+
+.CartContentOrder{
+  display: flex;
+  flex-direction: column;
+  background-color: #F8F9FA;
+  padding: 1em 2em;
+  margin-top: 1.5em;
+}
+
+.CartContentOrderHead{
+  display: flex;
+  justify-content: space-between;
+}
+
+.CartContentOrderBottom{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2em;
+}
+
+.CartContentTotal{
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+  margin-top: 0.5em;
+}
+
+.CartContainBottom{
+  border-top: solid 1px #B9B9B9;
+  padding: 0.7em 1.8em; 
+}
+
+
+// 결제 섹션
+.CartPayTitle{
+  margin-top: 2em;
+  font-weight: 900;
+  font-size: 1.1em;
+}
+
+.CartPayContain{
+  display: flex;
+  border-radius: 10px;
+  border: 1px solid #B9B9B9;
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+.CartPayContainLeft{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px 0 0 10px;
+  width: 50%;
+  padding: 3%;
+}
+
+.CartPayContainLeftPay{
+  display: flex;
+  justify-content: space-between;
+  // background-color: #B9B9B9;
+  width: 100%;
+  margin-top: 0.8em;
+}
+
+.CartPayContainLine{
+  border: 1px solid #B9B9B9;
+  width: 100%;
+  margin: 1.2em 0;
+}
+
+.CartPayContainLeftTotalPay{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.CartPayContainLeftTotalPayNumber{
+  color: #9A452B;
+}
+
+.CartPayContainRight{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: #F7F9FA;
+  padding: 1.5em;
+  border-radius: 0 10px 10px 0;
+  width: 50%;
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.CartPayContainRightAgreeText{
+  text-align: start;
+}
+
+.CartPayContainRightDescription{
+  text-align: start;
+}
+
+.CartPayContainRightBtn{
+  width: 100%;
+  text-align: center;
+  background-color: #413735;
+  color: white;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  border-radius: 5px;
+}
