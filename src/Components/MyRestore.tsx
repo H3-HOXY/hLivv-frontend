@@ -1,8 +1,34 @@
 import "../Components_scss/MyRestore.scss"
 import { useImage } from "../pages/common/hooks/useImage";
+import { useEffect, useRef, useState } from "react"
+import ModalBase from './ModalBase';
+import CardModal from './CardModal';
   
 const MyRestore = () => {
   const image = useImage()
+
+    // 모달 기능
+    const [isActive, setIsActive] = useState(false);
+
+    const onClickModalOn = () => {
+      setIsActive(true);
+    };
+  
+    const onClickModalOff = () => {
+      setIsActive(false);
+    };
+  
+    const onClickCardRemove = () => {
+      alert('이벤트 실행');
+    };
+
+
+    const [modalContent, setModalContent] = useState("1번째 페이지");
+
+    const onClickCardNext = () => {
+      
+    };
+
   return (
     <div className="MyRestore">
       <div className="MyRestoreWrapper mb-3">
@@ -32,7 +58,12 @@ const MyRestore = () => {
               <div className="MyRestoreContentItemName">코이 6단 이동식 책상세트</div>
               <div className="MyRestoreContentItemInfo">사이즈: 1200 / 색상: 화이트</div>
             </div>
-            <button className="MyRestoreContentItemBtn" title="신청하기">신청하기</button>
+            <button onClick={onClickModalOn} className="MyRestoreContentItemBtn" title="신청하기">신청하기</button>
+            <ModalBase active={isActive} closeEvent={onClickModalOff}>
+              <CardModal closeEvent={onClickModalOff} title="주소지 변경" actionMsg="다음" actionEvent={onClickCardNext}>
+                1번째 페이지
+              </CardModal>
+            </ModalBase>
           </div>
         </div>
       </div>
