@@ -1,5 +1,6 @@
 import React from "react";
-import {SelectedOption} from "./SelectedOption";
+
+import {SelectedOption} from "./SelectedOptionItem";
 
 export type SelectableOptionProps = {
     selectedOption: SelectedOption[]
@@ -8,7 +9,9 @@ export type SelectableOptionProps = {
 
 export const SelectableOption = (props: SelectableOptionProps) => {
     return (
-        <select title="옵션" onChange={whenSelectionChanged(props.selectedOption, props.setSelectedOption)}>
+        <select className="w-full h-16 my-4  pl-6 rounded-md border-2 border-gray" title={"옵션"}
+                onChange={whenSelectionChanged(props.selectedOption, props.setSelectedOption)}>
+            <option value={-1} disabled={true} selected={true} hidden={true}>상품을 선택하세요</option>
             {
                 [0, 1, 2, 3, 4].map((value, index) => {
                     return (
@@ -27,7 +30,7 @@ export const SelectableOption = (props: SelectableOptionProps) => {
 function whenSelectionChanged(selectedOptions: SelectedOption[], setSelectedOption: React.Dispatch<React.SetStateAction<SelectedOption[]>>): React.ChangeEventHandler<HTMLSelectElement> {
     return (
         (event) => {
-            const found = selectedOptions.find(item => item.index === Number(event.target.value))
+            const found = selectedOptions.find(item => item.index === Number(event.target.value) - 1)
             if (found) {
                 found.quantity += 1
             } else {
