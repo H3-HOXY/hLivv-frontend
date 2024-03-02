@@ -34,6 +34,8 @@ import Modal from "./Components/Modal";
 import {orderAction} from "./pages/order/OrderRouter";
 import {Order} from "./pages/order/Order";
 import Order2 from "./pages/order/Order2";
+import {storeLoader} from "./pages/store/StoreRouter";
+
 
 const App = () => {
     console.log(process.env)
@@ -63,6 +65,7 @@ function homeRoutes() {
             orderRouters(),
             preferenceRoutes(),
             mypageRoutes(),
+            storeRouters(),
         ]
     })
 }
@@ -86,6 +89,15 @@ function preferenceRoutes() {
             {path: "/preference/keywordselect", element: <KeywordSelect/>},
             {path: "/preference/colorselect", element: <ColorSelect/>},
         ]
+    }
+
+}
+
+
+
+function storeRouters() {
+    return {
+        path: "/store", element: <Store/>, loader: storeLoader
     }
 }
 
@@ -112,7 +124,6 @@ function orderRouters() {
             {path: "/order/two", element: <Order/>}
         ]
     }
-
 }
 
 function RootRoutes() {
@@ -120,7 +131,6 @@ function RootRoutes() {
         <Routes>
             <Route element={<PageFrame/>}>
                 <Route path="/intro" element={<Intro/>}/>
-                <Route path="/store" element={<Store/>}/>
                 <Route path="/collabo" element={<Collabo/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 <Route path="/raffle" element={<Raffle/>}/>

@@ -1,11 +1,19 @@
+import {useNavigate} from "react-router-dom";
+
 export type StoreListItemProps = {
     image: string,
     title: string,
     price: number
+    productId: string
 }
 export const StoreListItem = (props: StoreListItemProps) => {
+    const navigate = useNavigate()
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col cursor-pointer"
+             onClick={() => {
+                 navigate(`/product/${props.productId}`)
+             }}
+        >
             <div className="border rounded-lg overflow-hidden flex-grow">
                 <img src={props.image} alt="제품 이미지" className="w-full"/>
             </div>
