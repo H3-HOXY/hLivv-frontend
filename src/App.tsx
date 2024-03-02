@@ -36,6 +36,7 @@ import {Order} from "./pages/order/Order";
 import Order2 from "./pages/order/Order2";
 import {storeLoader} from "./pages/store/StoreRouter";
 
+
 const App = () => {
     console.log(process.env)
     return (
@@ -89,6 +90,15 @@ function preferenceRoutes() {
             {path: "/preference/colorselect", element: <ColorSelect/>},
         ]
     }
+
+}
+
+
+
+function storeRouters() {
+    return {
+        path: "/store", element: <Store/>, loader: storeLoader
+    }
 }
 
 function mypageRoutes() {
@@ -113,12 +123,6 @@ function orderRouters() {
             {path: "/order/fail", element: <Fail/>},
             {path: "/order/two", element: <Order/>}
         ]
-    }
-}
-
-function storeRouters() {
-    return {
-        path: "/store", element: <Store/>, loader: storeLoader
     }
 }
 
