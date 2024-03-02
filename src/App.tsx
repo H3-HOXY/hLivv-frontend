@@ -1,7 +1,6 @@
 import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
 import './App.css';
 import Intro from "./Components/Intro";
-import Order from "./Components/Order";
 import Success from "./Components/Success";
 import Fail from "./Components/Fail";
 import Raffle from "./Components/Raffle";
@@ -32,13 +31,16 @@ import KeywordSelect from "./Components/KeywordSelect";
 import PreferenceHome from "./Components/PreferenceHome";
 import ColorSelect from "./Components/ColorSelect";
 import Modal from "./Components/Modal";
+import {orderAction} from "./pages/order/OrderRouter";
+import {Order} from "./pages/order/Order";
+import Order2 from "./pages/order/Order2";
 
 const App = () => {
     console.log(process.env)
     return (
         <RouterProvider router={browserRouter}/>
     );
-  }
+}
 
 
 const browserRouter = createBrowserRouter(
@@ -55,9 +57,10 @@ function homeRoutes() {
             {path: "/login", element: <Login/>, action: loginAction},
             {path: "/signup", element: <Signup/>, action: signUpAction},
             {path: "/logout", element: <Logout/>},
-            {path:"/mypage", element:<Mypage/>},
+            {path: "/mypage", element: <Mypage/>},
             productRoutes(),
             collaboRoutes(),
+            orderRouters(),
             preferenceRoutes(),
             mypageRoutes(),
         ]
@@ -77,23 +80,39 @@ function collaboRoutes() {
 }
 
 function preferenceRoutes() {
-    return {path: "/preference", Component: Preference, children:[
-            {path:"/preference", element:<PreferenceHome/>},
-            {path:"/preference/keywordselect", element:<KeywordSelect/>},
-            {path:"/preference/colorselect", element:<ColorSelect/>},
-        ]}
+    return {
+        path: "/preference", Component: Preference, children: [
+            {path: "/preference", element: <PreferenceHome/>},
+            {path: "/preference/keywordselect", element: <KeywordSelect/>},
+            {path: "/preference/colorselect", element: <ColorSelect/>},
+        ]
+    }
 }
 
-function mypageRoutes(){
-    return {path:"/mypage", Component: Mypage, children:[
-        {path:"/mypage", element:<MypageHome/>},
-        {path:"/mypage/cart", element:<Cart/>},
-        {path:"/mypage/profileedit", element:<ProfileEdit/>},
-        {path:"/mypage/passwordedit", element:<PasswordEdit/>},
-        {path:"/mypage/myrestore", element:<MyRestore/>},
-        {path:"/mypage/reviewwrite", element:<ReviewWrite/>},
-        {path:"/mypage/myreview", element:<MyReview/>},
-    ]}
+function mypageRoutes() {
+    return {
+        path: "/mypage", Component: Mypage, children: [
+            {path: "/mypage", element: <MypageHome/>},
+            {path: "/mypage/cart", element: <Cart/>},
+            {path: "/mypage/profileedit", element: <ProfileEdit/>},
+            {path: "/mypage/passwordedit", element: <PasswordEdit/>},
+            {path: "/mypage/myrestore", element: <MyRestore/>},
+            {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
+            {path: "/mypage/myreview", element: <MyReview/>},
+        ]
+    }
+}
+
+function orderRouters() {
+    return {
+        path: "/order", action: orderAction, children: [
+            {index: true, element: <Order2/>},
+            {path: "/order/success", element: <Success/>},
+            {path: "/order/fail", element: <Fail/>},
+            {path: "/order/two", element: <Order/>}
+        ]
+    }
+
 }
 
 function RootRoutes() {
@@ -103,7 +122,6 @@ function RootRoutes() {
                 <Route path="/intro" element={<Intro/>}/>
                 <Route path="/store" element={<Store/>}/>
                 <Route path="/collabo" element={<Collabo/>}/>
-                <Route path="/order" element={<Order/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 <Route path="/raffle" element={<Raffle/>}/>
                 <Route path="/modal" element={<Modal/>}/>

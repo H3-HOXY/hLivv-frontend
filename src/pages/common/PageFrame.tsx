@@ -11,7 +11,6 @@ export function PageFrame() {
     const [marginTop, setMarginTop] = useState<string>("3em")
     const location = useLocation()
 
-
     useEffect(() => {
         const whenUserNotLoggedIn = (e: Error) => {
             if (e instanceof MemberNotLoggedInError) {
@@ -43,6 +42,7 @@ export function PageFrame() {
         </div>
     )
 }
+
 
 function getMarginTop(path: string, marginTop: string) {
     return path === "/" ? "0" : `${marginTop}`
