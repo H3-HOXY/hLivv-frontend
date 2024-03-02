@@ -1,7 +1,7 @@
 import "./styles/Product.scss"
 import React, {useEffect, useRef, useState} from "react";
 import {IFrameSize, ProductDetailSection} from "./components/detail/ProductDetailSection";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useLocation} from "react-router-dom";
 import {ProductDto} from "../../api/Api";
 import {useDescriptionPage} from "../common/hooks/useDescriptionPage";
 import {ProductInfoSection} from "./components/info/ProductInfoSection";
@@ -15,7 +15,11 @@ export const Product = () => {
     const [iframeSize, setIframeSize] = useState<IFrameSize>({width: 500, height: 1000})
     const [selectedOption, setSelectedOption] = useState<SelectedOption[]>([])
     const descriptionPage = useDescriptionPage()
+    const location = useLocation()
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, []);
     useEffect(() => {
         if (productData != null) {
             setSelectedOption(["1번 옵션", "2번 옵션", "3번 옵션", "4번 옵션"].map((option, index) => {

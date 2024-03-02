@@ -9,16 +9,30 @@ import {RoundedButton} from "../store/components/RoundedButton";
 import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";
+import {useLoaderData} from "react-router-dom";
+import {ProductDto} from "../../api/Api";
+import {useEffect, useState} from "react";
+import {StoreListItemProps} from "../store/components/StoreListItem";
 
 export const Collabo = () => {
     const image = useImage()
+    const loaderData = useLoaderData() as { products: ProductDto[] }
+    const [products, setProducts] = useState<ProductDto[]>([])
 
-    const storeItemList = Array(10).fill(
-        {
-            image: "https://static.hyundailivart.co.kr/upload_mall/goods/P200100765/GM42042260_img.jpg/dims/resize/x610/optimize",
-            title: "오브니 패브릭 4인 소파 와이드", price: "21000"
-        }
-    )
+    useEffect(() => {
+        if (!loaderData) return
+        setProducts([...products, ...loaderData.products])
+    }, [loaderData]);
+
+    const storeItemList = products.map(product => {
+        return {
+            image: (product.productImages && product.productImages!!.length > 0 ? product.productImages[0].imageUrl!! : ""),
+            title: product.name!!,
+            price: product.price!!,
+            productId: `${product.id!!}`
+        } as StoreListItemProps
+    })
+
     const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"]
     return (
         <>

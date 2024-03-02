@@ -23,10 +23,8 @@ export const ProductDetailSection = (props: ProductDetailSectionProps) => {
 
         // 각 컨텐츠 요소의 높이를 합산합니다.
         contentElements.forEach(element => {
-            console.log(element.clientHeight)
             totalHeight += element.clientHeight; // 요소의 높이를 가져와서 합산합니다.
         });
-        console.log(totalHeight);
 
         // const iframeHeight = document.documentElement.scrollHeight;
         const iframeHeight = totalHeight
