@@ -6,7 +6,7 @@ import Fail from "./Components/Fail";
 import Raffle from "./Components/Raffle";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import Mypage from "./Components/Mypage";
+import Mypage from "./pages/mypage/Mypage";
 import {homeLoader} from "./pages/home/HomeRouter";
 import Home from "./pages/home/Home";
 import {loginAction} from "./pages/login/LoginRouter";
@@ -14,18 +14,18 @@ import {signUpAction} from "./pages/signup/SignUpRouter";
 import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
-import ProfileEdit from "./Components/ProfileEdit";
+import ProfileEdit from "./pages/mypage/ProfileEdit";
 import MyRestore from "./Components/MyRestore";
-import MypageHome from "./Components/MypageHome";
+import MypageHome from "./pages/mypage/home/MypageHome";
 import ReviewWrite from "./Components/ReviewWrite";
 import MyReview from "./Components/MyReview";
-import PasswordEdit from "./Components/PasswordEdit";
+import PasswordEdit from "./pages/mypage/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
 import Preference from "./Components/Preference";
 import React from "react";
 import {Store} from "./pages/store/Store";
 import {Collabo} from "./pages/collabo/Collabo";
-import Cart from "./Components/Cart";
+import Cart from "./pages/mypage/cart/Cart";
 import Restore from "./Components/Restore";
 import KeywordSelect from "./Components/KeywordSelect";
 import PreferenceHome from "./Components/PreferenceHome";
@@ -34,6 +34,10 @@ import Modal from "./Components/Modal";
 import {orderAction} from "./pages/order/OrderRouter";
 import {Order} from "./pages/order/Order";
 import Order2 from "./pages/order/Order2";
+import {storeLoader} from "./pages/store/StoreRouter";
+import {editProfileAction} from "./pages/mypage/MyPageRouter";
+import {collaboLoader} from "./pages/collabo/CollaboRouter";
+
 
 const App = () => {
     console.log(process.env)
@@ -63,6 +67,7 @@ function homeRoutes() {
             orderRouters(),
             preferenceRoutes(),
             mypageRoutes(),
+            storeRouters(),
         ]
     })
 }
@@ -75,7 +80,7 @@ function productRoutes() {
 
 function collaboRoutes() {
     return (
-        {path: "/collabo", element: <Collabo/>}
+        {path: "/collabo", element: <Collabo/>, loader: collaboLoader}
     )
 }
 
@@ -87,6 +92,14 @@ function preferenceRoutes() {
             {path: "/preference/colorselect", element: <ColorSelect/>},
         ]
     }
+
+}
+
+
+function storeRouters() {
+    return {
+        path: "/store", element: <Store/>, loader: storeLoader
+    }
 }
 
 function mypageRoutes() {
@@ -94,7 +107,7 @@ function mypageRoutes() {
         path: "/mypage", Component: Mypage, children: [
             {path: "/mypage", element: <MypageHome/>},
             {path: "/mypage/cart", element: <Cart/>},
-            {path: "/mypage/profileedit", element: <ProfileEdit/>},
+            {path: "/mypage/profileedit", element: <ProfileEdit/>, action: editProfileAction},
             {path: "/mypage/passwordedit", element: <PasswordEdit/>},
             {path: "/mypage/myrestore", element: <MyRestore/>},
             {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
@@ -112,7 +125,6 @@ function orderRouters() {
             {path: "/order/two", element: <Order/>}
         ]
     }
-
 }
 
 function RootRoutes() {
@@ -120,7 +132,6 @@ function RootRoutes() {
         <Routes>
             <Route element={<PageFrame/>}>
                 <Route path="/intro" element={<Intro/>}/>
-                <Route path="/store" element={<Store/>}/>
                 <Route path="/collabo" element={<Collabo/>}/>
                 <Route path="/restore" element={<Restore/>}/>
                 <Route path="/raffle" element={<Raffle/>}/>

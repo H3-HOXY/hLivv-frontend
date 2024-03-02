@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import {ProductDto} from "../../../api/Api";
 import Slider from "react-slick";
 import {getItemList} from "../Home";
@@ -12,6 +12,10 @@ export type NewItemContainerProps = {
     @author 최정윤, 이호연 */
 export const NewItemContainer = (props: NewItemContainerProps) => {
     const navigate = useNavigate()
+    const [isDragging, setDragging] = useState(false)
+    const handleMouseDown = () => setDragging(false)
+
+    const handleMouseMove = () => setDragging(true)
     const newItemSliderSettings = {
         className: "center",
         centerMode:
@@ -35,8 +39,11 @@ export const NewItemContainer = (props: NewItemContainerProps) => {
                         {getItemList(props.products).map((product, idx) => {
                             return (
                                 <div key={idx} className="NewItem"
-                                     onClick={() => {
-                                         navigate(`/product/${product.id}`)
+                                     onMouseDown={handleMouseDown}
+                                     onMouseMove={handleMouseMove}
+                                     onMouseUp={() => {
+                                         if (!isDragging)
+                                             navigate(`/product/${product.id}`)
                                      }
                                      }>
                                     <img src={`${product.productImages!![0].imageUrl}`} title="pic"

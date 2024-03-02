@@ -9,7 +9,14 @@ export const StoreList = (props: StoreListProps) => {
             {
                 /*{<!-- 제품 카드 -->}*/
                 props.itemProps.map((item, index) =>
-                    <StoreListItem key={index} image={item.image} title={item.title} price={Number(item.price)}/>)
+                    <StoreListItem key={index}
+                                   image={item.image}
+                                   title={item.title}
+                                   price={Number(item.price)}
+                                   productId={item.productId}
+                                   productType={item.productType}
+                    />
+                )
             }
         </div>
     )

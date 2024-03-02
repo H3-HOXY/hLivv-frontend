@@ -1,4 +1,5 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 /*
 홈 카테고리
@@ -12,6 +13,7 @@ export type CategoryProps = {
 export type CategoryItemProps = {
     img: string
     text: string
+    id: string
 }
 export const Category = (props: CategoryProps) => {
     return (
@@ -20,7 +22,7 @@ export const Category = (props: CategoryProps) => {
             <div className="CategoryContent">
                 {props.categoryItems.map((item, idx) => {
                         return (
-                            <CategoryItem key={idx} img={item.img} text={item.text}/>
+                            <CategoryItem key={idx} img={item.img} id={item.id} text={item.text}/>
                         )
                     }
                 )}
@@ -29,8 +31,11 @@ export const Category = (props: CategoryProps) => {
 }
 
 export const CategoryItem = (props: CategoryItemProps) => {
+    const navigate = useNavigate()
     return (
-        <div className="CategoryItemCircle h-25 w-25">
+        <div className="CategoryItemCircle h-25 w-25 cursor-pointer" onClick={() => {
+            navigate(`/store?categoryId=${props.id}`)
+        }}>
             <img className="Elec" alt={props.text} src={props.img}/>
             <div>{props.text}</div>
         </div>

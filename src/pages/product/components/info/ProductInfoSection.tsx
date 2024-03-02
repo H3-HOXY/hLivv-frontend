@@ -1,4 +1,4 @@
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useImage} from "../../../common/hooks/useImage";
 import ImageSlider from "./ImageSlider";
 import QRCode from "qrcode.react";
@@ -9,6 +9,7 @@ import {ProductDto} from "../../../../api/Api";
 
 import {AverageReviewScore} from "./AverageReviewScore";
 import {SelectedOption} from "./SelectedOptionItem";
+import {getApi} from "../../../../api/ApiWrapper";
 
 export type ProductInfoSectionProps = {
     productData: ProductDto
@@ -57,15 +58,15 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                     <h2 className=" p-2">배송비 무료</h2>
                 </div>
 
-                {/* 주문옵션 */}
-                <SelectableOption selectedOption={props.selectedOptions}
-                                  setSelectedOption={props.setSelectedOptions}/>
+                {/*/!* 주문옵션 *!/*/}
+                {/*<SelectableOption selectedOption={props.selectedOptions}*/}
+                {/*                  setSelectedOption={props.setSelectedOptions}/>*/}
 
-                {/* 선택된 옵션 */}
-                <SelectedOptions selectedOptions={props.selectedOptions}
-                                 whenQuantityChanged={
-                                     whenOptionQuantityChanged(props.selectedOptions, props.setSelectedOptions)
-                                 }/>
+                {/*/!* 선택된 옵션 *!/*/}
+                {/*<SelectedOptions selectedOptions={props.selectedOptions}*/}
+                {/*                 whenQuantityChanged={*/}
+                {/*                     whenOptionQuantityChanged(props.selectedOptions, props.setSelectedOptions)*/}
+                {/*                 }/>*/}
 
                 {/* 주문금액 */}
                 <div className="flex flex-row justify-between mb-8">
@@ -75,7 +76,7 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
 
                 {/* 버튼 그룹  */}
                 <div className="flex flex-row h-16 justify-between gap-6">
-                    <AddToCartButton/>
+                    <AddToCartButton productId={props.productData.id!!}/>
                     <BuyNowButton/>
                 </div>
             </div>
@@ -95,9 +96,20 @@ function getTotalPrice(selectedOptions: SelectedOption[]) {
     return selectedOptions.map((value) => value.price * value.quantity).reduce((prev, curr) => prev + curr, 0)
 }
 
-const AddToCartButton = () => {
+const AddToCartButton = ({productId}: { productId: number }) => {
+    const navigate = useNavigate()
     return (
-        <button className="border-4 flex-1 rounded-xl border-black text-black">장바구니</button>
+        <button className="border-4 flex-1 rounded-xl border-black text-black"
+                onClick={async () => {
+                    try {
+                        const api = await getApi();
+                        await api.addProductToCart(productId, {qty: 1})
+                        navigate("/mypage/cart")
+                    } catch (e) {
+
+                    }
+                }}
+        >장바구니</button>
     )
 }
 const BuyNowButton = () => {

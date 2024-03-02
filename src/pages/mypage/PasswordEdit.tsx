@@ -1,4 +1,4 @@
-import "../Components_scss/PasswordEdit.scss"
+import "../../Components_scss/PasswordEdit.scss"
 
 const PasswordEdit = () => {
   return (
