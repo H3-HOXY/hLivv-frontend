@@ -1,6 +1,6 @@
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
-const loginSubContents = [{title: "회원가입", href: ""}, {title: "이메일 찾기", href: ""}, {title: "비밀번호 찾기", href: ""},]
+const loginSubContents = [{title: "회원가입", href: "/signup"}, {title: "이메일 찾기", href: ""}, {title: "비밀번호 찾기", href: ""},]
 
 export type LoginSubItemProps = {
     title: string;

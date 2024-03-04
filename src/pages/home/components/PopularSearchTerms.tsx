@@ -14,10 +14,11 @@ export const PopularSearchTerms = (props: PopularSearchTermsProps) => {
             {/* 실시간 검색어 */}
             <div className="describeWrapper max-w-7xl mx-auto px-6">
                 <div className="describeMyself ">
+                    <div className="describeTitle">실시간 검색어</div>
                     <ul className="descriptionList">
                         {props.searchTerms.map((term, idx) => {
                             return (
-                                <li key={idx}><b>{idx + 1}</b>{term}</li>
+                                <li key={idx}><b>{idx + 1}</b>&nbsp;{term}</li>
                             )
                         })}
                     </ul>

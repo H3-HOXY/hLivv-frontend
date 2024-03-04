@@ -5,6 +5,7 @@ import {StoreBanner} from "./components/StoreBanner";
 import {CategoryMenu} from "./components/CategoryMenu";
 import {SortingMenu} from "./SortingMenu";
 import {RoundedButton} from "./components/RoundedButton";
+import "./styles/Store.scss"
 
 export const Store = () => {
     const image = useImage()
@@ -18,26 +19,28 @@ export const Store = () => {
     const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"]
     return (
         <>
-            <div className="container mx-auto p-12">
-                <h1 className="font-light text-5xl">STORE</h1>
-                <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/>
+            <div className="Store">
+                <div className="StoreWrapper container mx-auto p-12">
+                    <div className="StoreTitle">STORE</div>
+                    <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/>
 
-                {/*{카테고리 메뉴}*/}
-                <CategoryMenu categoryList={categoryList}/>
+                    {/*{카테고리 메뉴}*/}
+                    <CategoryMenu categoryList={categoryList}/>
 
-                <div className="flex py-4">
-                    <RoundedButton title={"전체"}/>
-                    <RoundedButton title={"컬러"} arrow={true}/>
-                    <RoundedButton title={"가격"} arrow={true}/>
-                    <RoundedButton title={"브랜드"} arrow={true}/>
+                    <div className="flex py-4">
+                        <RoundedButton title={"전체"}/>
+                        <RoundedButton title={"컬러"} arrow={true}/>
+                        <RoundedButton title={"가격"} arrow={true}/>
+                        <RoundedButton title={"브랜드"} arrow={true}/>
+                    </div>
+
+                    <SortingMenu/>
+
+                    {/*{상품목록}*/}
+                    <StoreList itemProps={storeItemList}/>
+                    {/*{ 페이지네이션 버튼}*/}
+                    <GetMore/>
                 </div>
-
-                <SortingMenu/>
-
-                {/*{상품목록}*/}
-                <StoreList itemProps={storeItemList}/>
-                {/*{ 페이지네이션 버튼}*/}
-                <GetMore/>
             </div>
         </>
     )

@@ -1,16 +1,23 @@
 import "../Components_scss/KeywordSelect.scss"
 import { useImage } from "../pages/common/hooks/useImage";
+import React from 'react';
 
-interface Job {
+interface Keyword {
   id: string;
-  value: string;
   label: string;
 }
 
-const jobList: Job[] = [
-  { id: 'job-1', value: 'job-1', label: 'UI/UX Engineer'},
-  { id: 'job-2', value: 'job-2', label: 'React Developer'},
-  { id: 'job-3', value: 'job-3', label: 'Full Stack Engineer'},
+const keywordList: Keyword[] = [
+  { id: 'keyword-1', label: '# 심플한'},
+  { id: 'keyword-2', label: '# 깨끗한'},
+  { id: 'keyword-3', label: '# 모던한'},
+  { id: 'keyword-4', label: '# 내추럴한'},
+  { id: 'keyword-5', label: '# 미니멀'},
+  { id: 'keyword-6', label: '# 비비드'},
+  { id: 'keyword-7', label: '# 우아한'},
+  { id: 'keyword-8', label: '# 고풍적'},
+  { id: 'keyword-9', label: '# 동양적'},
+  { id: 'keyword-10', label: '# 트렌디'},
 ];
 
 const Preference = () => {
@@ -19,6 +26,11 @@ const Preference = () => {
     // Your logic for handling job selection goes here
     console.log(`Selected job: ${jobId}`);
   };
+
+  const groupedKeywords = [];
+  for (let i = 0; i < keywordList.length; i += 4) {
+    groupedKeywords.push(keywordList.slice(i, i + 4));
+  }
 
   return (
     <div className="PreferenceKeyword">
@@ -29,7 +41,31 @@ const Preference = () => {
         </div>
         <hr className="PreferenceKeywordLine"/>
         <div className="PreferenceKeywordContent">
-          <div className="PreferenceKeywordContentLine">
+          {groupedKeywords.map((group, index) => (
+            <div key={index} className="PreferenceKeywordContentLine">
+              {group.map((keyword) => (
+                <React.Fragment key={keyword.id}>
+                  <input
+                    type="radio"
+                    id={keyword.id}
+                    name="job"
+                    className="hidden peer"
+                    onChange={() => handleJobSelection(keyword.id)}
+                    required
+                  />
+                  <label
+                    htmlFor={keyword.id}
+                    className="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
+                  >
+                    <div className="block">
+                      <div className="w-full text-lg font-semibold">{keyword.label}</div>
+                    </div>
+                  </label>
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
+          {/* <div className="PreferenceKeywordContentLine">
             <div className="PreferenceKeywordContentItem"># 심플한</div>
             <div className="PreferenceKeywordContentItem"># 깨끗한</div>
             <div className="PreferenceKeywordContentItem"># 모던한</div>
@@ -44,7 +80,7 @@ const Preference = () => {
           <div className="PreferenceKeywordContentLine">
             <div className="PreferenceKeywordContentItem"># 동양적</div>
             <div className="PreferenceKeywordContentItem"># 트렌디</div>
-          </div>
+          </div> */}
         </div>
 
         {/* <ul className="space-y-4 mb-4">

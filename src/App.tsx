@@ -18,7 +18,7 @@ import {Product} from "./pages/product/Product";
 import ProfileEdit from "./Components/ProfileEdit";
 import MyRestore from "./Components/MyRestore";
 import MypageHome from "./Components/MypageHome";
-import ReviewWrite from "./Components/ReviewWrite";
+import ReviewWrite from "./Components/Review";
 import MyReview from "./Components/MyReview";
 import PasswordEdit from "./Components/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
@@ -35,6 +35,9 @@ import Modal from "./Components/Modal";
 import PreferenceTest from "./Components/PreferenceTest";
 import PreferenceTestResult from "./Components/PreferenceTestResult";
 import InteriorRecommend from "./Components/InteriorRecommend";
+import BuyDetail from "./Components/BuyDetail";
+import MyRestoreDetail from "./Components/MyRestoreDetail";
+import Coupon from "./Components/Coupon";
 
 const App = () => {
     console.log(process.env)
@@ -93,10 +96,13 @@ function preferenceRoutes() {
 function mypageRoutes(){
     return {path:"/mypage", Component: Mypage, children:[
         {path:"/mypage", element:<MypageHome/>},
-        {path:"/mypage/cart", element:<Cart/>},
         {path:"/mypage/profileedit", element:<ProfileEdit/>},
         {path:"/mypage/passwordedit", element:<PasswordEdit/>},
+        {path:"/mypage/cart", element:<Cart/>},
+        {path:"/mypage/buydetail", element:<BuyDetail/>},
         {path:"/mypage/myrestore", element:<MyRestore/>},
+        {path:"/mypage/myrestoredetail", element:<MyRestoreDetail/>},
+        {path:"/mypage/coupon", element:<Coupon/>},
         {path:"/mypage/reviewwrite", element:<ReviewWrite/>},
         {path:"/mypage/myreview", element:<MyReview/>},
     ]}

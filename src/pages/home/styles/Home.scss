@@ -40,10 +40,17 @@
 // 홈내비 실시간 순위 범위
 .describeMyself {
   display: flex;
+  align-items: center;
   height: 1.5em;
   overflow: hidden;
   color:black;
   z-index: 11;
+}
+
+.describeTitle{
+  font-weight: 700;
+  font-size: 0.8em;
+  margin-right: 1.5em;
 }
 
 // 홈내비 실시간 순위 내용 리스트
@@ -110,7 +117,7 @@
   flex-direction: column;
   align-items: start;
   margin-top: 5em;
-
+  font-weight: 500;
   // background-color: antiquewhite;
 }
 
@@ -195,7 +202,7 @@
   align-items: start;
   margin-top: 1em;
   margin-left: 1em;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 0.9em;
 }
 
@@ -215,7 +222,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  font-weight: 800;
+  font-weight: 500;
   font-size: 0.7em;
   margin-top: 1em;
   margin-left: 1em;

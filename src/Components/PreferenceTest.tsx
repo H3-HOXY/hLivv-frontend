@@ -52,7 +52,7 @@ const PreferenceTest = () => {
                   </label>
                 </li>
               ))}
-            </ul> 
+            </ul>
           </div>
         </div>
         <div className="PreferenceTestMove">

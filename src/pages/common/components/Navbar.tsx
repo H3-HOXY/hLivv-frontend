@@ -40,7 +40,7 @@ const Navbar = (props: NavbarProps) => {
                                 <span className="font-bold">H.Livv</span>
                             </Link>
                         </div>
-                        <div className="hidden md:flex items-center space-x-1">
+                        <div className="navbarmenu hidden md:flex items-center space-x-1">
                             {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
                                 INTRO
                             </Link> */}
