@@ -15,6 +15,7 @@ const Navbar = (props: NavbarProps) => {
     const navigate = useNavigate()
     const ref = useRef(null);
     const image = useImage()
+    const [showMenus, setShowMenus] = useState(false)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
 
@@ -93,11 +94,9 @@ const Navbar = (props: NavbarProps) => {
                     )}
 
                     {/* mobile menu */}
-                    <div className="md:hidden flex items-center">
-                        <button
-                            onClick={() => setShowMenu(!showMenu)}
-                        >
-                            {showMenu? (
+                    <div className="md:hidden flex items-center z-50">
+                        <button onClick={() => setShowMenus(!showMenus)}>
+                            {showMenus ? (
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6"
@@ -133,8 +132,8 @@ const Navbar = (props: NavbarProps) => {
                 </div>
             </div>
             {/* mobile menu items */}
-            <div className={classNames("md:hidden", {hidden: !showMenu})}>
-                <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/">
+            <div className={classNames("md:hidden", {hidden: !showMenus})}>
+                <Link className="block py-2 px-4 text-sm hover:bg-gray-200 z-50" to="/">
                     HOME
                 </Link>
                 {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">

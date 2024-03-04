@@ -6,16 +6,32 @@ import {CategoryMenu} from "./components/CategoryMenu";
 import {SortingMenu} from "./SortingMenu";
 import {RoundedButton} from "./components/RoundedButton";
 import "./styles/Store.scss"
+import {Await, useLoaderData, useLocation} from "react-router-dom";
+import React, {Suspense, useEffect, useState} from "react";
+import {ProductDto} from "../../api/Api";
+import {StoreListItemProps} from "./components/StoreListItem";
 
 export const Store = () => {
     const image = useImage()
+    const location = useLocation()
+    const loaderData = useLoaderData() as { products: ProductDto[] }
+    const [products, setProducts] = useState<ProductDto[]>([])
+    const nodeRef = React.useRef<HTMLDivElement>(null);
 
-    const storeItemList = Array(10).fill(
-        {
-            image: "https://static.hyundailivart.co.kr/upload_mall/goods/P200100765/GM42042260_img.jpg/dims/resize/x610/optimize",
-            title: "오브니 패브릭 4인 소파 와이드", price: "21000"
-        }
-    )
+    useEffect(() => {
+        if (!loaderData) return
+        setProducts([...products, ...loaderData.products])
+    }, [loaderData]);
+
+    const storeItemList = products.map(product => {
+        return {
+            image: (product.productImages && product.productImages!!.length > 0 ? product.productImages[0].imageUrl!! : ""),
+            title: product.name!!,
+            price: product.price!!,
+            productId: `${product.id!!}`
+        } as StoreListItemProps
+    })
+
     const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"]
     return (
         <>
@@ -42,6 +58,17 @@ export const Store = () => {
                     <GetMore/>
                 </div>
             </div>
+
+            <SortingMenu/>
+
+            {/*{상품목록}*/}
+            <Suspense fallback={<div>loading</div>}>
+                <Await resolve={products}>
+                    <StoreList itemProps={storeItemList}/>
+                </Await>
+                {/*{ 페이지네이션 버튼}*/}
+            </Suspense>
+            <GetMore/>
         </>
     )
 }
