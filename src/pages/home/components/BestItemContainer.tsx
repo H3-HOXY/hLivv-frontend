@@ -3,6 +3,7 @@ import {ProductDto} from "../../../api/Api";
 import {useNavigate} from "react-router-dom";
 import Slider from "react-slick";
 import {getItemList} from "../Home";
+import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 
 
 type BestItemContainerProps = {
@@ -15,6 +16,7 @@ export const BestItemContainer = (props: BestItemContainerProps) => {
     const [isDragging, setDragging] = useState(false)
     const navigate = useNavigate()
     const handleMouseDown = () => setDragging(false)
+    const formatter = useCurrencyFormat()
 
     const handleMouseMove = () => setDragging(true)
 
@@ -51,12 +53,14 @@ export const BestItemContainer = (props: BestItemContainerProps) => {
                                          onMouseDown={handleMouseDown}
                                          onMouseMove={handleMouseMove}
                                          onMouseUp={handleMouseUp}>
-                                        <div className="BestItemWrapper">
-                                            <img src={`${product.productImages!![0].imageUrl}`} title="pic"
-                                                 alt={`${product.id}`}/>
-                                            <div className="BestItemWrapperText">
-                                                <div>에스테틱 호텔침대 프레임 (8종)</div>
-                                                <div>921,000원</div>
+                                        <div className="BestItemWrapper overflow-hidden">
+                                            <img
+                                                src={`${product.productImages!![0].imageUrl}`}
+                                                title="pic"
+                                                alt={`${product.id}`}/>
+                                            <div className="BestItemWrapperText text-start">
+                                                <div className={"truncate w-full"}>{product.name}</div>
+                                                <div>{formatter(product.price ?? 0)}원</div>
                                             </div>
                                         </div>
 

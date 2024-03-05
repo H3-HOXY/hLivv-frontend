@@ -2,10 +2,11 @@ import "../../../Components_scss/MypageHome.scss"
 import {useEffect, useState} from "react";
 import {getApi} from "../../../api/ApiWrapper";
 import {MemberDto} from "../../../api/Api";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const MypageHome = () => {
     const [memberInfo, setMemberInfo] = useState<MemberDto | null>(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getMyInfo = async () => {
@@ -14,6 +15,7 @@ const MypageHome = () => {
                 const res = await api.getMyUserInfo();
                 setMemberInfo(res.data);
             } catch (e) {
+                navigate("/login");
                 throw e;
             }
         }

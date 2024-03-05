@@ -52,24 +52,16 @@ export const Store = () => {
                     </div>
 
                     <SortingMenu/>
-
                     {/*{상품목록}*/}
-                    <StoreList itemProps={storeItemList}/>
-                    {/*{ 페이지네이션 버튼}*/}
+                    <Suspense fallback={<div>loading</div>}>
+                        <Await resolve={products}>
+                            <StoreList itemProps={storeItemList}/>
+                        </Await>
+                        {/*{ 페이지네이션 버튼}*/}
+                    </Suspense>
                     <GetMore/>
                 </div>
             </div>
-
-            <SortingMenu/>
-
-            {/*{상품목록}*/}
-            <Suspense fallback={<div>loading</div>}>
-                <Await resolve={products}>
-                    <StoreList itemProps={storeItemList}/>
-                </Await>
-                {/*{ 페이지네이션 버튼}*/}
-            </Suspense>
-            <GetMore/>
         </>
     )
 }

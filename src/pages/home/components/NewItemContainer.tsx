@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {ProductDto} from "../../../api/Api";
 import Slider from "react-slick";
 import {getItemList} from "../Home";
+import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 
 export type NewItemContainerProps = {
     products: ProductDto[]
@@ -14,6 +15,7 @@ export const NewItemContainer = (props: NewItemContainerProps) => {
     const navigate = useNavigate()
     const [isDragging, setDragging] = useState(false)
     const handleMouseDown = () => setDragging(false)
+    const formatter = useCurrencyFormat()
 
     const handleMouseMove = () => setDragging(true)
     const newItemSliderSettings = {
@@ -45,13 +47,15 @@ export const NewItemContainer = (props: NewItemContainerProps) => {
                                          if (!isDragging)
                                              navigate(`/product/${product.id}`)
                                      }
-                                    }>
-                                    <div className="NewItemWrapper">
-                                        <img src={`${product.productImages!![0].imageUrl}`} title="pic"
+                                     }>
+                                    <div className="NewItemWrapper overflow-hidden">
+                                        <img
+                                            src={`${product.productImages!![0].imageUrl}`}
+                                            title="pic"
                                             alt={`${product.id}`}/>
-                                        <div className="NewItemWrapperText">
-                                            <div>에스테틱 호텔침대 프레임 (8종)</div>
-                                            <div>921,000원</div>
+                                        <div className="NewItemWrapperText text-start">
+                                            <div className={"truncate w-full"}>{product.name}</div>
+                                            <div>{formatter(product.price ?? 0)}원</div>
                                         </div>
                                     </div>
                                 </div>
