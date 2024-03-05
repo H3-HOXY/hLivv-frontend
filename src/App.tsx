@@ -17,7 +17,6 @@ import {Product} from "./pages/product/Product";
 import ProfileEdit from "./pages/mypage/ProfileEdit";
 import MyRestore from "./Components/MyRestore";
 import MypageHome from "./pages/mypage/home/MypageHome";
-import ReviewWrite from "./Components/ReviewWrite";
 import MyReview from "./Components/MyReview";
 import PasswordEdit from "./pages/mypage/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
@@ -110,7 +109,7 @@ function mypageRoutes() {
             {path: "/mypage/profileedit", element: <ProfileEdit/>, action: editProfileAction},
             {path: "/mypage/passwordedit", element: <PasswordEdit/>},
             {path: "/mypage/myrestore", element: <MyRestore/>},
-            {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
+            // {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
             {path: "/mypage/myreview", element: <MyReview/>},
         ]
     }
