@@ -4,11 +4,14 @@ import {CartItem} from "./CartItem";
 import {useEffect, useState} from "react";
 import {getApi} from "../../../api/ApiWrapper";
 import {CartDto} from "../../../api/Api";
+import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 
 const Cart = () => {
     const image = useImage()
     const [cartItem, setCartItem] = useState<CartDto[]>([])
     const priceTotal = cartItem.map((item, idx) => item.totalPrice).reduce((acc, cur) => acc!! + cur!!, 0)
+    const formatter = useCurrencyFormat()
+
     useEffect(() => {
         fetchCart().then().catch()
     }, []);
@@ -49,15 +52,20 @@ const Cart = () => {
                 {/* 같은 브랜드 상품 담을 컨테인 */}
                 <div className="CartContain">
                     <div className="CartContainHeader">
-                        COY
                     </div>
                     {/* 같은 브랜드 내에서 세부 상품 (여러개) */}
                     <div className="CartContent">
                         {/* 상품 하나 */}
                         {
-                            cartItem.map((item, idx) => {
-                                return <CartItem key={idx} item={item} onCartUpdate={onCartUpdate}/>
-                            })
+                            cartItem
+                                .sort((item1, item2) => (item1.productId!! > item2.productId!!) ? 1 : -1)
+                                .map((item, idx) => {
+                                        return (<CartItem key={idx}
+                                                          item={item}
+                                                          onCartUpdate={onCartUpdate}/>)
+
+                                    }
+                                )
                         }
                     </div>
                     <div className="CartContainBottom">
@@ -72,7 +80,7 @@ const Cart = () => {
                         <div className="CartPayContainLeftPay">
                             <div className="CartPayContainLeftText">총 상품 금액</div>
                             <div className="CartPayContainLeftPayNumber">
-                                {priceTotal}원
+                                {formatter(priceTotal ?? 0)}원
                             </div>
                         </div>
                         <div className="CartPayContainLeftPay">
@@ -86,7 +94,7 @@ const Cart = () => {
                         <hr className="CartPayContainLine"/>
                         <div className="CartPayContainLeftTotalPay">
                             <div className="CartPayContainLeftText">최종 결제 금액</div>
-                            <div className="CartPayContainLeftTotalPayNumber">{priceTotal}원</div>
+                            <div className="CartPayContainLeftTotalPayNumber">{formatter(priceTotal ?? 0)}원</div>
                         </div>
                     </div>
                     <div className="CartPayContainRight">

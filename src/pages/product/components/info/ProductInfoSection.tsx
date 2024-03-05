@@ -2,14 +2,13 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {useImage} from "../../../common/hooks/useImage";
 import ImageSlider from "./ImageSlider";
 import QRCode from "qrcode.react";
-import {SelectableOption} from "./SelectableOption";
-import {SelectedOptions} from "./SelectedOptions";
 import React from "react";
 import {ProductDto} from "../../../../api/Api";
 
 import {AverageReviewScore} from "./AverageReviewScore";
 import {SelectedOption} from "./SelectedOptionItem";
 import {getApi} from "../../../../api/ApiWrapper";
+import {useCurrencyFormat} from "../../../common/hooks/useCurrencyFormat";
 
 export type ProductInfoSectionProps = {
     productData: ProductDto
@@ -21,6 +20,7 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
     const hostname = window.location.origin
     const location = useLocation()
     const image = useImage()
+    const formatter = useCurrencyFormat()
 
     return (
         <>
@@ -44,7 +44,7 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                 </div>
 
                 {/* 상품가격 */}
-                <h2 className="text-3xl font-bold mb-4">{props.productData.price}원</h2>
+                <h2 className="text-3xl font-bold mb-4">{formatter(props.productData.price ?? 0)}원</h2>
 
                 {/* QR코드  */}
                 <QRCode className="mb-4" value={`${hostname}${location.pathname}`} size={100}/>
@@ -71,7 +71,7 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                 {/* 주문금액 */}
                 <div className="flex flex-row justify-between mb-8">
                     <h2 className="text-gray-300">주문금액</h2>
-                    <h2 className="font-bold">{getTotalPrice(props.selectedOptions)}원</h2>
+                    <h2 className="font-bold">{formatter(props.productData.price ?? 0)}원</h2>
                 </div>
 
                 {/* 버튼 그룹  */}
