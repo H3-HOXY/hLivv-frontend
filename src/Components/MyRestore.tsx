@@ -29,6 +29,13 @@ const MyRestore = () => {
     setIsActive(false);
   };
   const onClickCardConfirm = () => {
+    // 모달을 닫고 캐시 비우기
+    onClickModalOff();
+    setImgFile(undefined);
+    setImgPath("");
+    if (imgRef.current) {
+      imgRef.current.value = "";
+    }
     alert('신청되었습니다.');
   };
 

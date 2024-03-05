@@ -20,8 +20,20 @@
   margin-top: 6em;
 }
 
+.PreferenceKeywordSubTitle{
+  color: #999999;
+}
+
+.PreferenceKeywordMainTitle{
+  font-weight: 800;
+  font-size: 2em;
+}
+
 .PreferenceKeywordLine{
   margin: 2.5em 0;
+  border: 1px solid grey;
+  margin: 3em 0;
+  width: 100%;
 }
 
 .PreferenceKeywordContent{
@@ -32,9 +44,23 @@
 }
 
 .PreferenceKeywordContentLine{
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   height: 90%;
+  gap: 1em;
+  margin: 0.8em 0;
+  label{
+    background-color: #F7F7F7;
+    border-radius: 35px;
+    padding: 1em 2em;
+  }
+}
+
+.PreferenceKeywordContentLineLabel{
+  padding: 0.7em 2.5em;
+  border-radius: 35px;
 }
 
 .PreferenceKeywordContentItem{

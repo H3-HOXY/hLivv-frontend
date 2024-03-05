@@ -1,13 +1,20 @@
 import "../Components_scss/PreferenceTest.scss"
 import { useImage } from "../pages/common/hooks/useImage";
+import { useNavigate } from 'react-router-dom';
+import data from "../question.json" 
+import { useEffect, useState } from "react";
 
-interface Job {
+
+interface Question {
   id: string;
   value: string;
   label: string;
 }
-
-const jobList: Job[] = [
+type Answers={
+  data:string[]
+}
+type QuestionData={question:string, number:number, answer:{ value: string; text: string; }[]}
+const questionList: Question[] = [
   { id: '1', value: 'a', label: 'a. 긴 식탁 하나에 손님들을 모두 앉히고 음식을 푸짐하게 준비해서 대접한다. 활기찬 대화가 끊이지 않도록 한다.'},
   { id: '2', value: 'b', label: 'b. 촛불을 켜놓고 식탁을 우아하게 장식해서 고전적인 분위기를 낸다.'},
   { id: '3', value: 'c', label: 'c. 밝은 햇빛 아래서 재미있는 놀이와 게임을 하며 피크닉을 즐긴다.'},
@@ -16,9 +23,31 @@ const jobList: Job[] = [
 
 const PreferenceTest = () => {
   const image = useImage()
-  const handleJobSelection = (jobId: string) => {
-    // Your logic for handling job selection goes here
-    console.log(`Selected job: ${jobId}`);
+  const navigate = useNavigate();
+  const [currentIdx, setCurrentIdx] = useState<number>(0)
+  const [answers, setAnswers] = useState<Answers>({data:[]} as Answers )
+  // const [question, setQuestion] = useState<QuestionData>(data[currentIdx] as QuestionData)
+  
+  useEffect(()=>{
+    if (currentIdx < data.length) {
+      // 아직 11번 질문 이하인 경우 다음 질문으로 이동
+      // setQuestion(data[currentIdx]as QuestionData)
+      answers.data[currentIdx] = "a"
+      setAnswers(answers)
+      // console.log(data[currentIdx]as QuestionData)
+    } else {
+      console.log(answers)
+      // 11번 질문 이상인 경우 결과 페이지로 이동
+      // 쿼리 스트링 형식으로 보내기
+      navigate('/preference/testresult');
+    }
+  },[currentIdx])
+
+  //console.log(data);  
+  const handleQuestionSelection = (questionId: string, currentQuestionId: number) => {
+    const nextQuestionId = currentQuestionId + 1;
+    
+    console.log(`Selected job: ${questionId}`);
   };
 
   return (
@@ -31,7 +60,7 @@ const PreferenceTest = () => {
           <div className="PreferenceTestRight">
             <div className="PreferenceTestRightQuestion">01. 저녁 식사에 손님을 초대한다면, 가장 마음에 드는 방법은 무엇인가?</div>
             <ul className="PreferenceTestRightAnswer space-y-4 mb-4">
-              {jobList.map((job) => (
+              {questionList.map((job) => (
                 <li key={job.id}>
                   <input
                     type="radio"
@@ -39,7 +68,7 @@ const PreferenceTest = () => {
                     name="job"
                     value={job.value}
                     className="hidden peer"
-                    onChange={() => handleJobSelection(job.id)}
+                    onChange={() => handleQuestionSelection(job.id, 1)}
                     required
                   />
                   <label
@@ -59,9 +88,11 @@ const PreferenceTest = () => {
           <a href="/preference/colorselect">
             <button className="PreferenceTestPrevBtn" title="이전">이전</button>
           </a>
-          <a href="/preference/testresult">
-          <button className="PreferenceTestNextBtn" title="다음">다음</button>
-          </a>
+          {/* <a href="/preference/testresult"> */}
+          <button className="PreferenceTestNextBtn" title="다음" onClick={()=>{
+            setCurrentIdx(currentIdx+1)
+          }}>다음</button>
+          {/* </a> */}
         </div>
       </div>
     </div>

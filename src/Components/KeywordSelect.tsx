@@ -1,6 +1,6 @@
 import "../Components_scss/KeywordSelect.scss"
 import { useImage } from "../pages/common/hooks/useImage";
-import React from 'react';
+import React, { useState } from 'react';
 
 interface Keyword {
   id: string;
@@ -22,15 +22,11 @@ const keywordList: Keyword[] = [
 
 const Preference = () => {
   const image = useImage()
-  const handleJobSelection = (jobId: string) => {
-    // Your logic for handling job selection goes here
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+  const handleKeywordSelection = (jobId: string) => {
+    setSelectedKeyword(jobId);
     console.log(`Selected job: ${jobId}`);
   };
-
-  const groupedKeywords = [];
-  for (let i = 0; i < keywordList.length; i += 4) {
-    groupedKeywords.push(keywordList.slice(i, i + 4));
-  }
 
   return (
     <div className="PreferenceKeyword">
@@ -41,30 +37,28 @@ const Preference = () => {
         </div>
         <hr className="PreferenceKeywordLine"/>
         <div className="PreferenceKeywordContent">
-          {groupedKeywords.map((group, index) => (
-            <div key={index} className="PreferenceKeywordContentLine">
-              {group.map((keyword) => (
-                <React.Fragment key={keyword.id}>
+            <div className="PreferenceKeywordContentLine">
+              {keywordList.map((state) => (
+                <div key={state.id}>
                   <input
                     type="radio"
-                    id={keyword.id}
+                    id={state.id}
                     name="job"
                     className="hidden peer"
-                    onChange={() => handleJobSelection(keyword.id)}
+                    onChange={() => handleKeywordSelection(state.id)}
                     required
                   />
                   <label
-                    htmlFor={keyword.id}
+                    htmlFor={state.id}
                     className="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
                   >
                     <div className="block">
-                      <div className="w-full text-lg font-semibold">{keyword.label}</div>
+                      <div className="w-full text-lg font-semibold">{state.label}</div>
                     </div>
                   </label>
-                </React.Fragment>
+                </div>
               ))}
             </div>
-          ))}
           {/* <div className="PreferenceKeywordContentLine">
             <div className="PreferenceKeywordContentItem"># 심플한</div>
             <div className="PreferenceKeywordContentItem"># 깨끗한</div>

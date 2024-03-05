@@ -21,8 +21,6 @@ const data = [
   },
 ];
 
-
-
 const PreferenceTestResult = () => {
   return (
     <div className="PreferenceTestResult">
