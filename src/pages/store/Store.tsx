@@ -28,7 +28,8 @@ export const Store = () => {
             image: (product.productImages && product.productImages!!.length > 0 ? product.productImages[0].imageUrl!! : ""),
             title: product.name!!,
             price: product.price!!,
-            productId: `${product.id!!}`
+            productId: `${product.id!!}`,
+            productType: product.productType!!
         } as StoreListItemProps
     })
 
@@ -51,24 +52,16 @@ export const Store = () => {
                     </div>
 
                     <SortingMenu/>
-
                     {/*{상품목록}*/}
-                    <StoreList itemProps={storeItemList}/>
-                    {/*{ 페이지네이션 버튼}*/}
+                    <Suspense fallback={<div>loading</div>}>
+                        <Await resolve={products}>
+                            <StoreList itemProps={storeItemList}/>
+                        </Await>
+                        {/*{ 페이지네이션 버튼}*/}
+                    </Suspense>
                     <GetMore/>
                 </div>
             </div>
-
-            <SortingMenu/>
-
-            {/*{상품목록}*/}
-            <Suspense fallback={<div>loading</div>}>
-                <Await resolve={products}>
-                    <StoreList itemProps={storeItemList}/>
-                </Await>
-                {/*{ 페이지네이션 버튼}*/}
-            </Suspense>
-            <GetMore/>
         </>
     )
 }

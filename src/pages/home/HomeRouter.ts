@@ -11,8 +11,8 @@ export type HomeLoaderData = {
 export async function homeLoader() {
     try {
         const api = new Api().api
-        const bestProduct = await api.getProduct({page: 0, pageSize: 20}, {})
-        const newProduct = await api.getProduct({page: 0, pageSize: 20}, {})
+        const bestProduct = await api.getProduct({pageNo: 0, pageSize: 20}, {})
+        const newProduct = await api.getProduct({pageNo: 0, pageSize: 20}, {})
 
         return defer({
             bestProduct: bestProduct.data,

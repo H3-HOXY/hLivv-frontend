@@ -6,7 +6,7 @@ import Fail from "./Components/Fail";
 import Raffle from "./Components/Raffle";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import Mypage from "./Components/Mypage";
+import Mypage from "./pages/mypage/Mypage";
 import {homeLoader} from "./pages/home/HomeRouter";
 import Home from "./pages/home/Home";
 import {loginAction} from "./pages/login/LoginRouter";
@@ -14,18 +14,18 @@ import {signUpAction} from "./pages/signup/SignUpRouter";
 import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
-import ProfileEdit from "./Components/ProfileEdit";
+import ProfileEdit from "./pages/mypage/ProfileEdit";
 import MyRestore from "./Components/MyRestore";
-import MypageHome from "./Components/MypageHome";
 import ReviewWrite from "./Components/Review";
+import MypageHome from "./pages/mypage/home/MypageHome";
 import MyReview from "./Components/MyReview";
-import PasswordEdit from "./Components/PasswordEdit";
+import PasswordEdit from "./pages/mypage/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
 import Preference from "./Components/Preference";
 import React from "react";
 import {Store} from "./pages/store/Store";
 import {Collabo} from "./pages/collabo/Collabo";
-import Cart from "./Components/Cart";
+import Cart from "./pages/mypage/cart/Cart";
 import Restore from "./Components/Restore";
 import KeywordSelect from "./Components/KeywordSelect";
 import PreferenceHome from "./Components/PreferenceHome";
@@ -41,6 +41,8 @@ import {orderAction} from "./pages/order/OrderRouter";
 import {Order} from "./pages/order/Order";
 import Order2 from "./pages/order/Order2";
 import {storeLoader} from "./pages/store/StoreRouter";
+import {editProfileAction} from "./pages/mypage/MyPageRouter";
+import {collaboLoader} from "./pages/collabo/CollaboRouter";
 
 
 const App = () => {
@@ -84,34 +86,38 @@ function productRoutes() {
 
 function collaboRoutes() {
     return (
-        {path: "/collabo", element: <Collabo/>}
+        {path: "/collabo", element: <Collabo/>, loader: collaboLoader}
     )
 }
 
 function preferenceRoutes() {
-    return {path: "/preference", Component: Preference, children:[
-            {path:"/preference", element:<PreferenceHome/>},
-            {path:"/preference/keywordselect", element:<KeywordSelect/>},
-            {path:"/preference/colorselect", element:<ColorSelect/>},
-            {path:"/preference/preferencetest", element:<PreferenceTest/>},
-            {path:"/preference/testresult", element:<PreferenceTestResult/>},
-            {path:"/preference/interiorrecommend", element:<InteriorRecommend/>},
-        ]}
+    return {
+        path: "/preference", Component: Preference, children: [
+            {path: "/preference", element: <PreferenceHome/>},
+            {path: "/preference/keywordselect", element: <KeywordSelect/>},
+            {path: "/preference/colorselect", element: <ColorSelect/>},
+            {path: "/preference/preferencetest", element: <PreferenceTest/>},
+            {path: "/preference/testresult", element: <PreferenceTestResult/>},
+            {path: "/preference/interiorrecommend", element: <InteriorRecommend/>},
+        ]
+    }
 }
 
-function mypageRoutes(){
-    return {path:"/mypage", Component: Mypage, children:[
-        {path:"/mypage", element:<MypageHome/>},
-        {path:"/mypage/profileedit", element:<ProfileEdit/>},
-        {path:"/mypage/passwordedit", element:<PasswordEdit/>},
-        {path:"/mypage/cart", element:<Cart/>},
-        {path:"/mypage/buydetail", element:<BuyDetail/>},
-        {path:"/mypage/myrestore", element:<MyRestore/>},
-        {path:"/mypage/myrestoredetail", element:<MyRestoreDetail/>},
-        {path:"/mypage/coupon", element:<Coupon/>},
-        {path:"/mypage/reviewwrite", element:<ReviewWrite/>},
-        {path:"/mypage/myreview", element:<MyReview/>},
-    ]}
+function mypageRoutes() {
+    return {
+        path: "/mypage", Component: Mypage, children: [
+            {path: "/mypage", element: <MypageHome/>},
+            {path: "/mypage/profileedit", element: <ProfileEdit/>, action: editProfileAction},
+            {path: "/mypage/passwordedit", element: <PasswordEdit/>},
+            {path: "/mypage/cart", element: <Cart/>},
+            {path: "/mypage/buydetail", element: <BuyDetail/>},
+            {path: "/mypage/myrestore", element: <MyRestore/>},
+            {path: "/mypage/myrestoredetail", element: <MyRestoreDetail/>},
+            {path: "/mypage/coupon", element: <Coupon/>},
+            {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
+            {path: "/mypage/myreview", element: <MyReview/>},
+        ]
+    }
     return {
         path: "/preference", Component: Preference, children: [
             {path: "/preference", element: <PreferenceHome/>},

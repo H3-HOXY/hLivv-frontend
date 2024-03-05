@@ -1,7 +1,7 @@
 import Sidebar from "./Sidebar";
-import "../Components_scss/Mypage.scss"
+import "../../Components_scss/Mypage.scss"
 import { Outlet } from "react-router-dom";
-import Footer from "../pages/common/components/Footer";
+import Footer from "../common/components/Footer";
 
  const Mypage = () => {
   

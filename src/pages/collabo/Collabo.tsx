@@ -11,18 +11,19 @@ import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";
 import "./styles/Collabo.scss"
 import {useLoaderData} from "react-router-dom";
-import {ProductDto} from "../../api/Api";
+import {CollaboDto} from "../../api/Api";
 import {useEffect, useState} from "react";
 import {StoreListItemProps} from "../store/components/StoreListItem";
+import "./styles/Collabo.scss"
 
 export const Collabo = () => {
     const image = useImage()
-    const loaderData = useLoaderData() as { products: ProductDto[] }
-    const [products, setProducts] = useState<ProductDto[]>([])
+    const loaderData = useLoaderData() as { collaboProducts: CollaboDto[] }
+    const [products, setProducts] = useState<CollaboDto[]>([])
 
     useEffect(() => {
         if (!loaderData) return
-        setProducts([...products, ...loaderData.products])
+        setProducts([...products, ...loaderData.collaboProducts])
     }, [loaderData]);
 
     const storeItemList = products.map(product => {
@@ -30,7 +31,8 @@ export const Collabo = () => {
             image: (product.productImages && product.productImages!!.length > 0 ? product.productImages[0].imageUrl!! : ""),
             title: product.name!!,
             price: product.price!!,
-            productId: `${product.id!!}`
+            productId: `${product.id!!}`,
+            productType: product.productType!!
         } as StoreListItemProps
     })
 

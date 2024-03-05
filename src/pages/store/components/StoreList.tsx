@@ -13,7 +13,9 @@ export const StoreList = (props: StoreListProps) => {
                                    image={item.image}
                                    title={item.title}
                                    price={Number(item.price)}
-                                   productId={item.productId}/>
+                                   productId={item.productId}
+                                   productType={item.productType}
+                    />
                 )
             }
         </div>

@@ -12,6 +12,7 @@ import {Await, useLoaderData} from "react-router-dom";
 import {HomeLoaderData} from "./HomeRouter";
 import {categoryItems, homeBannerItems} from "./data";
 import { useImage } from "../common/hooks/useImage";
+import {useData} from "../common/hooks/useData";
 
 
 /**
@@ -21,7 +22,8 @@ import { useImage } from "../common/hooks/useImage";
 
 const Home = () => {
     const {bestProduct, newProduct} = useLoaderData() as HomeLoaderData
- 
+
+    const data = useData()
 
     const popularTerms = ["의자"
         , "책상"

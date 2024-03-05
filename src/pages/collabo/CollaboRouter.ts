@@ -1,4 +1,4 @@
-import {Api, ProductCollaboDto} from "../../api/Api";
+import {Api, CollaboDto, ProductCollaboDto} from "../../api/Api";
 import {defer} from "react-router-dom";
 
 //@ts-ignore
@@ -7,9 +7,11 @@ export async function collaboLoader({request, params}) {
         const api = new Api().api
         // const products = await api.getCollaboProducts({page: 0, pageSize: 20}, {})
         // const products = await api.getCollaboProducts({page: 0, pageSize: 20}, {})
-        const products = await api.getCollaboProducts()
-        return defer({collaboProducts: products.data} as { collaboProducts: ProductCollaboDto[] })
+        const products = await api.getCollaboProducts(
+            {pageNo: 0, pageSize: 20}
+        )
+        return defer({collaboProducts: products.data} as { collaboProducts: CollaboDto[] })
     } catch (e) {
-        return ({collaboProducts: [] as ProductCollaboDto[]})
+        return ({collaboProducts: [] as CollaboDto[]})
     }
 }

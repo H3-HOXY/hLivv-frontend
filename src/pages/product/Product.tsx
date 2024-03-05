@@ -2,19 +2,22 @@ import "./styles/Product.scss"
 import React, {useEffect, useRef, useState} from "react";
 import {IFrameSize, ProductDetailSection} from "./components/detail/ProductDetailSection";
 import {useLoaderData, useLocation} from "react-router-dom";
-import {ProductDto} from "../../api/Api";
+import {Api, ProductDto} from "../../api/Api";
 import {useDescriptionPage} from "../common/hooks/useDescriptionPage";
 import {ProductInfoSection} from "./components/info/ProductInfoSection";
 import {JumpToSection} from "./components/JumpToSection";
 import {useImage} from "../common/hooks/useImage";
 import {ReviewSection} from "./components/review/ReviewSection";
 import {SelectedOption} from "./components/info/SelectedOptionItem";
+import {StoreList} from "../store/components/StoreList";
+import {StoreListItemProps} from "../store/components/StoreListItem";
 
 export const Product = () => {
     const productData = useLoaderData() as ProductDto
     const [iframeSize, setIframeSize] = useState<IFrameSize>({width: 500, height: 1000})
     const [selectedOption, setSelectedOption] = useState<SelectedOption[]>([])
     const descriptionPage = useDescriptionPage()
+    const [collaboProducts, setCollaboProducts] = useState<StoreListItemProps[]>([])
     const location = useLocation()
 
     useEffect(() => {
@@ -22,6 +25,21 @@ export const Product = () => {
     }, []);
     useEffect(() => {
         if (productData != null) {
+            console.log(productData.productType)
+            new Api().api.getCollaboProductItems(productData.id!!).then(response => {
+                console.log(response.data)
+
+                setCollaboProducts(response.data.map((product, index) => {
+                    return {
+                        image: (product.productImages && product.productImages!!.length > 0 ? product.productImages[0].imageUrl!! : ""),
+                        title: product.name!!,
+                        price: product.price!!,
+                        productId: `${product.id!!}`,
+                        productType: product.productType!!
+                    } as StoreListItemProps
+                }))
+            }).catch(e => console.log(e))
+
             setSelectedOption(["1번 옵션", "2번 옵션", "3번 옵션", "4번 옵션"].map((option, index) => {
                 return {
                     index: index,
@@ -64,13 +82,22 @@ export const Product = () => {
                 style={{background: "#FAFAFA"}}>
                 <JumpToSection sections={sections}/>
             </div>
+            {
+                productData.productType === "PRODUCT" ?
+                    (<>
+                        {/* 일반 상품인 경우 -> 제품 설명 */}
+                        <div className="ProductDetail container mx-auto" ref={descriptionRef}>
+                            <ProductDetailSection productLink={descriptionPage("P100001204.html")}
+                                                  iframeSize={iframeSize}
+                                                  setIFrameHeight={setIframeSize}/>
+                        </div>
+                    </>) :
+                    (<>
+                        {/* 콜라보 상품인 경우 -> 콜라보 상품 목록 */}
+                        <StoreList itemProps={collaboProducts}/>
+                    </>)
+            }
 
-            {/* 제품 설명 */}
-            <div className="ProductDetail container mx-auto" ref={descriptionRef}>
-                <ProductDetailSection productLink={descriptionPage("P100001204.html")}
-                                      iframeSize={iframeSize}
-                                      setIFrameHeight={setIframeSize}/>
-            </div>
 
             {/* 리뷰 */}
             <div className="container mx-auto" ref={reviewRef}>

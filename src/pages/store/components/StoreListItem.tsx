@@ -1,13 +1,16 @@
 import {useNavigate} from "react-router-dom";
+import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 
 export type StoreListItemProps = {
     image: string,
     title: string,
-    price: number
-    productId: string
+    price: number,
+    productId: string,
+    productType: "COLLABO" | "PRODUCT"
 }
 export const StoreListItem = (props: StoreListItemProps) => {
     const navigate = useNavigate()
+    const formatter = useCurrencyFormat()
     return (
         <div className="flex flex-col cursor-pointer"
              onClick={() => {
@@ -19,7 +22,7 @@ export const StoreListItem = (props: StoreListItemProps) => {
             </div>
             <div className="p-4 bg-white">
                 <h4 className="text-gray-600">{props.title}</h4>
-                <p className="text-gray-900 font-bold">₩{props.price}원</p>
+                <p className="text-gray-900 font-bold">₩{formatter(props.price)}원</p>
             </div>
         </div>
     )
