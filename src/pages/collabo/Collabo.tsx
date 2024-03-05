@@ -4,7 +4,6 @@ import {useImage} from "../common/hooks/useImage";
  * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
  */
 import {StoreBanner} from "../store/components/StoreBanner";
-import {RoundedButton} from "../store/components/RoundedButton";
 import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";
@@ -43,7 +42,7 @@ export const Collabo = () => {
         } as StoreListItemProps
     })
 
-    const categoryList = collaboCategory.map((category, idx) => {
+    const categoryList = collaboCategory.map((category) => {
         return {
             categoryId: category.id,
             title: category.name
@@ -63,14 +62,6 @@ export const Collabo = () => {
                     {/*{카테고리 메뉴}*/}
                     <CategoryMenu categoryList={categoryList}
                                   onClick={(categoryId: string) => setCategory(categoryId)}/>
-
-                    <div className="flex py-4">
-                        <RoundedButton title={"전체"}/>
-                        <RoundedButton title={"컬러"} arrow={true}/>
-                        <RoundedButton title={"가격"} arrow={true}/>
-                        <RoundedButton title={"브랜드"} arrow={true}/>
-                    </div>
-
                     <SortingMenu/>
 
                     {/*{상품목록}*/}

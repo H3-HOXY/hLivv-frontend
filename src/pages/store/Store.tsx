@@ -4,9 +4,8 @@ import {useImage} from "../common/hooks/useImage";
 import {StoreBanner} from "./components/StoreBanner";
 import {CategoryMenu} from "./components/CategoryMenu";
 import {SortingMenu} from "./SortingMenu";
-import {RoundedButton} from "./components/RoundedButton";
 import "./styles/Store.scss"
-import {Await, useLoaderData, useLocation} from "react-router-dom";
+import {Await, useLoaderData} from "react-router-dom";
 import React, {Suspense, useEffect, useState} from "react";
 import {ProductDto} from "../../api/Api";
 import {StoreListItemProps} from "./components/StoreListItem";
@@ -14,10 +13,8 @@ import {CategoryMenuItemProps} from "./components/CategoryMenuItem";
 
 export const Store = () => {
     const image = useImage()
-    const location = useLocation()
     const loaderData = useLoaderData() as { products: ProductDto[] }
     const [products, setProducts] = useState<ProductDto[]>([])
-    const nodeRef = React.useRef<HTMLDivElement>(null);
     const [category, setCategory] = useState<string>("1")
 
     useEffect(() => {
@@ -55,12 +52,6 @@ export const Store = () => {
                     {/*{카테고리 메뉴}*/}
                     <CategoryMenu categoryList={categoryList}
                                   onClick={(categoryId: string) => setCategory(categoryId)}/>
-                    <div className="flex py-4">
-                        <RoundedButton title={"전체"}/>
-                        <RoundedButton title={"컬러"} arrow={true}/>
-                        <RoundedButton title={"가격"} arrow={true}/>
-                        <RoundedButton title={"브랜드"} arrow={true}/>
-                    </div>
 
                     <SortingMenu/>
                     {/*{상품목록}*/}
