@@ -31,7 +31,8 @@ const Navbar = (props: NavbarProps) => {
     }, [ref]);
     return (
         <nav ref={ref} className="navbar shadow-md border-t-4 border-gray-200 bg-white">
-            <div className="max-w-7xl mx-auto px-4">
+            {/* max-w-7xl */}
+            <div className="max-w-screen-2xl mx-auto px-5">
                 <div className="flex justify-between">
                     {/* 메뉴 */}
                     <div className="flex space-x-4">

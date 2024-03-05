@@ -9,6 +9,7 @@ import {RoundedButton} from "../store/components/RoundedButton";
 import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";
+import "./styles/Collabo.scss"
 import {useLoaderData} from "react-router-dom";
 import {CollaboDto} from "../../api/Api";
 import {useEffect, useState} from "react";
