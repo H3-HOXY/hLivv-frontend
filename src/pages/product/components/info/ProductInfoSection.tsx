@@ -4,7 +4,6 @@ import ImageSlider from "./ImageSlider";
 import QRCode from "qrcode.react";
 import React from "react";
 import {ProductDto} from "../../../../api/Api";
-
 import {AverageReviewScore} from "./AverageReviewScore";
 import {SelectedOption} from "./SelectedOptionItem";
 import {getApi} from "../../../../api/ApiWrapper";
@@ -57,16 +56,6 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                     <h2 className="text-gray-300 p-2">배송</h2>
                     <h2 className=" p-2">배송비 무료</h2>
                 </div>
-
-                {/*/!* 주문옵션 *!/*/}
-                {/*<SelectableOption selectedOption={props.selectedOptions}*/}
-                {/*                  setSelectedOption={props.setSelectedOptions}/>*/}
-
-                {/*/!* 선택된 옵션 *!/*/}
-                {/*<SelectedOptions selectedOptions={props.selectedOptions}*/}
-                {/*                 whenQuantityChanged={*/}
-                {/*                     whenOptionQuantityChanged(props.selectedOptions, props.setSelectedOptions)*/}
-                {/*                 }/>*/}
 
                 {/* 주문금액 */}
                 <div className="flex flex-row justify-between mb-8">

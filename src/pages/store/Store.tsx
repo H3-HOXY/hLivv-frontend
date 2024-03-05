@@ -10,6 +10,7 @@ import {Await, useLoaderData, useLocation} from "react-router-dom";
 import React, {Suspense, useEffect, useState} from "react";
 import {ProductDto} from "../../api/Api";
 import {StoreListItemProps} from "./components/StoreListItem";
+import {CategoryMenuItemProps} from "./components/CategoryMenuItem";
 
 export const Store = () => {
     const image = useImage()
@@ -17,6 +18,11 @@ export const Store = () => {
     const loaderData = useLoaderData() as { products: ProductDto[] }
     const [products, setProducts] = useState<ProductDto[]>([])
     const nodeRef = React.useRef<HTMLDivElement>(null);
+    const [category, setCategory] = useState<string>("1")
+
+    useEffect(() => {
+        // search category product
+    }, [category]);
 
     useEffect(() => {
         if (!loaderData) return
@@ -33,7 +39,12 @@ export const Store = () => {
         } as StoreListItemProps
     })
 
-    const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"]
+    const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"].map((category, idx) => {
+        return {
+            categoryId: `${idx}`,
+            title: category
+        } as CategoryMenuItemProps
+    })
     return (
         <>
             <div className="Store">
@@ -42,8 +53,8 @@ export const Store = () => {
                     <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/>
 
                     {/*{카테고리 메뉴}*/}
-                    <CategoryMenu categoryList={categoryList}/>
-
+                    <CategoryMenu categoryList={categoryList}
+                                  onClick={(categoryId: string) => setCategory(categoryId)}/>
                     <div className="flex py-4">
                         <RoundedButton title={"전체"}/>
                         <RoundedButton title={"컬러"} arrow={true}/>
