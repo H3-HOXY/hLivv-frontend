@@ -2,52 +2,20 @@ import {useImage} from "../../common/hooks/useImage";
 import {Api, CartDto} from "../../../api/Api";
 import {useEffect, useState} from "react";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
+import {CartItemQuantity} from "./CartItemQuantity";
+import {useNavigate} from "react-router-dom";
 
 
-function CartItemQuantity({cartItem, changeQty}: {
-    cartItem: CartDto,
-    changeQty: (productId: number, qty: number) => void
-}) {
-    const setQty = (qty: number) => {
-        if (qty > 0 && qty < cartItem.stockQuantity!!)
-            changeQty(cartItem.productId!!, qty)
-    }
-    const increaseQty = () => {
-        if (cartItem.cartQty!! + 1 <= cartItem.stockQuantity!!)
-            setQty(cartItem.cartQty!! + 1)
-    };
-    const decreaseQty = () => {
-        if (cartItem.cartQty!! - 1 > 0)
-            setQty(cartItem.cartQty!! - 1)
-    };
-    return (<div className={"flex flex-row"}>
-        <div className={"cursor-pointer"}
-             onClick={
-                 decreaseQty
-             }>-
-        </div>
-        <input className={"w-10 text-center"}
-               value={cartItem.cartQty}
-               onChange={(e) => {
-                   if (cartItem.cartQty!! > 0 && cartItem.cartQty!! < cartItem.stockQuantity!!)
-                       setQty(parseInt(e.target.value))
-               }}/>
-        <div className={"cursor-pointer"}
-             onClick={
-                 increaseQty
-             }>+
-        </div>
-    </div>);
-}
-
-export const CartItem = ({item, onCartUpdate}: {
+export const CartItem = ({item, checked, onCartUpdate, onChange}: {
     item: CartDto,
+    checked: boolean,
     onCartUpdate: (productId: number, qty: number) => void
+    onChange: (productId: number, checked: boolean) => void
 }) => {
     const image = useImage()
+    const navigate = useNavigate()
     const [productImageSrc, setProductImageSrc] = useState<string | null>(null)
     const formatter = useCurrencyFormat()
-    const [cartItem, setCartItem] = useState(item)
 
     useEffect(() => {
         if (item.productId === undefined) return
@@ -57,14 +25,29 @@ export const CartItem = ({item, onCartUpdate}: {
             console.error(e)
         })
     }, []);
-    console.log(cartItem)
-    return (<div className="CartContentItem">
+    const goToProduct = () => {
+        navigate(`/product/${item.productId}`)
+    }
+
+    return (<div className="CartContentItem my-6 ">
         <div className="CartContentItemProduct">
             <div className="CartContentProductLeft">
-                <div className="CartContentProductCheckbox"></div>
-                <img className="ProfileImgSrc" src={productImageSrc ?? image("베스트1.jpeg")} title="pic"></img>
+                <div className="CartContentProductCheckbox">
+                    <input type="checkbox"
+                           checked={checked}
+                           onChange={event => {
+                               onChange(item.productId!!, event.target.checked)
+                           }}/>
+                </div>
+                <img className="ProfileImgSrc cursor-pointer"
+                     src={productImageSrc ?? image("베스트1.jpeg")}
+                     title="pic"
+                     alt={`${item.productId}`}
+                     onClick={goToProduct}
+                />
                 <div className="CartContentText">
-                    <div className="CartContentProductName">{item.productName}</div>
+                    <div className="CartContentProductName cursor-pointer"
+                         onClick={goToProduct}> {item.productName}</div>
                     <div className="CartContentProductDelivery">무료배송 | 일반택배</div>
                 </div>
             </div>
@@ -75,8 +58,10 @@ export const CartItem = ({item, onCartUpdate}: {
                                   }}/>
                 <div>{formatter(((item.unitPrice ?? 0) * (item.cartQty ?? 1)))}원</div>
             </div>
-            <div className="CartContentProductDel" onClick={
-                async () => await onCartUpdate(item.productId!!, 0)
+            <div className="CartContentProductDel cursor-pointer" onClick={
+                async () => {
+                    onCartUpdate(item.productId!!, 0)
+                }
             }>X
             </div>
         </div>

@@ -1,5 +1,4 @@
 import "../../../Components_scss/Cart.scss"
-import {useImage} from "../../common/hooks/useImage";
 import {CartItem} from "./CartItem";
 import {useEffect, useState} from "react";
 import {getApi} from "../../../api/ApiWrapper";
@@ -7,9 +6,9 @@ import {CartDto} from "../../../api/Api";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 
 const Cart = () => {
-    const image = useImage()
     const [cartItem, setCartItem] = useState<CartDto[]>([])
-    const priceTotal = cartItem.map((item, idx) => item.totalPrice).reduce((acc, cur) => acc!! + cur!!, 0)
+    const priceTotal = cartItem.map((item) => item.totalPrice).reduce((acc, cur) => acc!! + cur!!, 0)
+    const [selectedProducts, setSelectedProducts] = useState<string[]>([])
     const formatter = useCurrencyFormat()
 
     useEffect(() => {
@@ -38,6 +37,36 @@ const Cart = () => {
         }
     }
 
+    async function removeSelectedItems() {
+        try {
+            const api = await getApi()
+            for (let i = 0; i < selectedProducts.length; i++) {
+                try {
+                    await api.updateCart(Number(selectedProducts[i]), {qty: 0})
+                } catch (e) {
+                    console.error(e)
+                }
+            }
+            const cart = await api.getCarts({page: 0, pageSize: 20}, {})
+            setCartItem(cart.data.content ?? [])
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    function checkAll() {
+        setSelectedProducts(cartItem.map((item) => item.productId!!.toString()))
+    }
+
+    function whenProductChecked(productId: number, checked: boolean) {
+        if (checked) {
+            setSelectedProducts([...selectedProducts, productId.toString()])
+        } else {
+            setSelectedProducts(selectedProducts.filter((id) => id !== productId.toString()))
+        }
+    }
+
+
     return (
         <div className="Cart">
             <div className="CartWrapper">
@@ -45,11 +74,16 @@ const Cart = () => {
                 <div className="CartTitle">장바구니</div>
                 <div className="CartContainSelection">
                     <div className="CartContainSelectionAllCheck">
-                        <div className="CartContainSelectionAllCheckText">모두선택</div>
+                        <div className="CartContainSelectionAllCheckText cursor-pointer"
+                             onClick={checkAll}>모두선택
+                        </div>
                     </div>
-                    <div className="CartContainSelectionDel">선택삭제</div>
+                    <div className="CartContainSelectionDel cursor-pointer"
+                         onClick={removeSelectedItems}>
+                        선택삭제
+                    </div>
                 </div>
-                {/* 같은 브랜드 상품 담을 컨테인 */}
+                {/* 같은 브랜드 상품 담을 컨테이너 */}
                 <div className="CartContain">
                     <div className="CartContainHeader">
                     </div>
@@ -61,9 +95,10 @@ const Cart = () => {
                                 .sort((item1, item2) => (item1.productId!! > item2.productId!!) ? 1 : -1)
                                 .map((item, idx) => {
                                         return (<CartItem key={idx}
+                                                          checked={selectedProducts.filter((id) => id === item.productId!!.toString()).length !== 0}
+                                                          onChange={whenProductChecked}
                                                           item={item}
                                                           onCartUpdate={onCartUpdate}/>)
-
                                     }
                                 )
                         }
@@ -111,31 +146,6 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
-            <div className="CartContain">
-                <div className="CartContainHeader">
-                    <div className="CartContainTitle">COY</div>
-                </div>
-                <div className="CartContent">
-                    <div className="CartContentItem">
-                        <div className="CartContentItemProduct">
-                            <div className="CartContentProductCheckbox"></div>
-                            <div className="CartContentProductPic"><img className="ProfileImgSrc" src="img/flower.png"
-                                                                        title="pic"></img></div>
-                            <div className="CartContentProductName"></div>
-                            <div className="CartContentProductDelivery"></div>
-                            <div className="CartContentProductDel"></div>
-                        </div>
-                        <div className="CartContentOrder">
-                            <div className="CartContentOrderHead"></div>
-                            <div className="CartContentOrderBottom"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* 결제 섹션 */}
-            <div className="CartPayTitle">결제금액</div>
-            <div className="CartPayContain"></div>
         </div>
     );
 }
