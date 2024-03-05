@@ -7,6 +7,11 @@
   align-items: center;
 }
 
+.MyRestoreWrapperTitle{
+  font-weight: 600;
+  font-size: 1.3em;
+}
+
 .MyRestoreWrapper{
   margin: 6em 0;
   width: 70%;
@@ -52,12 +57,19 @@
   margin: 0 3%;
 }
 
+.BuyDetailContentItemDetailTextLeft{
+  height: 100%;
+  // background-color: antiquewhite;
+}
+
 .MyRestoreContentItemBrand{
   // margin-top: 0.5em;
+  color: #B9B9B9;
 }
 
 .MyRestoreContentItemName{
-  margin-top: 0.5em;
+  // margin-top: 0.5em;
+  font-weight: 800;
 }
 
 .MyRestoreContentItemInfo{
@@ -67,9 +79,106 @@
 .MyRestoreContentItemBtn{
   padding: 0.5em 1.5em;
   width: 12%;
-  height: 3em;
+  height: 2.5em;
   border-radius: 5px;
   color: #9A452B;
-  border: 2px solid #9A452B;
-  font-weight: 900;
+  border: 1.2px solid #9A452B;
+  font-weight: 600;
+}
+
+
+// 모달창
+.RestoreModal{
+  overflow: scroll;
+  height:70vh;
+}
+
+.RestoreModalStateTitle, .RestoreModalPicTitle, .RestoreModalDescriptionTitle{
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #B57341;
+}
+
+.RestoreModalStateContent{
+  margin: 1em 0;
+}
+
+.RestoreModalPic{
+  margin-top: 2em;
+  width: 100%;
+  // background-color: skyblue;
+}
+
+.RestoreModalPicContent{
+  width: 100%;
+  // background-color: lightcoral;
+}
+
+.RestoreModalPicContentText{
+  font-weight: 500;
+}
+
+.RestoreModalPicContentButton{
+  width: 100%;
+}
+
+.RestoreModalPicUploadPreviewLabel{
+  margin-top: 1em;
+}
+
+.RestoreModalPicUploadPreviewLImg{
+  width: 20em;
+  height: 20em;
+  margin: 1em 0 2em 0;
+}
+
+.RestoreModalPicUploadInputLabel{
+  all: unset;
+  width: 100%;
+  padding: 0.8em 7em; /*padding를 주어 텍스트를 바탕으로 주변이 10px만큼 떨어지도록 설정*/
+  text-align: center; /*버튼에서 텍스트가 가운데 있도록 설정*/
+  background-color: white;; /*배경 색을 설정(원하는 걸로 바꿔도 됨)*/
+  color: #B57341; /*글자 색*/
+  font-weight: 600; /*폰트 사이즈를 500으로 바꿈*/
+  cursor: pointer; 
+  border-radius: 5px; /*버튼의 둥근 정도를 설정*/
+  transition: opacity linear 0.1s;
+  border: 1.5px solid #B57341;
+}
+
+.RestoreModalPicUploadInput{
+  display: none;
+  width: 100%;
+}
+
+.RestoreModalDescription{
+  margin-top: 3em;
+}
+
+.RestoreModalDescriptionContent{
+  width: 90%;
+  height: 10em;
+  border: 1px solid #DBDBDB;
+  color: black;
+  placeholder: #DBDBDB;
+  border-radius: 5px;
+  padding: 1em;
+  font-weight: 500;
+}
+
+.RestoreModalInfo{
+  margin-top: 2em;
+  width: 90%;
+  border-radius: 5px;
+  padding: 1.2em;
+  margin-bottom: 2em;
+  background-color: #F5F5F5;
+  .RestoreModalInfoTitle{
+    font-weight: 800;
+    font-size: 1.2em;
+  }
+  .RestoreModalInfoContent{
+    font-weight: 500;
+    margin-top: 0.5em;
+  }
 }

@@ -4,9 +4,9 @@ import {HomeSliderItemProps} from "./components/HomeBanner";
 export const categoryItems: CategoryItemProps[] = [
     {img: "img/소파.png", text: "소파"},
     {img: "img/식탁.png", text: "식탁"},
-    {img: "img/침대:매트리스.png", text: "침대/매트리스"},
+    {img: "img/침대.png", text: "침대/매트리스"},
     {img: "img/거실장.png", text: "거실장"},
-    {img: "img/옷장:드레스룸.png", text: "옷장/드레스룸"},
+    {img: "img/옷장.png", text: "옷장/드레스룸"},
     {img: "img/서재.png", text: "서재"},
     {img: "img/유아동.png", text: "유아동"},
     {img: "img/홈데코.png", text: "홈데코"},
@@ -15,9 +15,5 @@ export const categoryItems: CategoryItemProps[] = [
 
 export const homeBannerItems: HomeSliderItemProps[] = [
     {img: "banner.png", title: "banner1"},
-    {img: "banner.png", title: "banner2"},
-    {img: "banner.png", title: "banner3"},
-    {img: "banner.png", title: "banner4"},
-    {img: "banner.png", title: "banner5"},
-    {img: "banner.png", title: "banner6"},
+    {img: "couponbanner.png", title: "banner2"},
 ]

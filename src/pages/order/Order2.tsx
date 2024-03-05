@@ -1,11 +1,12 @@
 import "../../Components_scss/Order.scss"
 import {initTE, Select} from "tw-elements";
-import {useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {loadPaymentWidget, PaymentWidgetInstance} from "@tosspayments/payment-widget-sdk"
 import ModalBase from '../../Components/ModalBase';
 import CardModal from '../../Components/CardModal';
 import {OrderReqDto} from "../../api/Api";
 import {useSubmit} from "react-router-dom";
+import DaumPostcode from "react-daum-postcode";          
 
 initTE({Select});
 
@@ -59,9 +60,30 @@ const Order2 = () => {
         setIsActive(false);
     };
 
-    const onClickCardRemove = () => {
-        alert('이벤트 실행');
-    };
+    // 주소 결제 기능
+    const [zipCode, setZipcode] = useState<string>("");
+    const [roadAddress, setRoadAddress] = useState<string>("");
+    const [detailAddress, setDetailAddress] = useState<string>("");
+
+    const completeHandler = (data:any) =>{
+        setZipcode(data.zonecode);
+        setRoadAddress(data.roadAddress);
+        onClickModalOff();
+        alert('주소가 변경되었습니다.');
+        console.log(data);
+    }
+        // 상세 주소검색 event
+    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setDetailAddress(e.target.value);
+    }
+
+    const clickHandler = () =>{
+        if(detailAddress===""){
+            alert("상세주소를 입력해주세요.");
+        } else{
+            console.log(zipCode, roadAddress, detailAddress);
+        } 
+    }
 
     return (
         <div className="Order max-w-7xl mx-auto px-4">
@@ -73,11 +95,12 @@ const Order2 = () => {
                         <div className="OrderDestinationTitleLeft">배송지</div>
                         <button onClick={onClickModalOn}>변경</button>
                         <ModalBase active={isActive} closeEvent={onClickModalOff}>
-                            <CardModal closeEvent={onClickModalOff} title="주소지 변경" actionMsg="삭제"
-                                       actionEvent={onClickCardRemove}>
-                                주소록을 변경하시겠습니까?
-                                <br/>
-                                변경할 주소를 선택하세요.
+                            <CardModal closeEvent={onClickModalOff} title="주소지 변경" actionMsg="">
+                                <div className="OrderModal">
+                                    <DaumPostcode 
+                                        onComplete={completeHandler}
+                                    />
+                                </div>
                             </CardModal>
                         </ModalBase>
                     </div>
@@ -87,25 +110,44 @@ const Order2 = () => {
                             <div className="OrderDestinationName">홍길동</div>
                             <div className="OrderDestinationNameInfo">기본배송지</div>
                         </div>
-                        <div className="OrderDestinationAddress">서울시 00구 00로 00아파트 000호</div>
-                        <div className="OrderDestinationTel">010-1234-5678</div>
+                        <div className="OrderDestinationSecond">
+                            <div className="OrderDestinationSecondTitle">우편번호</div>
+                            <input className="OrderDestinationZipAddress" value={zipCode} readOnly placeholder="우편번호"/>
+                        </div>
+                        <div className="OrderDestinationSecond">
+                            <div className="OrderDestinationSecondTitle">도로명주소</div>
+                            <input className="OrderDestinationStreetAddress" value={roadAddress} readOnly placeholder="도로명 주소" />
+                        </div>
+                        <div className="OrderDestinationSecond">
+                            <div className="OrderDestinationSecondTitle">상세주소</div>
+                            <input className="OrderDestinationDetailAddress" type="text" onChange={changeHandler} value={detailAddress} placeholder="상세주소"/>
+                            <button className="OrderDestinationContentBtn" onClick={clickHandler} title="클릭">주소지저장</button>
+                        </div>
+                        <div className="OrderDestinationSecond">
+                            <div className="OrderDestinationSecondTitle">전화번호</div> 
+                            <div className="OrderDestinationTel">02-373-2521</div>
+                        </div>
+                        <div className="OrderDestinationSecond">
+                            <div className="OrderDestinationSecondTitle">휴대전화</div> 
+                            <div className="OrderDestinationTel">010-3452-5677</div>
+                        </div>
                         {/* 배송메세지 */}
                         <select className="OrderDestinationRequire" title="message" data-te-select-init
                                 data-te-select-option-height="52">
                             <option value="1" data-te-select-secondary-text="Secondary text">
-                                One
+                                부재시 경비실에 맡겨주세요.
                             </option>
                             <option value="2" data-te-select-secondary-text="Secondary text">
-                                Two
+                                부재시 문앞에 놔주세요.
                             </option>
                             <option value="3" data-te-select-secondary-text="Secondary text">
-                                Three
+                                방문시 노크하지 말아주세요.
                             </option>
                             <option value="4" data-te-select-secondary-text="Secondary text">
-                                Four
+                                방문전 미리 연락 부탁드립니다.
                             </option>
                             <option value="5" data-te-select-secondary-text="Secondary text">
-                                Five
+                                경비실에 맡겨주세요.
                             </option>
                         </select>
                     </div>

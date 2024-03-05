@@ -17,7 +17,7 @@ import {Product} from "./pages/product/Product";
 import ProfileEdit from "./Components/ProfileEdit";
 import MyRestore from "./Components/MyRestore";
 import MypageHome from "./Components/MypageHome";
-import ReviewWrite from "./Components/ReviewWrite";
+import ReviewWrite from "./Components/Review";
 import MyReview from "./Components/MyReview";
 import PasswordEdit from "./Components/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
@@ -31,6 +31,12 @@ import KeywordSelect from "./Components/KeywordSelect";
 import PreferenceHome from "./Components/PreferenceHome";
 import ColorSelect from "./Components/ColorSelect";
 import Modal from "./Components/Modal";
+import PreferenceTest from "./Components/PreferenceTest";
+import PreferenceTestResult from "./Components/PreferenceTestResult";
+import InteriorRecommend from "./Components/InteriorRecommend";
+import BuyDetail from "./Components/BuyDetail";
+import MyRestoreDetail from "./Components/MyRestoreDetail";
+import Coupon from "./Components/Coupon";
 import {orderAction} from "./pages/order/OrderRouter";
 import {Order} from "./pages/order/Order";
 import Order2 from "./pages/order/Order2";
@@ -83,6 +89,29 @@ function collaboRoutes() {
 }
 
 function preferenceRoutes() {
+    return {path: "/preference", Component: Preference, children:[
+            {path:"/preference", element:<PreferenceHome/>},
+            {path:"/preference/keywordselect", element:<KeywordSelect/>},
+            {path:"/preference/colorselect", element:<ColorSelect/>},
+            {path:"/preference/preferencetest", element:<PreferenceTest/>},
+            {path:"/preference/testresult", element:<PreferenceTestResult/>},
+            {path:"/preference/interiorrecommend", element:<InteriorRecommend/>},
+        ]}
+}
+
+function mypageRoutes(){
+    return {path:"/mypage", Component: Mypage, children:[
+        {path:"/mypage", element:<MypageHome/>},
+        {path:"/mypage/profileedit", element:<ProfileEdit/>},
+        {path:"/mypage/passwordedit", element:<PasswordEdit/>},
+        {path:"/mypage/cart", element:<Cart/>},
+        {path:"/mypage/buydetail", element:<BuyDetail/>},
+        {path:"/mypage/myrestore", element:<MyRestore/>},
+        {path:"/mypage/myrestoredetail", element:<MyRestoreDetail/>},
+        {path:"/mypage/coupon", element:<Coupon/>},
+        {path:"/mypage/reviewwrite", element:<ReviewWrite/>},
+        {path:"/mypage/myreview", element:<MyReview/>},
+    ]}
     return {
         path: "/preference", Component: Preference, children: [
             {path: "/preference", element: <PreferenceHome/>},
@@ -93,25 +122,9 @@ function preferenceRoutes() {
 
 }
 
-
-
 function storeRouters() {
     return {
         path: "/store", element: <Store/>, loader: storeLoader
-    }
-}
-
-function mypageRoutes() {
-    return {
-        path: "/mypage", Component: Mypage, children: [
-            {path: "/mypage", element: <MypageHome/>},
-            {path: "/mypage/cart", element: <Cart/>},
-            {path: "/mypage/profileedit", element: <ProfileEdit/>},
-            {path: "/mypage/passwordedit", element: <PasswordEdit/>},
-            {path: "/mypage/myrestore", element: <MyRestore/>},
-            {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
-            {path: "/mypage/myreview", element: <MyReview/>},
-        ]
     }
 }
 

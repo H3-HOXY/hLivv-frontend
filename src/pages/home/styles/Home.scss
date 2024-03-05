@@ -40,10 +40,17 @@
 // 홈내비 실시간 순위 범위
 .describeMyself {
   display: flex;
+  align-items: center;
   height: 1.5em;
   overflow: hidden;
   color:black;
   z-index: 11;
+}
+
+.describeTitle{
+  font-weight: 700;
+  font-size: 0.8em;
+  margin-right: 1.5em;
 }
 
 // 홈내비 실시간 순위 내용 리스트
@@ -60,6 +67,8 @@
     flex-wrap: nowrap;
   }
 }
+
+// 홈배너
 
 .HomeBannerWrapper{
   margin-top: 3.5em;
@@ -108,7 +117,7 @@
   flex-direction: column;
   align-items: start;
   margin-top: 5em;
-
+  font-weight: 500;
   // background-color: antiquewhite;
 }
 
@@ -137,11 +146,13 @@
     height: 100%;
   }
   div{
-    font-weight: 1000;
+    font-weight: 600;
     font-size: 0.8em;
     margin-top: 1em;
   }
 }
+
+// 베스트 상품
 
 .BestProduct{
   display: flex;
@@ -162,21 +173,66 @@
 
 .BestSlider, .NewSlider{
   width: 100%;
+  height: 100%;
   // background-color: aqua;
 }
 
-.BestItem, .NewItem{
+.BestItem{
   // background-color: aquamarine;
   // border: 3px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8em;
   img{
-    border-radius: 20px;
-    width: 15em;
+    border-radius: 10px;
+    width: 16em;
   }
+}
+
+.BestItemWrapper, .NewItemWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.BestItemWrapperText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 1em;
+  margin-left: 1em;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.NewItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8em;
+  img{
+    border-radius: 10px;
+    width: 12em;
+  }
+}
+
+// 신상품
+.NewItemWrapperText{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-weight: 500;
+  font-size: 0.7em;
+  margin-top: 1em;
+  margin-left: 1em;
 }
 
 .NewProduct{
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-top: 3em;
+  margin-top: 4em;
+  width: 100%;
+  // background-color: antiquewhite;
 }

@@ -12,7 +12,6 @@ type BestItemContainerProps = {
     @since 2024.02.19
     @author 최정윤, 이호연 */
 export const BestItemContainer = (props: BestItemContainerProps) => {
-
     const navigate = useNavigate()
     const bestItemSliderSettings = {
         className: "center",
@@ -33,21 +32,24 @@ export const BestItemContainer = (props: BestItemContainerProps) => {
             <div className="BestContent">
                 <div className="BestSlider">
                     <Slider {...bestItemSliderSettings}>
-                        {
-                            getItemList(props.products).map((product, idx) => {
-                                    return (
-                                        <div key={idx} className="BestItem" onClick={
-                                            () => {
-                                                navigate(`/product/${product.id}`)
-                                            }
-                                        }>
-                                            <img src={`${product.productImages!![0].imageUrl}`} title="pic"
-                                                 alt={`${product.id}`}/>
+                        {getItemList(props.products).map((product, idx) => {
+                            return (
+                                <div key={idx} className="BestItem"
+                                onClick={() => {
+                                        navigate(`/product/${product.id}`)
+                                    }
+                                    }>
+                                    <div className="BestItemWrapper">
+                                        <img src={`${product.productImages!![0].imageUrl}`} title="pic"
+                                                alt={`${product.id}`}/>
+                                        <div className="BestItemWrapperText">
+                                            <div>에스테틱 호텔침대 프레임 (8종)</div>
+                                            <div>921,000원</div>
                                         </div>
-                                    )
-                                }
+                                    </div>
+                                </div>
                             )
-                        }
+                        })}
                     </Slider>
                 </div>
             </div>

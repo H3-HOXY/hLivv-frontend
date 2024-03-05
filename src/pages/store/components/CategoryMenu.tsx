@@ -5,8 +5,8 @@ export type CategoryMenuProps = {
 }
 export const CategoryMenu = (props: CategoryMenuProps) => {
     const slicedList = Array<string[]>();
-    for (let i = 0; i < props.categoryList.length; i += 4) {
-        slicedList.push(props.categoryList.slice(i, i + 4))
+    for (let i = 0; i < props.categoryList.length; i += 7) {
+        slicedList.push(props.categoryList.slice(i, i + 7))
     }
 
     return (
@@ -17,7 +17,7 @@ export const CategoryMenu = (props: CategoryMenuProps) => {
                     (array, idx) => {
                         return (
                             <div key={idx}>
-                                <div  className="grid pt-4 md:grid-cols-4 justify-items-center items-center px-4 pb-4">
+                                <div  className="grid pt-0 md:grid-cols-7 justify-items-center items-center px-2 pb-0">
                                     {/*<span className="text-xs font-semibold"/>*/}
                                     {array.map((item, idx) => (
                                         <CategoryMenuItem key={idx} title={item}

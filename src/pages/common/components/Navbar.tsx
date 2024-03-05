@@ -17,6 +17,8 @@ const Navbar = (props: NavbarProps) => {
     const image = useImage()
     const [showMenus, setShowMenus] = useState(false)
 
+    const [showMenu, setShowMenu] = useState<boolean>(false)
+
     useEffect(() => {
         if (ref.current === null) return
         // @ts-ignore
@@ -29,7 +31,8 @@ const Navbar = (props: NavbarProps) => {
     }, [ref]);
     return (
         <nav ref={ref} className="navbar shadow-md border-t-4 border-gray-200 bg-white">
-            <div className="max-w-7xl mx-auto px-4">
+            {/* max-w-7xl */}
+            <div className="max-w-screen-2xl mx-auto px-5">
                 <div className="flex justify-between">
                     {/* 메뉴 */}
                     <div className="flex space-x-4">
@@ -39,7 +42,7 @@ const Navbar = (props: NavbarProps) => {
                                 <span className="font-bold">H.Livv</span>
                             </Link>
                         </div>
-                        <div className="hidden md:flex items-center space-x-1">
+                        <div className="navbarmenu hidden md:flex items-center space-x-1">
                             {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
                                 INTRO
                             </Link> */}
@@ -66,12 +69,13 @@ const Navbar = (props: NavbarProps) => {
                     {props.authentication && (
                         <div className="hidden md:flex items-center space-x-1">
                             <Link className="py-5 px-3" to="/logout">
-                                Logout
+                                로그아웃
                             </Link>
+                            {/* bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 */}
                             <Link
-                                className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
+                                className="py-2 px-3 rounded transition duration-300"
                                 to="/mypage">
-                                Mypage
+                                마이페이지
                             </Link>
                         </div>
                     )}
@@ -80,12 +84,12 @@ const Navbar = (props: NavbarProps) => {
                     {!props.authentication && (
                         <div className="hidden md:flex items-center space-x-1">
                             <Link className="py-5 px-3" to="/login">
-                                Login
+                                로그인
                             </Link>
                             <Link
-                                className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300"
+                                className="py-2 px-3  rounded transition duration-300"
                                 to="/signup">
-                                Signup
+                                회원가입
                             </Link>
                         </div>
                     )}

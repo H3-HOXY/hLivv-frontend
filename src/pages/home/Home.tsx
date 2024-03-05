@@ -23,10 +23,10 @@ const Home = () => {
     const {bestProduct, newProduct} = useLoaderData() as HomeLoaderData
  
 
-    const popularTerms = ["Ambitious"
-        , "Promising"
-        , "Creative"
-        , "ambitious"]
+    const popularTerms = ["의자"
+        , "책상"
+        , "침대"
+        , "스탠드"]
 
     return (
         <div className="HomeWrapper">
