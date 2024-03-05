@@ -45,9 +45,15 @@ export const NewItemContainer = (props: NewItemContainerProps) => {
                                          if (!isDragging)
                                              navigate(`/product/${product.id}`)
                                      }
-                                     }>
-                                    <img src={`${product.productImages!![0].imageUrl}`} title="pic"
-                                         alt={`${product.id}`}/>
+                                    }>
+                                    <div className="NewItemWrapper">
+                                        <img src={`${product.productImages!![0].imageUrl}`} title="pic"
+                                            alt={`${product.id}`}/>
+                                        <div className="NewItemWrapperText">
+                                            <div>에스테틱 호텔침대 프레임 (8종)</div>
+                                            <div>921,000원</div>
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         })}

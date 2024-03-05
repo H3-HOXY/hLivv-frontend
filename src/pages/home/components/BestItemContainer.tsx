@@ -38,25 +38,31 @@ export const BestItemContainer = (props: BestItemContainerProps) => {
             <div className="BestContent">
                 <div className="BestSlider">
                     <Slider {...bestItemSliderSettings}>
-                        {
-                            getItemList(props.products).map((product, idx) => {
-                                    const handleMouseUp = () => {
-                                        if (!isDragging) {
-                                            navigate(`/product/${product.id}`)
-                                        }
-                                        setDragging(false)
+                        {getItemList(props.products).map((product, idx) => {
+                                const handleMouseUp = () => {
+                                    if (!isDragging) {
+                                        navigate(`/product/${product.id}`)
                                     }
-                                    return (
-                                        <div key={idx} className="BestItem"
-                                             onMouseDown={handleMouseDown}
-                                             onMouseMove={handleMouseMove}
-                                             onMouseUp={handleMouseUp}>
+                                    setDragging(false)
+                                }
+                                return (
+                                    <div key={idx}
+                                         className="BestItem"
+                                         onMouseDown={handleMouseDown}
+                                         onMouseMove={handleMouseMove}
+                                         onMouseUp={handleMouseUp}>
+                                        <div className="BestItemWrapper">
                                             <img src={`${product.productImages!![0].imageUrl}`} title="pic"
                                                  alt={`${product.id}`}/>
+                                            <div className="BestItemWrapperText">
+                                                <div>에스테틱 호텔침대 프레임 (8종)</div>
+                                                <div>921,000원</div>
+                                            </div>
                                         </div>
-                                    )
-                                }
-                            )
+
+                                    </div>)
+                            }
+                        )
                         }
                     </Slider>
                 </div>

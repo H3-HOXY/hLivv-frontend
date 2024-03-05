@@ -7,7 +7,7 @@ export type CategoryMenuItemProps = {
 export const CategoryMenuItem = (props: CategoryMenuItemProps) => {
     return (
         <>
-            <span className="CategoryMenuItem w-full py-4 text-[1rem] font-semibold">{props.title}</span>
+            <span className="CategoryMenuItem w-full py-3 text-[1rem] font-semibold">{props.title}</span>
         </>
     )
 }

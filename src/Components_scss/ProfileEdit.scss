@@ -25,12 +25,20 @@
   // background-color: aquamarine;
 }
 
+.ProfileEditTitle{
+  font-weight: 900;
+  font-size: 1.3em;
+}
+
 .ProfileEditContentTitle{
   margin-top: 1.5em;
+  font-weight: 500;
 }
 
 .ProfileEditContentId{
   margin-top: 1em;
+  color: #909090;
+  margin-top: 1.5em;
 }
 
 .ProfileEditContentIdEdit{
@@ -42,6 +50,7 @@
 
 .ProfileEditContentPassword{
   margin-top: 1em;
+  color: #909090;
 }
 
 .ProfileEditContentIdInput{

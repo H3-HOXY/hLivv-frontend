@@ -4,8 +4,8 @@ const ProfileEdit = () => {
   return (
     <div className="ProfileEdit">
       <div className="ProfileEditWrapper">
+        <div className="ProfileEditTitle">프로필관리</div>
         <div className="ProfileEditContent">
-          <div className="ProfileEditTitle">프로필관리</div>
           <div className="ProfileEditContentTitle">프로필정보</div>
 
           <div className="ProfileEditContentId">이메일</div>

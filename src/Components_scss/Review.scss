@@ -1,0 +1,79 @@
+.Review{
+  width: 100%;
+  height: calc(100vh - 4.5em);
+  // background-color: yellow;
+  display: flex;
+  justify-content: center;
+}
+
+.ReviewWrapper{
+  width: 70%;
+  // background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.ReviewTitle{
+  font-weight: 900;
+  font-size: 1.2em;
+  margin-top: 6em;
+}
+
+.ReviewContent{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.ReviewContentItem{
+  display: flex;
+  width: 100%;
+  // background-color: blue;
+}
+
+.ReviewContentItemImg{
+  width: 15%;
+  border-radius: 10px;
+  margin-right: 3%;
+}
+
+.ReviewContentItemDetail{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: aqua;
+}
+
+.ReviewContentItemDetailText{
+  width: 80%;
+  // background-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100%;
+}
+
+.ReviewContentItemDetailBrand{
+  color: #B9B9B9;
+}
+
+.ReviewContentItemDetailName{
+  font-weight: 900;
+}
+
+.ReviewContentItemDetailPoint{
+  margin-top: 1.2em;
+  color: #B57341;
+}
+
+.ReviewContentItemDetailBtn{
+  border-radius: 5px;
+  border: 1px solid #B57341;
+  color: #B57341;
+  width: 15%;
+  height: 2.5em;
+  // background-color: yellow;
+}
