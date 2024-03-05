@@ -47,16 +47,16 @@ const Navbar = (props: NavbarProps) => {
                                 INTRO
                             </Link> */}
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/store">
-                                STORE
+                                쇼핑
                             </Link>
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/collabo">
-                                COLLABO
+                                콜라보
                             </Link>
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/preference">
-                                PREFERENCE
+                                취향찾기
                             </Link>
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/restore">
-                                RE-STORE
+                                리스토어
                             </Link>
                             {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/raffle">
                                 RAFFLE
@@ -67,7 +67,7 @@ const Navbar = (props: NavbarProps) => {
                     {/* 메뉴2 */}
                     {/* Menu for authenticated users */}
                     {props.authentication && (
-                        <div className="hidden md:flex items-center space-x-1">
+                        <div className="navbarauth hidden md:flex items-center space-x-1">
                             <Link className="py-5 px-3" to="/logout">
                                 로그아웃
                             </Link>
@@ -135,22 +135,22 @@ const Navbar = (props: NavbarProps) => {
             {/* mobile menu items */}
             <div className={classNames("md:hidden", {hidden: !showMenus})}>
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200 z-50" to="/">
-                    HOME
+                    홈
                 </Link>
                 {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">
                     INTRO
                 </Link> */}
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/store">
-                    STORE
+                    쇼핑
                 </Link>
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/collabo">
-                    COLLABO
+                    콜라보
                 </Link>
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/preference">
-                    PREFERENCE
+                    취향찾기
                 </Link>
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/restore">
-                    RESTORE
+                    리스토어
                 </Link>
                 {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/raffle">
                     RAFFLE

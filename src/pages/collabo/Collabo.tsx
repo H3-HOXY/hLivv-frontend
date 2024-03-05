@@ -3,7 +3,7 @@ import {useImage} from "../common/hooks/useImage";
 /**
  * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
  */
-import {StoreBanner} from "../store/components/StoreBanner";
+import {CollaboBanner} from "../store/components/CollaboBanner";
 import {CategoryMenu} from "../store/components/CategoryMenu";
 import {RoundedButton} from "../store/components/RoundedButton";
 import {SortingMenu} from "../store/SortingMenu";
@@ -34,13 +34,13 @@ export const Collabo = () => {
         } as StoreListItemProps
     })
 
-    const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"]
+    const categoryList = ["전체", "거실", "서재", "주방", "자녀방", "침실"]
     return (
         <>
             <div className="Collabo">
                 <div className="CollaboWrapper container mx-auto p-12">
                     <div className="CollaboTitle">COLLABO</div>
-                    <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/>
+                    <CollaboBanner image={image("ARKA.png")} alt={"ARKA"}/>
 
                     {/*{카테고리 메뉴}*/}
                     <CategoryMenu categoryList={categoryList}/>
