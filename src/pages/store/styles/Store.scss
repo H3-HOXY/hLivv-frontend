@@ -14,3 +14,38 @@
   font-weight: 900;
   font-size: 3em;
 }
+
+.StoreBannerWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  // background-color: antiquewhite;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.StoreBanner{
+  width: 100%;
+}
+
+.StoreSlider{
+  width: 100%;
+  height: 100%;
+  // margin: 0 2%;
+  // background-color: blueviolet;
+  // border-radius: 20px;
+}
+
+.StoreSliderItem{
+  display: flex;
+  // background-color: antiquewhite;
+  // background-image: url('img/리바트.png');
+  // background-size:contain;
+  width: 100vw;
+  height: 22em;
+  // border-radius: 20px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}

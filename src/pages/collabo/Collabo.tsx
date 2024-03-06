@@ -4,6 +4,9 @@ import {useImage} from "../common/hooks/useImage";
  * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
  */
 import {StoreBanner} from "../store/components/StoreBanner";
+import {CollaboBanner} from "../store/components/CollaboBanner";
+import {CategoryMenu} from "../store/components/CategoryMenu";
+import {RoundedButton} from "../store/components/RoundedButton";
 import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";

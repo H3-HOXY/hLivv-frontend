@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import data from "../question.json" 
 import { useEffect, useState } from "react";
 
-
 interface Question {
   id: string;
   value: string;
@@ -13,7 +12,7 @@ interface Question {
 type Answers={
   data:string[]
 }
-type QuestionData={question:string, number:number, answer:{ value: string; text: string; }[]}
+type QuestionData={question:string, answer:{ value: string; text: string; }[]}
 const questionList: Question[] = [
   { id: '1', value: 'a', label: 'a. 긴 식탁 하나에 손님들을 모두 앉히고 음식을 푸짐하게 준비해서 대접한다. 활기찬 대화가 끊이지 않도록 한다.'},
   { id: '2', value: 'b', label: 'b. 촛불을 켜놓고 식탁을 우아하게 장식해서 고전적인 분위기를 낸다.'},
@@ -34,7 +33,7 @@ const PreferenceTest = () => {
       // setQuestion(data[currentIdx]as QuestionData)
       answers.data[currentIdx] = "a"
       setAnswers(answers)
-      // console.log(data[currentIdx]as QuestionData)
+      console.log(answers.data[currentIdx])
     } else {
       console.log(answers)
       // 11번 질문 이상인 경우 결과 페이지로 이동

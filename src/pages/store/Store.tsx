@@ -10,6 +10,7 @@ import React, {Suspense, useEffect, useState} from "react";
 import {ProductDto} from "../../api/Api";
 import {StoreListItemProps} from "./components/StoreListItem";
 import {CategoryMenuItemProps} from "./components/CategoryMenuItem";
+import {storeBannerItems} from "./data";
 
 export const Store = () => {
     const image = useImage()
@@ -36,18 +37,20 @@ export const Store = () => {
         } as StoreListItemProps
     })
 
-    const categoryList = ["전체", "가구", "거실", "서재", "주방", "자녀방", "침실"].map((category, idx) => {
+    const categoryList = ["전체", "소파", "식탁", "침대", "거실장", "옷장", "화장대", "수납장", "책상", "키즈", "홈데코", "벽지"] .map((category, idx) => {
         return {
             categoryId: `${idx}`,
             title: category
         } as CategoryMenuItemProps
     })
+
     return (
         <>
             <div className="Store">
                 <div className="StoreWrapper container mx-auto p-12">
                     <div className="StoreTitle">STORE</div>
-                    <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/>
+                    {/* <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/> */}
+                    <StoreBanner sliderItems={storeBannerItems}/>
 
                     {/*{카테고리 메뉴}*/}
                     <CategoryMenu categoryList={categoryList}
