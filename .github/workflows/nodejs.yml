@@ -1,0 +1,41 @@
+name: NodeJS with Webpack
+
+on:
+  push:
+    branches: [ "deploy" ]
+  pull_request:
+    branches: [ "deploy" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 14.x, 16.x, 18.x ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Docker image to ECR
+        run: |
+          JAR_FILE=$(ls *.jar)
+          docker build -t hlivv_frontend .
+          docker tag hlivv_frontend:latest ${{ secrets.AWS_ECR_REPOSITORY_URL }}:latest
+          docker push ${{ secrets.AWS_ECR_REPOSITORY_URL }}:latest
