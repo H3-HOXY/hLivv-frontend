@@ -3,7 +3,7 @@ import {useImage} from "../common/hooks/useImage";
 /**
  * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
  */
-import {StoreBanner, StoreSliderItemProps} from "../store/components/StoreBanner";
+import {StoreBannerNoSlide} from "../store/components/StoreBanner";
 import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";
@@ -42,19 +42,13 @@ export const Collabo = () => {
         } as StoreListItemProps
     })
 
-    const _categoryList = collaboCategory.map((category) => {
+    const categoryList = collaboCategory.map((category) => {
         return {
             categoryId: category.id,
             title: category.name,
         } as CategoryMenuItemProps
     })
-    const categoryList = collaboCategory.map((category) => {
-        return {
-            categoryId: category.id,
-            title: category.name,
-            img: category.image
-        } as StoreSliderItemProps
-    })
+
 
     const selectedCategory = collaboCategory.filter(item => item.id === category)
     return (
@@ -62,16 +56,12 @@ export const Collabo = () => {
             <div className="Collabo">
                 <div className="CollaboWrapper container mx-auto p-12">
                     <div className="CollaboTitle">COLLABO</div>
-                    <StoreBanner sliderItems={categoryList}/>
-                    {/*<StoreBanner*/}
-                    {/*    */}
-                    {/*    img={image(selectedCategory.length > 0 ? selectedCategory[0].image!! : collaboCategory[0].image)}*/}
-                    {/*    sliderItems={}*/}
-                    {/*    // image={image(selectedCategory.length > 0 ? selectedCategory[0].image!! : collaboCategory[0].image)}*/}
-                    {/*    alt={selectedCategory[0].name ?? ""}/>*/}
+                    <StoreBannerNoSlide
+                        img={image(selectedCategory.length > 0 ? selectedCategory[0].image!! : collaboCategory[0].image)}
+                        title={selectedCategory[0].name ?? ""}/>
 
                     {/*{카테고리 메뉴}*/}
-                    <CategoryMenu categoryList={_categoryList}
+                    <CategoryMenu categoryList={categoryList}
                                   onClick={(categoryId: string) => setCategory(categoryId)}/>
                     <SortingMenu/>
 

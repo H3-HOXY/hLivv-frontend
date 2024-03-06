@@ -6,9 +6,11 @@ export type CategoryMenuProps = {
     onClick: (categoryId: string) => void
 }
 export const CategoryMenu = (props: CategoryMenuProps) => {
-    const slicedList = Array<string[]>();
+    const slicedList = Array<{ categoryId: string, title: string }[]>();
     for (let i = 0; i < props.categoryList.length; i += 6) {
-        slicedList.push(props.categoryList.slice(i, i + 6).map(item => item.title))
+        slicedList.push(props.categoryList.slice(i, i + 6).map(item => {
+            return {categoryId: item.categoryId, title: item.title}
+        }))
     }
 
     return (
@@ -23,8 +25,8 @@ export const CategoryMenu = (props: CategoryMenuProps) => {
                                     {/*<span className="text-xs font-semibold"/>*/}
                                     {array.map((item, idx) => (
                                         <CategoryMenuItem key={idx}
-                                                          title={item}
-                                                          categoryId={item}
+                                                          title={item.title}
+                                                          categoryId={item.categoryId}
                                                           onClick={props.onClick}
                                         />)
                                     )}
