@@ -43,9 +43,14 @@ import Order2 from "./pages/order/Order2";
 import {storeLoader} from "./pages/store/StoreRouter";
 import {editProfileAction} from "./pages/mypage/MyPageRouter";
 import {collaboLoader} from "./pages/collabo/CollaboRouter";
+import axios from "axios";
 
 
 const App = () => {
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
+    axios.defaults.url = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
+    console.log(process.env.REACT_APP_API_URL)
+    console.log(process.env.REACT_APP_URL)
     console.log(process.env)
     return (
         <RouterProvider router={browserRouter}/>
