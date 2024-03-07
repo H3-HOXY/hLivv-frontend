@@ -1,5 +1,5 @@
-import {Api} from "../../api/Api";
 import {FormMessage} from "../../common/FormMessage";
+import {Api} from "../../api/ApiWrapper";
 
 
 //@ts-ignore
@@ -24,7 +24,7 @@ export async function signUpAction({request, params}) {
     }
 
     try {
-        const api = new Api().api
+        const api = Api
         const result = await api.signup({
             email: email!!.toString(),
             loginPw: password!!.toString(),
