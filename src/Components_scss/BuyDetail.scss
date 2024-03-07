@@ -31,6 +31,10 @@
   display: flex;
   width: 100%;
   // background-color: blue;
+  background-color: white;
+  padding: 2em;
+  border-radius: 10px;
+  border: 2px solid #F2F2F2;
 }
 
 .BuyDetailContentItemImg{
@@ -94,6 +98,7 @@
   // background-color: yellow;
 }
 
+// 리뷰쓰기모달
 .BuyDetailModal{
   overflow: scroll;
   height:70vh;

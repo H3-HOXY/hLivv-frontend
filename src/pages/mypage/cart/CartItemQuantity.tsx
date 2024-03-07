@@ -25,6 +25,7 @@ export function CartItemQuantity({cartItem, changeQty}: {
         </div>
         <input className={"w-10 text-center"}
                value={cartItem.cartQty}
+               title="수량"
                onChange={(e) => {
                    if (cartItem.cartQty!! > 0 && cartItem.cartQty!! < cartItem.stockQuantity!!)
                        setQty(parseInt(e.target.value))

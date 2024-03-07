@@ -27,14 +27,14 @@
 
 .CouponCardList{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  // grid-template-columns: 1fr 1fr 1fr;
 }
 
 .CouponCard {
   width: 100%; // 10px은 각 쿠폰 카드 사이의 간격입니다.
   height: 100%;
   margin-bottom: 20px;
-  height: 38vh;
+  height: 34vh;
   background-color: white;
   box-shadow: 3px 3px 5px 3px lightgray;
   border-radius: 10px;
@@ -70,9 +70,13 @@
   margin-top: 1em;
   display: flex;
   align-items: center;
-  p{
+  .PercentNumber{
     font-weight: 700;
     font-size: 4em;
+    margin-right: 0.1em;
+  }
+  .Percent{
+    margin-top: 1em;
   }
 }
 
@@ -87,7 +91,7 @@
 
 .CouponLine{
   border: 1px solid #909090;
-  margin: 2em 0;
+  margin: 1.5em 0;
   width: 100%;
 }
 

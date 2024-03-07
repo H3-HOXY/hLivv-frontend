@@ -25,7 +25,7 @@ export const NewItemContainer = (props: NewItemContainerProps) => {
         infinite:
             true,
         centerPadding:
-            "100px",
+            "150px",
         slidesToShow:
             3,
         speed:

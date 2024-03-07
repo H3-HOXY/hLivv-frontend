@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import "../Components_scss/Coupon.scss";
 
 interface Coupon {
@@ -18,27 +19,48 @@ const couponList: Coupon[] = [
 ];
 
 const Coupon = () => {
+  // couponList의 복사본을 만들어 상태를 관리합니다.
+  const [coupons, setCoupons] = useState([...couponList]);
   // state가 true인 것만 필터링
-  const alreadyCoupons = couponList.filter((coupon) => coupon.state);
+  const alreadyCoupons = coupons.filter((coupons) => coupons.state);
   // state가 false인 것만 필터링
-  const yetCoupons = couponList.filter((coupon) => !coupon.state);
+  const yetCoupons = coupons.filter((coupons) => !coupons.state);
+
+  // "받음" 버튼 클릭 핸들러
+  const handleAlreadyCouponClick = (couponId: string) => {
+    setCoupons((prevCoupons) =>
+      prevCoupons.map((coupon) =>
+        coupon.id === couponId ? { ...coupon, state: false } : coupon
+      )
+    );
+  };
+
+  // "받기" 버튼 클릭 핸들러
+  const handleYetCouponClick = (couponId: string) => {
+    setCoupons((prevCoupons) =>
+      prevCoupons.map((coupon) =>
+        coupon.id === couponId ? { ...coupon, state: true } : coupon
+      )
+    );
+  };
 
   return (
     <div className="Coupon">
       <div className="CouponWrapper">
         <div className="CouponTitle">쿠폰</div>
         <div className="AlreadyCoupon">
-          <ul className="CouponCardList grid grid-cols-2 pt-8 md:grid-cols-4 gap-12">
-            {alreadyCoupons.map((coupon) => (
-              <li className="CouponCard" key={coupon.id}>
+          <ul className="CouponCardList grid grid-cols-2 pt-10 lg:grid-cols-3 gap-12 xl:grid-cols-4">
+            {alreadyCoupons.map((coupons) => (
+              <li className="CouponCard" key={coupons.id}>
                 <div className="AlreadyCouponCard">
                   <div className="AlreadyCouponCardContent">
-                    <div className="AlreadyCouponCardContentTitle font-semibold">{coupon.title}</div>
-                    <div className="AlreadyCouponCardContentValue"><p>{coupon.value}</p>%</div>
-                    <div className="AlreadyCouponCardContentDate">{coupon.date}</div>
-                    <div className="AlreadyCouponCardContentCondition">{coupon.condition}</div>
+                    <div className="AlreadyCouponCardContentTitle font-semibold">{coupons.title}</div>
+                    <div className="AlreadyCouponCardContentValue"><p className='PercentNumber'>{coupons.value}</p><p className='Percent'>%</p></div>
+                    <div className="AlreadyCouponCardContentDate">{coupons.date}</div>
+                    <div className="AlreadyCouponCardContentCondition">{coupons.condition}</div>
                   </div>
-                  <button className="AlreadyCouponCardBtn" title="받음">받음</button>
+                  <button className="AlreadyCouponCardBtn" title="받음"
+                  onClick={() => handleAlreadyCouponClick(coupons.id)}>받음</button>
                 </div>
               </li>
             ))}
@@ -46,17 +68,18 @@ const Coupon = () => {
         </div>
         <hr className="CouponLine"/>
         <div className="YetCoupon">
-          <ul className="CouponCardList grid grid-cols-2 pt-8 md:grid-cols-4 gap-12">
-            {yetCoupons.map((coupon) => (
-              <li className="CouponCard" key={coupon.id}>
+          <ul className="CouponCardList grid grid-cols-2 pt-10 lg:grid-cols-3 gap-12 xl:grid-cols-4 gap-12">
+            {yetCoupons.map((coupons) => (
+              <li className="CouponCard" key={coupons.id}>
                 <div className="YetCouponCard">
                   <div className="YetCouponCardContent">
-                    <div className="YetCouponCardContentTitle font-semibold">{coupon.title}</div>
-                    <div className="YetCouponCardContentValue"><p>{coupon.value}</p>%</div>
-                    <div className="YetCouponCardContentDate">{coupon.date}</div>
-                    <div className="YetCouponCardContentCondition">{coupon.condition}</div>
+                    <div className="YetCouponCardContentTitle font-semibold">{coupons.title}</div>
+                    <div className="YetCouponCardContentValue"><p className='PercentNumber'>{coupons.value}</p><p className='Percent'>%</p></div>
+                    <div className="YetCouponCardContentDate">{coupons.date}</div>
+                    <div className="YetCouponCardContentCondition">{coupons.condition}</div>
                   </div>
-                  <button className="YetCouponCardBtn" title="받기">받기</button>
+                  <button className="YetCouponCardBtn" title="받기"
+                  onClick={() => handleYetCouponClick(coupons.id)}>받기</button>
                 </div>
               </li>
             ))}

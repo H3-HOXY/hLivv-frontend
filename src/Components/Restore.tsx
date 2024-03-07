@@ -16,7 +16,7 @@ const Restore = () => {
           <div className="RestoreIntroInfo">서비스 이용안내 | 접수가능 제품 기준 | 자주 묻는 질문</div>
         </div>
         <a href="/mypage/myrestore">
-        <button className="RestoreBtn" title="중고가구 예상가">중고가구 예상가 계산하기 </button>
+        <button className="RestoreBtn" title="중고가구 예상가">리스토어 신청하기</button>
         </a>
 
         <div className="RestoreHowToUse">

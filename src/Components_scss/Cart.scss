@@ -12,12 +12,12 @@
   align-items: start;
   width: 70%;
   // background-color: aqua;
-  margin: 3em 0;
+  margin: 5em 0;
 }
 
 // 상품 아이템 섹션
 .CartTitle{
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.2em;
 }
 
@@ -41,7 +41,7 @@
   background-color: #FAFBFB;
   padding: 0.7em 1.8em;
   text-align: left;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .CartContent{
@@ -50,6 +50,8 @@
   margin: 1.5em;
 }
 
+
+// 아이템 섹션
 .CartContentItem{
   display: flex;
   flex-direction: column;
@@ -64,6 +66,10 @@
   display: flex;
 }
 
+.CartContentProductCheckbox{
+  margin-right: 1em;
+}
+
 .ProfileImgSrc{
   border-radius: 10px;
 }
@@ -71,8 +77,27 @@
 .CartContentText{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: start;
   margin-left: 1em;
+}
+
+.CartContentTextProductInfo{
+  text-align: start;
+}
+
+.CartContentTextCount{
+  display: flex;
+  align-items: end;
+}
+
+.CartContentTextCountPrice{
+  margin-left: 1em;
+}
+
+.CartContentProductDel{
+  font-size: 1.3em;
+  font-weight: 500;
 }
 
 .CartContentOrder{
@@ -110,7 +135,7 @@
 // 결제 섹션
 .CartPayTitle{
   margin-top: 2em;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 1.1em;
 }
 
@@ -161,12 +186,14 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+  justify-content: space-between;
   background-color: #F7F9FA;
-  padding: 1.5em;
+  padding: 2em;
   border-radius: 0 10px 10px 0;
   width: 50%;
   font-weight: 500;
-  font-size: 1em;
+  font-size: 0.9em;
+  text-align: start;
 }
 
 .CartPayContainRightAgreeText{

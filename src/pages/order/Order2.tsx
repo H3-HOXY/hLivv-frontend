@@ -61,27 +61,42 @@ const Order2 = () => {
     };
 
     // 주소 결제 기능
+    const [streetAddress, setStreetAddress] = useState<string>("");
+    const [detailedAddress, setDetailedAddress] = useState<string>("");
     const [zipCode, setZipcode] = useState<string>("");
-    const [roadAddress, setRoadAddress] = useState<string>("");
-    const [detailAddress, setDetailAddress] = useState<string>("");
+    const [telephoneNumber, setTelephoneNumber] = useState<string>("");
+    const [mobilePhoneNumber, setMobilePhoneNumber] = useState<string>("");
+    const [requestMsg, setRequestMsg] = useState<string>("");
 
     const completeHandler = (data:any) =>{
         setZipcode(data.zonecode);
-        setRoadAddress(data.roadAddress);
+        setStreetAddress(data.roadAddress);
         onClickModalOff();
         alert('주소가 변경되었습니다.');
         console.log(data);
     }
         // 상세 주소검색 event
-    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) =>{
-        setDetailAddress(e.target.value);
+    const changeAddressHandler = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setDetailedAddress(e.target.value);
+    }
+
+    const changeTelHandler = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setTelephoneNumber(e.target.value);
+    }
+
+    const changeMobileHandler = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setMobilePhoneNumber(e.target.value);
+    }
+
+    const changeRequestHandler = (e:React.ChangeEvent<HTMLSelectElement>) =>{
+        setRequestMsg(e.target.value);
     }
 
     const clickHandler = () =>{
-        if(detailAddress===""){
+        if(detailedAddress===""){
             alert("상세주소를 입력해주세요.");
         } else{
-            console.log(zipCode, roadAddress, detailAddress);
+            console.log(zipCode, streetAddress, detailedAddress, telephoneNumber, mobilePhoneNumber, requestMsg);
         } 
     }
 
@@ -116,40 +131,40 @@ const Order2 = () => {
                         </div>
                         <div className="OrderDestinationSecond">
                             <div className="OrderDestinationSecondTitle">도로명주소</div>
-                            <input className="OrderDestinationStreetAddress" value={roadAddress} readOnly placeholder="도로명 주소" />
+                            <input className="OrderDestinationStreetAddress" value={streetAddress} readOnly placeholder="도로명 주소" />
                         </div>
                         <div className="OrderDestinationSecond">
                             <div className="OrderDestinationSecondTitle">상세주소</div>
-                            <input className="OrderDestinationDetailAddress" type="text" onChange={changeHandler} value={detailAddress} placeholder="상세주소"/>
-                            <button className="OrderDestinationContentBtn" onClick={clickHandler} title="클릭">주소지저장</button>
+                            <input className="OrderDestinationDetailAddress" type="text" onChange={changeAddressHandler} value={detailedAddress} placeholder="상세주소"/>
                         </div>
                         <div className="OrderDestinationSecond">
                             <div className="OrderDestinationSecondTitle">전화번호</div> 
-                            <div className="OrderDestinationTel">02-373-2521</div>
+                            <input className="OrderDestinationDetailAddress" type="text" onChange={changeTelHandler} value={telephoneNumber} placeholder="전화번호"/>
                         </div>
                         <div className="OrderDestinationSecond">
                             <div className="OrderDestinationSecondTitle">휴대전화</div> 
-                            <div className="OrderDestinationTel">010-3452-5677</div>
+                            <input className="OrderDestinationDetailAddress" type="text" onChange={changeMobileHandler} value={mobilePhoneNumber} placeholder="휴대전화"/>
                         </div>
                         {/* 배송메세지 */}
-                        <select className="OrderDestinationRequire" title="message" data-te-select-init
+                        <select className="OrderDestinationRequire" title="message" onChange={changeRequestHandler} data-te-select-init
                                 data-te-select-option-height="52">
-                            <option value="1" data-te-select-secondary-text="Secondary text">
+                            <option value="부재시 경비실에 맡겨주세요." data-te-select-secondary-text="Secondary text">
                                 부재시 경비실에 맡겨주세요.
                             </option>
-                            <option value="2" data-te-select-secondary-text="Secondary text">
+                            <option value="부재시 문앞에 놔주세요." data-te-select-secondary-text="Secondary text">
                                 부재시 문앞에 놔주세요.
                             </option>
-                            <option value="3" data-te-select-secondary-text="Secondary text">
+                            <option value="방문시 노크하지 말아주세요." data-te-select-secondary-text="Secondary text">
                                 방문시 노크하지 말아주세요.
                             </option>
-                            <option value="4" data-te-select-secondary-text="Secondary text">
+                            <option value="방문전 미리 연락 부탁드립니다." data-te-select-secondary-text="Secondary text">
                                 방문전 미리 연락 부탁드립니다.
                             </option>
-                            <option value="5" data-te-select-secondary-text="Secondary text">
+                            <option value="경비실에 맡겨주세요." data-te-select-secondary-text="Secondary text">
                                 경비실에 맡겨주세요.
                             </option>
                         </select>
+                        <button className="OrderDestinationContentBtn" onClick={clickHandler} title="클릭">주소지저장</button>
                     </div>
                 </div>
 
