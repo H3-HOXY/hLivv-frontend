@@ -1,4 +1,5 @@
 //@ts-ignore
+import {Api} from "../../api/Api";
 import {OrderReqDto, OrderResDto} from "../../api/Api";
 import {getApi} from "../../api/ApiWrapper";
 import {FormMessage} from "../../common/FormMessage";
@@ -9,10 +10,36 @@ import {RequestPayResponse} from "./types/RequestPayResponse";
 export async function orderAction({request, params}) {
     const formData = await request.formData()
     const orderDto = JSON.parse(Object.fromEntries(formData).orderRequest) as OrderReqDto
+    const formDataObj = Object.fromEntries(formData.entries());
     console.log(orderDto)
+
+    // const{
+    //     streetAddress,
+    //     detailedAddress,
+    //     zipCode,
+    //     telephoneNumber,
+    //     mobilePhoneNumber,
+    //     requestMsg,
+    //     defaltYn
+    // } = formDataObj;
+
+    // const validationResult = validateOrderInput(streetAddress, detailedAddress, zipCode, telephoneNumber, mobilePhoneNumber, requestMsg, defaltYn)
+
+    // if (validationResult !== null) {
+    //     return validationResult
+    // }
 
     try {
         const api = await getApi()
+        // const result = await api.orders({
+        //     streetAddress: streetAddress!!.toString(),
+        //     detailedAddress: detailedAddress!!.toString(),
+        //     zipCode: zipCode!!.toString(),
+        //     telephoneNumber: telephoneNumber!!.toString(),
+        //     mobilePhoneNumber: mobilePhoneNumber!!.toString(),
+        //     requestMsg: requestMsg!!.toString(),
+        //     defaltYn: defaltYn!!.toString()
+        // })
         const newOrder = await api.createOrder(orderDto)
         const orderResDto = newOrder.data as OrderResDto
 
@@ -92,4 +119,8 @@ class PaymentError extends Error {
         super(message)
         this.name = "PaymentError"
     }
+}
+
+const validateOrderInput = () => {
+
 }

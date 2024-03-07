@@ -25,7 +25,8 @@ const Home = () => {
 
     const data = useData()
 
-    const popularTerms = ["의자"
+    const popularTerms = [
+        "의자"
         , "책상"
         , "침대"
         , "스탠드"]

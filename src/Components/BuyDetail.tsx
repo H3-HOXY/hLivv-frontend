@@ -16,7 +16,14 @@ const BuyDetail = () => {
       setIsActive(false);
     };
     const onClickCardConfirm = () => {
-      alert('신청되었습니다.');
+      // 모달을 닫고 캐시 비우기
+      onClickModalOff();
+      setImgFile(undefined);
+      setImgPath("");
+      if (imgRef.current) {
+        imgRef.current.value = "";
+      } 
+      alert('리뷰가 등록되었습니다.');
     };
 
     // 사진 첨부 기능

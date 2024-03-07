@@ -32,7 +32,7 @@ const Preference = () => {
       <div className="ColorSelectWrapper">
         <div className="ColorSelectTitle">
           <div className="ColorSelectSubTitle">인테리어 취향 테스트</div>
-          <div className="ColorSelectMainTitle">선호하는 컬러를 2개 선택해 주세요</div>
+          <div className="ColorSelectMainTitle">선호하는 컬러를 선택해 주세요</div>
         </div>
         <hr className="ColorSelectLine"/>
         <div className="ColorSelectContent">

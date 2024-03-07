@@ -85,8 +85,7 @@ const Cart = () => {
                 </div>
                 {/* 같은 브랜드 상품 담을 컨테이너 */}
                 <div className="CartContain">
-                    <div className="CartContainHeader">
-                    </div>
+                    <div className="CartContainHeader">장바구니 상품</div>
                     {/* 같은 브랜드 내에서 세부 상품 (여러개) */}
                     <div className="CartContent">
                         {/* 상품 하나 */}
@@ -133,6 +132,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <div className="CartPayContainRight">
+                        <div>
                         <div className="CartPayContainRightAgree">
                             <div className="">아래 내용에 모두 동의합니다. (필수)</div>
                             <div className="">개인정보 수집 이용 및 제3자 제공 동의 (필수)</div>
@@ -140,6 +140,7 @@ const Cart = () => {
                         <div className="CartPayContainRightDescription">본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.</div>
                         <div className="CartPayContainRightDescription">(주)버킷플레이스는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한 상품정보
                             및 거래 등에 대해 책임을 지지 않습니다.
+                        </div>
                         </div>
                         <div>(단, (주)버킷플레이스가 판매자로 등록 판매한 상품은 판매자로서 책임을 부담합니다)</div>
                         <div className="CartPayContainRightBtn">{cartItem.length}개 상품 구매하기</div>
