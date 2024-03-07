@@ -1,5 +1,6 @@
-import {Api, ProductDto} from "../../api/Api";
+import {ProductDto} from "../../api/Api";
 import {defer} from "react-router-dom";
+import {Api} from "../../api/ApiWrapper";
 
 //@ts-ignore
 export async function storeLoader({request, params}) {
@@ -11,7 +12,7 @@ export async function storeLoader({request, params}) {
     } catch (e) {
     }
     try {
-        const api = new Api().api
+        const api = Api
         if (categoryId === undefined) {
             const products = await api.getProduct({pageNo: 0, pageSize: 20}, {})
             return defer({products: products.data} as { products: ProductDto[] })

@@ -1,7 +1,7 @@
-import {Api} from "../../api/Api";
 import {setAuthToken} from "../../api/auth/Token";
 import {FormMessage} from "../../common/FormMessage";
 import {saveUserEmailToLocalStorage} from "../../api/auth/UserInfo";
+import {Api} from "../../api/ApiWrapper";
 
 export async function loginLoader() {
 
@@ -17,7 +17,7 @@ export async function loginAction({request, params}) {
     if (password === null) return FormMessage.createFormMessage("비밀번호를 입력해주세요", 400)
 
     try {
-        const api = new Api().api
+        const api = Api
         const result = await api.authorize({loginId: email!!.toString(), loginPw: password!!.toString()})
         const token = result.data.token
         if (token === undefined) return FormMessage.createFormMessage("알 수 없는 토큰 오류입니다.", 500)

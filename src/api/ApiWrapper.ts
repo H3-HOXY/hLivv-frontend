@@ -1,4 +1,4 @@
-import {Api} from "./Api";
+import {Api as RawApi} from "./Api";
 import {getAuthToken, isAuthenticated} from "./auth/Token";
 import {MemberNotLoggedInError} from "./auth/Errors";
 
@@ -15,10 +15,13 @@ export function getApi() {
             Authorization: `Bearer ${token}`
         }
     }
-    const api = new Api(
+    const api = new RawApi(
         {
+            baseURL: process.env.REACT_APP_API_URL,
             securityWorker: () => header
         }
     );
     return Promise.resolve(api.api);
 }
+
+export const Api = new RawApi({baseURL: process.env.REACT_APP_API_URL}).api
