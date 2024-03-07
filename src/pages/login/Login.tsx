@@ -57,16 +57,18 @@ const Login = () => {
 
     return (
         <div className="Login">
+            <div>
             <div className="LoginTitle">로그인</div>
-            {/*@ts-ignore*/}
-            <PrintFormMessage formMessage={formMessage}/>
-            <Form className="LoginForm max-w-sm mx-auto" method="post" action={"/login"}>
-                <EmailInputField userEmail={userEmail} setUserEmail={setUserEmail}/>
-                <PasswordInputField password={password} setPassword={setPassword}/>
-                <RememberMeCheckBox remember={remember} setRemember={setRemember}/>
-                <LoginSub/>
-                <LoginButton/>
-            </Form>
+                {/*@ts-ignore*/}
+                <PrintFormMessage formMessage={formMessage}/>
+                <Form className="LoginForm max-w-sm mx-auto" method="post" action={"/login"}>
+                    <EmailInputField userEmail={userEmail} setUserEmail={setUserEmail}/>
+                    <PasswordInputField password={password} setPassword={setPassword}/>
+                    <RememberMeCheckBox remember={remember} setRemember={setRemember}/>
+                    <LoginSub/>
+                    <LoginButton/>
+                </Form>
+            </div>
         </div>
     );
 }

@@ -33,7 +33,7 @@ const Preference = () => {
       <div className="PreferenceKeywordWrapper">
         <div className="PreferenceKeywordTitle">
           <div className="PreferenceKeywordSubTitle">인테리어 취향 테스트</div>
-          <div className="PreferenceKeywordMainTitle">선호하는 키워드를 3개 선택해 주세요</div>
+          <div className="PreferenceKeywordMainTitle">선호하는 키워드를 선택해 주세요</div>
         </div>
         <hr className="PreferenceKeywordLine"/>
         <div className="PreferenceKeywordContent">

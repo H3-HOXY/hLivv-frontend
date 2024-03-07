@@ -29,12 +29,14 @@ export const CartItem = ({item, checked, onCartUpdate, onChange}: {
         navigate(`/product/${item.productId}`)
     }
 
-    return (<div className="CartContentItem my-6 ">
+    return (
+    <div className="CartContentItem my-6 ">
         <div className="CartContentItemProduct">
             <div className="CartContentProductLeft">
                 <div className="CartContentProductCheckbox">
                     <input type="checkbox"
                            checked={checked}
+                           title="체크박스"
                            onChange={event => {
                                onChange(item.productId!!, event.target.checked)
                            }}/>
@@ -46,23 +48,26 @@ export const CartItem = ({item, checked, onCartUpdate, onChange}: {
                      onClick={goToProduct}
                 />
                 <div className="CartContentText">
-                    <div className="CartContentProductName cursor-pointer"
-                         onClick={goToProduct}> {item.productName}</div>
-                    <div className="CartContentProductDelivery">무료배송 | 일반택배</div>
+                    <div className="CartContentTextProductInfo">
+                        <div className="CartContentProductName cursor-pointer"
+                            onClick={goToProduct}> {item.productName}</div>
+                        <div className="CartContentProductDelivery">무료배송 | 일반택배</div>
+                    </div>
+                    <div className="CartContentTextCount">
+                        <CartItemQuantity
+                                        cartItem={item}
+                                        changeQty={(productId, qty) => {
+                                            onCartUpdate(productId, qty)
+                                        }}/>
+                        <div className="CartContentTextCountPrice">{formatter(((item.unitPrice ?? 0) * (item.cartQty ?? 1)))}원</div>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <CartItemQuantity cartItem={item}
-                                  changeQty={(productId, qty) => {
-                                      onCartUpdate(productId, qty)
-                                  }}/>
-                <div>{formatter(((item.unitPrice ?? 0) * (item.cartQty ?? 1)))}원</div>
             </div>
             <div className="CartContentProductDel cursor-pointer" onClick={
                 async () => {
                     onCartUpdate(item.productId!!, 0)
                 }
-            }>X
+            }>x
             </div>
         </div>
     </div>)
