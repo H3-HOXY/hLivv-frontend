@@ -1,9 +1,10 @@
 import {useImage} from "../../common/hooks/useImage";
-import {Api, CartDto} from "../../../api/Api";
+import {CartDto} from "../../../api/Api";
 import {useEffect, useState} from "react";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 import {CartItemQuantity} from "./CartItemQuantity";
 import {useNavigate} from "react-router-dom";
+import {Api} from "../../../api/ApiWrapper";
 
 
 export const CartItem = ({item, checked, onCartUpdate, onChange}: {
@@ -19,7 +20,7 @@ export const CartItem = ({item, checked, onCartUpdate, onChange}: {
 
     useEffect(() => {
         if (item.productId === undefined) return
-        new Api().api.getProduct1(item.productId).then((res) => {
+        Api.getProduct1(item.productId).then((res) => {
             setProductImageSrc(res.data.productImages!![0].imageUrl!!)
         }).catch((e) => {
             console.error(e)

@@ -2,7 +2,7 @@ import "./styles/Product.scss"
 import React, {useEffect, useRef, useState} from "react";
 import {IFrameSize, ProductDetailSection} from "./components/detail/ProductDetailSection";
 import {useLoaderData, useLocation} from "react-router-dom";
-import {Api, ProductDto} from "../../api/Api";
+import {ProductDto} from "../../api/Api";
 import {useDescriptionPage} from "../common/hooks/useDescriptionPage";
 import {ProductInfoSection} from "./components/info/ProductInfoSection";
 import {JumpToSection} from "./components/JumpToSection";
@@ -11,6 +11,7 @@ import {ReviewSection} from "./components/review/ReviewSection";
 import {SelectedOption} from "./components/info/SelectedOptionItem";
 import {StoreList} from "../store/components/StoreList";
 import {StoreListItemProps} from "../store/components/StoreListItem";
+import {Api} from "../../api/ApiWrapper";
 
 export const Product = () => {
     const productData = useLoaderData() as ProductDto
@@ -26,7 +27,7 @@ export const Product = () => {
     useEffect(() => {
         if (productData != null) {
             console.log(productData.productType)
-            new Api().api.getCollaboProductItems(productData.id!!).then(response => {
+            Api.getCollaboProductItems(productData.id!!).then(response => {
                 console.log(response.data)
 
                 setCollaboProducts(response.data.map((product, index) => {
