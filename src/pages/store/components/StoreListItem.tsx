@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
+import "../styles/Store.scss"
 
 export type StoreListItemProps = {
     image: string,
@@ -17,11 +18,11 @@ export const StoreListItem = (props: StoreListItemProps) => {
                  navigate(`/product/${props.productId}`)
              }}
         >
-            <div className="border rounded-lg overflow-hidden flex-grow">
-                <img src={props.image} alt="제품 이미지" className="w-full"/>
+            <div className="border rounded-lg overflow-hidden flex-grow w-55 h-55">
+                <img src={props.image} alt="제품 이미지" className="w-full w-55 h-55"/>
             </div>
             <div className="p-4 bg-white">
-                <h4 className="text-gray-600">{props.title}</h4>
+                <div className="text-gray-600">{props.title}</div>
                 <p className="text-gray-900 font-bold">₩{formatter(props.price)}원</p>
             </div>
         </div>

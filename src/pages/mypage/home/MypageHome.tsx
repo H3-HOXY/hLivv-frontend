@@ -41,11 +41,11 @@ const MypageHome = () => {
                         <div className="ProfileBenefit">
                             <div className="ProfilePoint">
                                 <img src="img/point.png" title="pic"></img>
-                                <div className="">{memberInfo?.points ?? 0}</div>
+                                <div className="ProfilePointNumber">포인트 {memberInfo?.points ?? 0}</div>
                             </div>
                             <div className="ProfileCoupon">
                                 <img src="img/coupon.png" title="pic"></img>
-                                <div className="">쿠폰0</div>
+                                <div className="ProfileCouponNumber">쿠폰 0</div>
                             </div>
                         </div>
                     </div>
