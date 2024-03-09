@@ -356,11 +356,11 @@ async function getMyInfo(buyerInfo: BuyerInfo, setBuyerInfo: React.Dispatch<Reac
 
 function initIamport() {
     const jquery = document.createElement("script");
-    jquery.src = "http://code.jquery.com/jquery-1.12.4.min.js";
+    jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
     document.head.appendChild(jquery);
 
     const iamport = document.createElement("script");
-    iamport.src = "http://cdn.iamport.kr/js/iamport.payment-1.1.7.js";
+    iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.7.js";
     document.head.appendChild(iamport);
     return () => {
         document.head.removeChild(iamport);
