@@ -1,68 +1,38 @@
 //@ts-ignore
-import {Api} from "../../api/Api";
-import {OrderReqDto, OrderResDto} from "../../api/Api";
+import {Api, OrderReqDto, OrderResDto} from "../../api/Api";
 import {getApi} from "../../api/ApiWrapper";
 import {FormMessage} from "../../common/FormMessage";
 import {RequestPayParams} from "./types/RequestPayParams";
 import {RequestPayResponse} from "./types/RequestPayResponse";
 
 //@ts-ignore
-export async function orderAction({request, params}) {
-    const formData = await request.formData()
-    const orderDto = JSON.parse(Object.fromEntries(formData).orderRequest) as OrderReqDto
-    const formDataObj = Object.fromEntries(formData.entries());
-    console.log(orderDto)
-
-    // const{
-    //     streetAddress,
-    //     detailedAddress,
-    //     zipCode,
-    //     telephoneNumber,
-    //     mobilePhoneNumber,
-    //     requestMsg,
-    //     defaltYn
-    // } = formDataObj;
-
-    // const validationResult = validateOrderInput(streetAddress, detailedAddress, zipCode, telephoneNumber, mobilePhoneNumber, requestMsg, defaltYn)
-
-    // if (validationResult !== null) {
-    //     return validationResult
-    // }
+export async function orderAction({request, params}): Promise<any> {
 
     try {
+        const formData = await request.formData()
+
+        const orderReqDto: OrderReqDto = {...JSON.parse(formData.get('orderReqDto') as string)}
+        const requestPayParams: RequestPayParams = {...JSON.parse(formData.get('requestPayParams') as string)}
+
+        console.log(orderReqDto)
+        console.log(requestPayParams)
+
         const api = await getApi()
-        // const result = await api.orders({
-        //     streetAddress: streetAddress!!.toString(),
-        //     detailedAddress: detailedAddress!!.toString(),
-        //     zipCode: zipCode!!.toString(),
-        //     telephoneNumber: telephoneNumber!!.toString(),
-        //     mobilePhoneNumber: mobilePhoneNumber!!.toString(),
-        //     requestMsg: requestMsg!!.toString(),
-        //     defaltYn: defaltYn!!.toString()
-        // })
-        const newOrder = await api.createOrder(orderDto)
+        const newOrder = await api.createOrder(orderReqDto)
         const orderResDto = newOrder.data as OrderResDto
 
-        // TODO: formData로부터 받아오기
         const paymentParams: RequestPayParams = {
-            pg: 'kakaopay',
-            pay_method: 'card',
-            merchant_uid: String(new Date().getTime()),
-            name: '테스트 상품',
-            amount: Number(orderResDto.orderCash),
-            buyer_email: 'test@naver.com',
-            buyer_name: '코드쿡',
-            buyer_tel: '010-1234-5678',
-            buyer_addr: '서울특별시',
-            buyer_postcode: '123-456',
+            ...requestPayParams, amount: orderResDto.orderCash!!
         }
+
         if (window.IMP === undefined) return FormMessage.createFormMessage("결제모듈을 불러오는데 실패했습니다.", 500)
 
         window.IMP.init('imp22727087')
 
         const payment = await requestPayAsync(`${orderResDto.orderId}`, paymentParams)
 
-        return {code: 200, data: orderResDto}
+        // return FormMessage.createFormMessage("주문 성공", 200)
+        return Response.redirect("/mypage/buydetail", 303)
     } catch (e) {
         console.log(e)
         return FormMessage.createFormMessage(`${e}`, 500)
@@ -95,7 +65,7 @@ async function handleCancelPayment(orderId: string, impUid: string) {
     try {
         const api = await getApi()
         const data = await api.requestCancelPayment(orderId, impUid)
-        return FormMessage.createFormMessage('결제 취소 성공', 200)
+        return FormMessage.createFormMessage('결제 취소 성공', 500)
     } catch (error) {
         console.error('결제 취소 중 오류 발생:', error);
         alert('결제 취소 실패');
@@ -107,7 +77,7 @@ async function handleCancelPaymentByOrder(orderId: string) {
     try {
         const api = await getApi()
         await api.requestCancelPaymentByOrder(orderId)
-        return FormMessage.createFormMessage('결제 취소 성공', 200)
+        return FormMessage.createFormMessage('결제 취소 성공', 500)
 
     } catch (error) {
         return FormMessage.createFormMessage('결제 취소 실패', 500)

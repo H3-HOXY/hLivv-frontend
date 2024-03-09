@@ -34,26 +34,21 @@ import Modal from "./Components/Modal";
 import PreferenceTest from "./Components/PreferenceTest";
 import PreferenceTestResult from "./Components/PreferenceTestResult";
 import InteriorRecommend from "./Components/InteriorRecommend";
-import BuyDetail from "./Components/BuyDetail";
+import BuyDetail from "./pages/mypage/buyDetail/BuyDetail";
 import MyRestoreDetail from "./Components/MyRestoreDetail";
 import Coupon from "./Components/Coupon";
 import {orderAction} from "./pages/order/OrderRouter";
-import {Order} from "./pages/order/Order";
-import Order2 from "./pages/order/Order2";
+import Order from "./pages/order/Order";
 import {storeLoader} from "./pages/store/StoreRouter";
 import {editProfileAction} from "./pages/mypage/MyPageRouter";
 import {collaboLoader} from "./pages/collabo/CollaboRouter";
 
 
 const App = () => {
-    console.log(process.env.REACT_APP_API_URL)
-    console.log(process.env.REACT_APP_URL)
-    console.log(process.env)
     return (
         <RouterProvider router={browserRouter}/>
     );
 }
-
 
 const browserRouter = createBrowserRouter(
     [
@@ -139,10 +134,9 @@ function storeRouters() {
 function orderRouters() {
     return {
         path: "/order", action: orderAction, children: [
-            {index: true, element: <Order2/>},
+            {index: true, element: <Order/>},
             {path: "/order/success", element: <Success/>},
             {path: "/order/fail", element: <Fail/>},
-            {path: "/order/two", element: <Order/>}
         ]
     }
 }
