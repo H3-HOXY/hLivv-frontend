@@ -67,11 +67,11 @@ export interface RestoreDto {
   requestGrade?: "S" | "A" | "B" | "C";
   inspectedGrade?: "S" | "A" | "B" | "C";
   restoreDesc?: string;
-  requestMsg?: string;
+  rewarded?: boolean;
   rejectMsg?: string;
   /** @format int64 */
   payback?: number;
-  whenRejected: boolean;
+  whenRejected?: boolean;
   restoreStatus?:
     | "접수완료"
     | "배송받는중"
@@ -126,16 +126,23 @@ export interface ProductOptionDto {
 }
 
 export interface AddressDto {
+  /** @format int64 */
+  addressId?: number;
+  /** @format int64 */
+  memberId?: number;
   streetAddress?: string;
   detailedAddress?: string;
   zipCode?: string;
   telephoneNumber?: string;
   mobilePhoneNumber?: string;
   requestMsg?: string;
+  order_id?: string;
   defaultYn?: boolean;
 }
 
 export interface OrderProductResDto {
+  /** @format int64 */
+  productId?: number;
   productName?: string;
   /** @format int32 */
   productQty?: number;
@@ -230,77 +237,6 @@ export interface CartDto {
   stockQuantity?: number;
 }
 
-export interface IamportResponsePayment {
-  /** @format int32 */
-  code?: number;
-  message?: string;
-  response?: Payment;
-}
-
-export interface Payment {
-  channel?: string;
-  escrow?: boolean;
-  name?: string;
-  amount?: number;
-  currency?: string;
-  status?: string;
-  impUid?: string;
-  merchantUid?: string;
-  buyerName?: string;
-  buyerEmail?: string;
-  buyerTel?: string;
-  buyerAddr?: string;
-  customData?: string;
-  buyerPostcode?: string;
-  customerUid?: string;
-  /** @format int32 */
-  cardQuota?: number;
-  cardNumber?: string;
-  /** @format date-time */
-  vbankDate?: string;
-  cardName?: string;
-  bankName?: string;
-  vbankNum?: string;
-  cancelHistory?: PaymentCancelDetail[];
-  failReason?: string;
-  pgProvider?: string;
-  embPgProvider?: string;
-  /** @format int64 */
-  startedAt?: number;
-  vbankName?: string;
-  /** @format date-time */
-  failedAt?: string;
-  cardCode?: string;
-  receiptUrl?: string;
-  vbankCode?: string;
-  /** @format int64 */
-  vbankIssuedAt?: number;
-  cancelReason?: string;
-  pgTid?: string;
-  /** @format int32 */
-  cardType?: number;
-  applyNum?: string;
-  vbankHolder?: string;
-  cancelAmount?: number;
-  bankCode?: string;
-  /** @format date-time */
-  paidAt?: string;
-  /** @format date-time */
-  cancelledAt?: string;
-  payMethod?: string;
-  cashReceiptIssued?: boolean;
-  customerUidUsage?: string;
-}
-
-export interface PaymentCancelDetail {
-  amount?: number;
-  reason?: string;
-  receiptUrl?: string;
-  pgTid?: string;
-  /** @format int64 */
-  cancelledAt?: number;
-}
-
 export interface SignupDto {
   /**
    * @minLength 5
@@ -313,7 +249,7 @@ export interface SignupDto {
    */
   loginPw: string;
   /**
-   * @minLength 3
+   * @minLength 1
    * @maxLength 20
    */
   name: string;
@@ -322,20 +258,8 @@ export interface SignupDto {
 }
 
 export interface SignupDataGenDto {
-  /**
-   * @minLength 5
-   * @maxLength 20
-   */
   loginId: string;
-  /**
-   * @minLength 5
-   * @maxLength 100
-   */
   loginPw: string;
-  /**
-   * @minLength 3
-   * @maxLength 20
-   */
   name: string;
   phone?: string;
   email?: string;
@@ -350,9 +274,19 @@ export interface RestoreRegisterDto {
   pickUpDate?: string;
   requestGrade: "S" | "A" | "B" | "C";
   restoreDesc?: string;
-  requestMsg?: string;
   whenRejected: boolean;
   restoreImageUrls?: string[];
+}
+
+export interface RestoreEmailDto {
+  rejectMsg?: string;
+  productName?: string;
+  requestGrade?: "S" | "A" | "B" | "C";
+  /** @format int64 */
+  payback?: number;
+  inspectedGrade?: "S" | "A" | "B" | "C";
+  subject?: string;
+  toEmail?: string;
 }
 
 export interface Request {
@@ -386,9 +320,13 @@ export interface OrderProductReqDto {
 }
 
 export interface OrderReqDto {
-  /** @format int64 */
-  addressId?: number;
+  streetAddress?: string;
+  detailedAddress?: string;
+  zipCode?: string;
+  telephoneNumber?: string;
+  mobilePhoneNumber?: string;
   requestMsg?: string;
+  order_id?: string;
   /** @format int64 */
   orderPoint?: number;
   /** @format date */
@@ -396,6 +334,11 @@ export interface OrderReqDto {
   productList?: OrderProductReqDto[];
   /** @format int64 */
   couponId?: number;
+}
+
+/** 사용자의 인테리어 취향에 해당하는 계절 */
+export interface SeasonDto {
+  season?: "SPRING" | "SUMMER" | "FALL" | "WINTER";
 }
 
 export interface LoginDto {
@@ -424,6 +367,32 @@ export interface MemberCouponDto {
   used?: boolean;
 }
 
+export interface AddressReqDto {
+  streetAddress?: string;
+  detailedAddress?: string;
+  zipCode?: string;
+  telephoneNumber?: string;
+  mobilePhoneNumber?: string;
+  requestMsg?: string;
+  defaultYn?: boolean;
+}
+
+export interface RestoreStatusDto {
+  restoreStatus?:
+      | "접수완료"
+      | "배송받는중"
+      | "검수중"
+      | "검수완료"
+      | "반송중"
+      | "리스토어완료"
+      | "접수취소"
+      | "폐기완료"
+      | "폐기대기"
+      | "반송완료";
+  /** @format int64 */
+  cnt?: number;
+}
+
 export interface ReviewDto {
   writer?: string;
   /** @format date-time */
@@ -434,6 +403,19 @@ export interface ReviewDto {
   reviewText?: string;
   /** @format int32 */
   star?: number;
+}
+
+export interface MonthlyOrderSummaryDto {
+  /** @format int32 */
+  year?: number;
+  /** @format int32 */
+  month?: number;
+  /** @format int32 */
+  day?: number;
+  /** @format int64 */
+  orderTotal?: number;
+  /** @format int64 */
+  cnt?: number;
 }
 
 export interface PageOrderResDto {
@@ -459,18 +441,18 @@ export interface PageableObject {
   /** @format int64 */
   offset?: number;
   sort?: SortObject;
+  unpaged?: boolean;
+  paged?: boolean;
   /** @format int32 */
   pageNumber?: number;
   /** @format int32 */
   pageSize?: number;
-  paged?: boolean;
-  unpaged?: boolean;
 }
 
 export interface SortObject {
   empty?: boolean;
-  sorted?: boolean;
   unsorted?: boolean;
+  sorted?: boolean;
 }
 
 export interface MemberResponseDto {
@@ -484,6 +466,21 @@ export interface MemberResponseDto {
   /** @format int64 */
   points?: number;
   grade?: "FLOWER" | "TREE" | "FOREST";
+}
+
+export interface MonthlyMemberRegisterDto {
+  /** @format int32 */
+  year?: number;
+  /** @format int32 */
+  month?: number;
+  /** @format int64 */
+  cnt?: number;
+}
+
+export interface MemberGradeDto {
+  grade?: "FLOWER" | "TREE" | "FOREST";
+  /** @format int64 */
+  cnt?: number;
 }
 
 export interface PageMemberCouponDto {
@@ -524,7 +521,7 @@ export interface PageCartDto {
   empty?: boolean;
 }
 
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
+import type {AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType} from "axios";
 import axios from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
@@ -667,8 +664,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
      * @name UpdateMember
+     * @summary 회원 정보 업데이트
      * @request PUT:/api/updateMember
      * @secure
      */
@@ -686,8 +684,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags restore-controller
+     * @tags 리스토어 API
      * @name GetOneRestore
+     * @summary 리스토어 1개 상세 불러오기
      * @request GET:/api/restore/{restoreId}
      * @secure
      */
@@ -703,12 +702,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags restore-controller
+     * @tags 리스토어 API
      * @name UpdateRestore
+     * @summary 리스토어 업데이트
      * @request PUT:/api/restore/{restoreId}
      * @secure
      */
-    updateRestore: (restoreId: string, data: RestoreDto, params: RequestParams = {}) =>
+    updateRestore: (restoreId: number, data: RestoreDto, params: RequestParams = {}) =>
       this.request<RestoreDto, ErrorDto>({
         path: `/api/restore/${restoreId}`,
         method: "PUT",
@@ -722,8 +722,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags product-controller
+     * @tags 상품 API
      * @name GetProduct1
+     * @summary 상품 조회
      * @request GET:/api/product/{productId}
      * @secure
      */
@@ -739,8 +740,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags product-controller
+     * @tags 상품 API
      * @name UpdateProduct
+     * @summary 상품 업데이트
      * @request PUT:/api/product/{productId}
      * @secure
      */
@@ -758,8 +760,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags order-controller
+     * @tags 주문 API
      * @name ValidatePayment
+     * @summary 결제 요청
      * @request PUT:/api/order/payment/{orderId}/{impUid}
      * @secure
      */
@@ -775,8 +778,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags order-controller
+     * @tags 주문 API
      * @name RequestCancelPaymentByOrder
+     * @summary 주문의 결제 취소 요청
      * @request PUT:/api/order/payment/cancel/{orderId}
      * @secure
      */
@@ -792,8 +796,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags order-controller
+     * @tags 주문 API
      * @name RequestCancelPayment
+     * @summary 결제 취소 요청
      * @request PUT:/api/order/payment/cancel/{orderId}/{impUid}
      * @secure
      */
@@ -809,8 +814,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags coupon-controller
+     * @tags 쿠폰 API
      * @name GetCouponBy
+     * @summary couponId로 쿠폰 조회
      * @request GET:/api/coupons/{couponId}
      * @secure
      */
@@ -826,8 +832,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags coupon-controller
+     * @tags 쿠폰 API
      * @name UpdateCoupon
+     * @summary couponId로 쿠폰 수정
      * @request PUT:/api/coupons/{couponId}
      * @secure
      */
@@ -845,8 +852,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags coupon-controller
+     * @tags 쿠폰 API
      * @name IssueCoupon
+     * @summary couponId로 쿠폰 발급
      * @request POST:/api/coupons/{couponId}
      * @secure
      */
@@ -862,8 +870,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags coupon-controller
+     * @tags 쿠폰 API
      * @name DeleteCoupon
+     * @summary couponId로 쿠폰 삭제
      * @request DELETE:/api/coupons/{couponId}
      * @secure
      */
@@ -878,7 +887,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags collabo-controller
+     * @tags 콜라보 API
      * @name GetCollaboProducts
      * @request GET:/api/collabo
      * @secure
@@ -886,16 +895,20 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getCollaboProducts: (
       query?: {
         /**
+         * 몇번째 페이지
          * @format int32
          * @min 0
          * @default 1
+         * @example 1
          */
         pageNo?: number;
         /**
+         * 한번에 조회할 항목의 개수
          * @format int32
          * @min 10
          * @max 20
          * @default 20
+         * @example 20
          */
         pageSize?: number;
         /** @default "PRICE_DESC" */
@@ -915,8 +928,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags collabo-controller
+     * @tags 콜라보 API
      * @name UpdateCollaboProduct
+     * @summary 콜라보 상품 수정
      * @request PUT:/api/collabo
      * @secure
      */
@@ -934,8 +948,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags collabo-controller
+     * @tags 콜라보 API
      * @name CreateCollaboProduct
+     * @summary 콜라보 상품 등록
      * @request POST:/api/collabo
      * @secure
      */
@@ -953,8 +968,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags cart-controller
+     * @tags 장바구니 API
      * @name UpdateCart
+     * @summary 장바구니 상품 수량 변경
      * @request PUT:/api/cart/{productId}
      * @secure
      */
@@ -978,8 +994,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags cart-controller
+     * @tags 장바구니 API
      * @name AddProductToCart
+     * @summary 장바구니에 상품 추가
      * @request POST:/api/cart/{productId}
      * @secure
      */
@@ -1003,8 +1020,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags cart-controller
+     * @tags 장바구니 API
      * @name DeleteFromCart
+     * @summary 장바구니 상품 삭제
      * @request DELETE:/api/cart/{productId}
      * @secure
      */
@@ -1019,25 +1037,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags payment-controller
-     * @name PaymentByImpUid
-     * @request POST:/api/verifyIamport/{imp_uid}
-     * @secure
-     */
-    paymentByImpUid: (impUid: string, params: RequestParams = {}) =>
-      this.request<IamportResponsePayment, ErrorDto>({
-        path: `/api/verifyIamport/${impUid}`,
-        method: "POST",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags member-controller
+     * @tags 회원 API
      * @name Signup
+     * @summary 회원 가입
      * @request POST:/api/signup
      * @secure
      */
@@ -1055,8 +1057,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
      * @name SignupDataGen
+     * @summary 회원 가입 데이터 생성
      * @request POST:/api/signup-data-gen
      * @secure
      */
@@ -1074,8 +1077,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags restore-controller
+     * @tags 리스토어 API
      * @name RestoreRegister
+     * @summary 리스토어 등록
      * @request POST:/api/restore
      * @secure
      */
@@ -1093,8 +1097,53 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags product-controller
+     * @tags 리스토어 API
+     * @name UpdateRestore2
+     * @summary 리스토어 포인트 지급 상태 업데이트
+     * @request POST:/api/restore/rewarded/{restoreId}
+     * @secure
+     */
+    updateRestore2: (
+        restoreId: number,
+        query: {
+          rewarded: boolean;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<RestoreDto, ErrorDto>({
+          path: `/api/restore/rewarded/${restoreId}`,
+          method: "POST",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 리스토어 API
+     * @name TransferRestoreEmail
+     * @summary 리스토어 완료 처리 이메일 전송
+     * @request POST:/api/restore/email
+     * @secure
+     */
+    transferRestoreEmail: (data: RestoreEmailDto, params: RequestParams = {}) =>
+        this.request<void, ErrorDto>({
+          path: `/api/restore/email`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 상품 API
      * @name GetProduct
+     * @summary 전체 상품 조회
      * @request GET:/api/product
      * @secure
      */
@@ -1130,8 +1179,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags product-controller
+     * @tags 상품 API
      * @name CreateProduct
+     * @summary 상품 생성
      * @request POST:/api/product
      * @secure
      */
@@ -1149,8 +1199,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags product-controller
+     * @tags 상품 API
      * @name GetReviewsByProductId
+     * @summary 상품 리뷰 조회
      * @request GET:/api/product/{productId}/review
      * @secure
      */
@@ -1166,8 +1217,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags product-controller
+     * @tags 상품 API
      * @name WriteReviewToProduct
+     * @summary 상품에 리뷰 작성
      * @request POST:/api/product/{productId}/review
      * @secure
      */
@@ -1187,7 +1239,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         query: query,
         body: data,
         secure: true,
-        type: ContentType.Json,
+        type: ContentType.FormData,
         format: "json",
         ...params,
       }),
@@ -1195,8 +1247,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags order-controller
+     * @tags 주문 API
      * @name CreateOrder
+     * @summary 주문 생성
      * @request POST:/api/order
      * @secure
      */
@@ -1214,8 +1267,53 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 메시지 전송 API
+     * @name TransferRestoreMessage
+     * @summary 문자 메시지 전송
+     * @request POST:/api/messageTransfer
+     * @secure
+     */
+    transferRestoreMessage: (
+        query: {
+          toNumber: string;
+          contents: string;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<void, ErrorDto>({
+          path: `/api/messageTransfer`,
+          method: "POST",
+          query: query,
+          secure: true,
+          ...params,
+        }),
+
+    /**
+     * @description 로그인된 회원의 인테리어 취향을 업데이트합니다.
+     *
+     * @tags 회원 API
+     * @name UpdateSeason
+     * @summary 회원의 인테리어 취향 업데이트
+     * @request POST:/api/member/season
+     * @secure
+     */
+    updateSeason: (data: SeasonDto, params: RequestParams = {}) =>
+        this.request<SeasonDto, ErrorDto>({
+          path: `/api/member/season`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
      * @name GetSelectedItems
+     * @summary 선택된 상품 목록 조회
      * @request POST:/api/member/cart/order
      * @secure
      */
@@ -1233,8 +1331,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags auth-controller
+     * @tags 인증 API
      * @name Authorize
+     * @summary LoginDto로 Login 처리
      * @request POST:/api/login
      * @secure
      */
@@ -1252,8 +1351,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags coupon-controller
+     * @tags 쿠폰 API
      * @name GetAllCoupon
+     * @summary 모든 쿠폰 조회
      * @request GET:/api/coupons
      * @secure
      */
@@ -1269,8 +1369,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags coupon-controller
+     * @tags 쿠폰 API
      * @name SaveCoupon
+     * @summary 쿠폰 저장
      * @request POST:/api/coupons
      * @secure
      */
@@ -1288,8 +1389,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags category-controller
+     * @tags 카테고리 API
      * @name GetCategories
+     * @summary 모든 카테고리 조회
      * @request GET:/api/category
      * @secure
      */
@@ -1305,8 +1407,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags category-controller
+     * @tags 카테고리 API
      * @name AddCategory
+     * @summary 카테고리 항목 추가
      * @request POST:/api/category
      * @secure
      */
@@ -1324,14 +1427,86 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags restore-controller
-     * @name GetRestores
-     * @request GET:/api/restore/list
+     * @tags 주소록 API
+     * @name GetAddress
+     * @summary 전체 주소록 조회
+     * @request GET:/api/address
      * @secure
      */
-    getRestores: (params: RequestParams = {}) =>
+    getAddress: (
+        query?: {
+          /**
+           * @format int32
+           * @default 0
+           */
+          page?: number;
+          /**
+           * @format int32
+           * @default 20
+           */
+          pageSize?: number;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<AddressDto[], ErrorDto>({
+          path: `/api/address`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 주소록 API
+     * @name CreateAddress
+     * @summary 주소록 생성
+     * @request POST:/api/address
+     * @secure
+     */
+    createAddress: (data: AddressReqDto, params: RequestParams = {}) =>
+        this.request<AddressDto, ErrorDto>({
+          path: `/api/address`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 리스토어 API
+     * @name GetRestoreStatusInfo
+     * @summary 리스토어 상태 정보 조회
+     * @request GET:/api/restore/status
+     * @secure
+     */
+    getRestoreStatusInfo: (params: RequestParams = {}) =>
+        this.request<RestoreStatusDto[], ErrorDto>({
+          path: `/api/restore/status`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 리스토어 API
+     * @name GetMyRestores
+     * @summary 신청한 리스토어 목록 조회
+     * @request GET:/api/restore/list/{memberId}
+     * @secure
+     */
+    getMyRestores: (memberId: number, params: RequestParams = {}) =>
       this.request<RestoreDto[], ErrorDto>({
-        path: `/api/restore/list`,
+        path: `/api/restore/list/${memberId}`,
         method: "GET",
         secure: true,
         format: "json",
@@ -1341,31 +1516,45 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags message-transfer-controller
-     * @name TransferMessage
-     * @request GET:/api/messageTransfer
+     * @tags 주문 API
+     * @name GetTodayOrder
+     * @summary 오늘의 주문 통계 조회
+     * @request GET:/api/order/total/today
      * @secure
      */
-    transferMessage: (
-      query: {
-        toNumber: string;
-        contents: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<void, ErrorDto>({
-        path: `/api/messageTransfer`,
+    getTodayOrder: (params: RequestParams = {}) =>
+        this.request<MonthlyOrderSummaryDto, ErrorDto>({
+          path: `/api/order/total/today`,
         method: "GET",
-        query: query,
         secure: true,
+        format: "json",
         ...params,
       }),
 
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 주문 API
+     * @name GetMonthlyOrder
+     * @summary 월별 주문 통계 조회
+     * @request GET:/api/order/total/month
+     * @secure
+     */
+    getMonthlyOrder: (params: RequestParams = {}) =>
+        this.request<MonthlyOrderSummaryDto[], ErrorDto>({
+          path: `/api/order/total/month`,
+        method: "GET",
+        secure: true,
+          format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
      * @name GetMyUserInfo
+     * @summary 로그인 된 멤버 정보 조회
      * @request GET:/api/member
      * @secure
      */
@@ -1381,8 +1570,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
      * @name GetUserInfo
+     * @summary 특정 회원 정보 조회
      * @request GET:/api/member/{loginId}
      * @secure
      */
@@ -1398,8 +1588,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
      * @name GetOrders
+     * @summary 로그인 된 멤버 주문 목록 조회
      * @request GET:/api/member/order
      * @secure
      */
@@ -1424,7 +1615,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
      * @name GetMyUserInfo1
      * @request GET:/api/member/mypage
      * @secure
@@ -1441,8 +1632,45 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
+     * @name GetMemberCntMonthly
+     * @summary 월별 회원 가입 수 조회
+     * @request GET:/api/member/month/signup
+     * @secure
+     */
+    getMemberCntMonthly: (params: RequestParams = {}) =>
+        this.request<MonthlyMemberRegisterDto[], ErrorDto>({
+          path: `/api/member/month/signup`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
+     * @name GetMemberGradeCnt
+     * @summary 멤버 등급별 멤버 수 조회
+     * @request GET:/api/member/grade
+     * @secure
+     */
+    getMemberGradeCnt: (params: RequestParams = {}) =>
+        this.request<MemberGradeDto[], ErrorDto>({
+          path: `/api/member/grade`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
      * @name GetUnusedCoupons
+     * @summary 로그인 된 멤버 미사용 쿠폰 조회
      * @request GET:/api/member/coupons
      * @secure
      */
@@ -1467,8 +1695,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags member-controller
+     * @tags 회원 API
      * @name GetCarts
+     * @summary 로그인 된 멤버 장바구니 목록 조회
      * @request GET:/api/member/cart
      * @secure
      */
@@ -1493,14 +1722,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags auth-controller
+     * @tags 인증 API
      * @name HelloCurr
-     * @request GET:/api/curruser
+     * @summary 현재 로그인 된 유저 ID 조회
+     * @request GET:/api/login/member
      * @secure
      */
     helloCurr: (params: RequestParams = {}) =>
       this.request<string, ErrorDto>({
-        path: `/api/curruser`,
+        path: `/api/login/member`,
         method: "GET",
         secure: true,
         format: "json",
@@ -1510,8 +1740,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags collabo-controller
+     * @tags 콜라보 API
      * @name GetCollaboProduct
+     * @summary productId로 콜라보 상품 조회
      * @request GET:/api/collabo/{productId}
      * @secure
      */
@@ -1527,8 +1758,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags collabo-controller
+     * @tags 콜라보 API
      * @name GetCollaboProductItems
+     * @summary 모든 콜라보 상품 조회
      * @request GET:/api/collabo/{productId}/items
      * @secure
      */
@@ -1544,8 +1776,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags category-controller
+     * @tags 카테고리 API
      * @name GetProductsWithCategory
+     * @summary categoryId로 카테고리 조회
      * @request GET:/api/category/{categoryId}/products
      * @secure
      */
@@ -1578,13 +1811,50 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: "json",
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags 주소록 API
+     * @name GetAddress1
+     * @summary 상세 주소록 조회
+     * @request GET:/api/address/{addressId}
+     * @secure
+     */
+    getAddress1: (addressId: number, params: RequestParams = {}) =>
+        this.request<AddressDto, ErrorDto>({
+          path: `/api/address/${addressId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 주소록 API
+     * @name GetMyAddress
+     * @summary 내 주소록 조회
+     * @request GET:/api/address/my
+     * @secure
+     */
+    getMyAddress: (params: RequestParams = {}) =>
+        this.request<AddressDto[], ErrorDto>({
+          path: `/api/address/my`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
   };
   backoffice = {
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
      * @name UpdateRestore1
+     * @summary 리스토어 정보 수정
      * @request POST:/backoffice/api/updateRestore
      * @secure
      */
@@ -1602,8 +1872,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
      * @name UpdateProduct1
+     * @summary 상품 정보 업데이트
      * @request POST:/backoffice/api/updateProduct
      * @secure
      */
@@ -1621,8 +1892,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
      * @name UpdateMember1
+     * @summary 회원 정보 업데이트
      * @request POST:/backoffice/api/updateMember
      * @secure
      */
@@ -1640,8 +1912,45 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
+     * @name RestoreRewarded
+     * @summary 검수완료 된 모든 리스토어 완료 처리, 멤버에게 포인트 지급
+     * @request POST:/backoffice/api/restore/rewarded
+     * @secure
+     */
+    restoreRewarded: (params: RequestParams = {}) =>
+        this.request<string, ErrorDto>({
+          path: `/backoffice/api/restore/rewarded`,
+          method: "POST",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 백오피스 API
+     * @name RestoreRewarded1
+     * @summary restoreId로 리스토어 완료 처리, 멤버에게 포인트 지급
+     * @request POST:/backoffice/api/restore/rewarded/{restoreId}
+     * @secure
+     */
+    restoreRewarded1: (restoreId: number, params: RequestParams = {}) =>
+        this.request<string, ErrorDto>({
+          path: `/backoffice/api/restore/rewarded/${restoreId}`,
+          method: "POST",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 백오피스 API
      * @name GetMemberById
+     * @summary memberId로 멤버 조회
      * @request GET:/backoffice/api/member/{id}
      * @secure
      */
@@ -1657,8 +1966,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
      * @name GetRestoreById
+     * @summary restoreId로 리스토어 조회
      * @request GET:/backoffice/api/getRestore
      * @secure
      */
@@ -1681,8 +1991,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
      * @name GetRestoreImages
+     * @summary restoreId로 리스토어 이미지 조회
      * @request GET:/backoffice/api/getRestoreImageUrls
      * @secure
      */
@@ -1705,8 +2016,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags backoffice-api-controller
+     * @tags 백오피스 API
      * @name GetProductImages
+     * @summary 상품 이미지 URL 가져오기
      * @request GET:/backoffice/api/getProductImageUrls
      * @secure
      */

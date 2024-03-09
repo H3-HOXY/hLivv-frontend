@@ -1,11 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {AverageRating} from "./AverageRating";
 import {DistributionBars} from "./DistributionBars";
 import {UserReview} from "./UserReview";
 import {ReviewSortButtons} from "./ReviewSortButtons";
+import {Api} from "../../../../api/ApiWrapper";
+import {ReviewDto} from "../../../../api/Api";
 
-export const ReviewSection = () => {
-    const star = 4
+export const ReviewSection = ({productId}: { productId: number }) => {
+    const [reviews, setReviews] = useState<ReviewDto[]>([])
+    useEffect(() => {
+        async function fetchProductReviews() {
+            const api = Api
+            const reviews = (await api.getReviewsByProductId(productId)).data as ReviewDto[]
+            return reviews
+        }
+
+        fetchProductReviews().then(reviews => setReviews(reviews))
+    }, []);
+
+    const star = reviews.reduce((acc, review) => acc + (review.star ?? 0), 0) / reviews.length
+
     return (
         <div>
             <div className="text-2xl font-bold text-start">리뷰 &nbsp;
@@ -24,7 +38,13 @@ export const ReviewSection = () => {
                 <ReviewSortButtons/>
             </div>
             <div>
-                <UserReview/>
+                {
+                    reviews.map((review, index) => {
+                        return (
+                            <UserReview reviewDto={review}/>
+                        )
+                    })
+                }
             </div>
         </div>
     )
