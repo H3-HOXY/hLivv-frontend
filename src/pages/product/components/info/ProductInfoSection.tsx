@@ -20,7 +20,20 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
     const location = useLocation()
     const image = useImage()
     const formatter = useCurrencyFormat()
+    const navigate = useNavigate()
 
+    const onCartClicked = async () => {
+        try {
+            const api = await getApi();
+            await api.addProductToCart(props.productData.id!!, {qty: 1})
+            navigate("/mypage/cart")
+        } catch (e) {
+
+        }
+    }
+    const onBuyNowClicked = () => {
+        navigate("/order", {state: {products: [{product: props.productData, qty: 1}]}})
+    }
     return (
         <>
             <ImageSlider images={
@@ -65,8 +78,8 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
 
                 {/* 버튼 그룹  */}
                 <div className="flex flex-row h-16 justify-between gap-6">
-                    <AddToCartButton productId={props.productData.id!!}/>
-                    <BuyNowButton/>
+                    <AddToCartButton onClick={onCartClicked}/>
+                    <BuyNowButton onClick={onBuyNowClicked}/>
                 </div>
             </div>
         </>
@@ -85,24 +98,17 @@ function getTotalPrice(selectedOptions: SelectedOption[]) {
     return selectedOptions.map((value) => value.price * value.quantity).reduce((prev, curr) => prev + curr, 0)
 }
 
-const AddToCartButton = ({productId}: { productId: number }) => {
+const AddToCartButton = ({onClick}: { onClick: () => void }) => {
     const navigate = useNavigate()
     return (
         <button className="border-4 flex-1 rounded-xl border-black text-black"
-                onClick={async () => {
-                    try {
-                        const api = await getApi();
-                        await api.addProductToCart(productId, {qty: 1})
-                        navigate("/mypage/cart")
-                    } catch (e) {
-
-                    }
-                }}
+                onClick={onClick}
         >장바구니</button>
     )
 }
-const BuyNowButton = () => {
+const BuyNowButton = ({onClick}: { onClick: () => void }) => {
+    const navigate = useNavigate()
     return (
-        <button className="border-4 flex-1 rounded-xl bg-black border-black text-white">바로구매</button>
+        <button className="border-4 flex-1 rounded-xl bg-black border-black text-white" onClick={onClick}>바로구매</button>
     )
 }

@@ -28,7 +28,7 @@ export function LoginSub() {
 export const LoginSubItem = (props: LoginSubItemProps) => {
     return (
         <>
-            <div className="LoginSubContent" onClick={() => {
+            <div className="LoginSubContent cursor-pointer" onClick={() => {
                 props.navigateFunc(props.href)
             }}> {props.title} </div>
             <div

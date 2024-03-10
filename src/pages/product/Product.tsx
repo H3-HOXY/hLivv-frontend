@@ -102,7 +102,9 @@ export const Product = () => {
 
             {/* 리뷰 */}
             <div className="container mx-auto" ref={reviewRef}>
-                <ReviewSection/>
+                {
+                    productData.id != null ? <ReviewSection productId={productData.id}/> : <></>
+                }
             </div>
         </div>
     )
