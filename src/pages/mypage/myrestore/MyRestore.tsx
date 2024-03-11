@@ -64,7 +64,7 @@ const MyRestore = () => {
             </button>
           </div>
         </div>
-        <div className="MyRestoreContent">
+        <div className="MyRestoreContent pb-2">
             {/* 리스토어 아이템 */}
             {
                 orderHistoryItem.map((item, index) => {

@@ -1,6 +1,6 @@
 .Restore{
   width: 100vw;
-  height: calc(100vh - 4.5em);
+  min-height: calc(100vh - 4.5em);
   // background-color: aliceblue;
   background-image: url("img/뉴트럴.jpeg");
   background-size: cover;
@@ -21,7 +21,8 @@
   align-items: start;
   justify-content: center;
   text-align: start;
-  padding: 2em 3em;
+  padding: 4em 3em;
+  margin: 4em 0;
 }
 
 .RestoreIntroTitle, .RestoreHowToUseTitle{

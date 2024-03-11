@@ -31,13 +31,47 @@ export async function orderAction({request, params}): Promise<any> {
 
         const payment = await requestPayAsync(`${orderResDto.orderId}`, paymentParams)
 
+        // Display loading image for 3 seconds
+        showLoadingImage();
+
+        // Wait for 3 seconds
+        await delay(3000);
+
+        // Hide loading image after 3 seconds
+        hideLoadingImage();
+
         // return FormMessage.createFormMessage("주문 성공", 200)
         return Response.redirect("/mypage/buydetail", 303)
     } catch (e) {
         console.log(e)
         return FormMessage.createFormMessage(`${e}`, 500)
     }
+
+    function showLoadingImage() {
+        // Create an image element and set its source to the loading image (cart.gif)
+        const loadingImage = document.createElement('img');
+        loadingImage.src = '/public/img/cart.gif';
+        loadingImage.id = 'loading-image';
+    
+        // Append the image to the body or a specific container
+        document.body.appendChild(loadingImage);
+    }
+    
+    function hideLoadingImage() {
+        // Remove the loading image element from the DOM
+        const loadingImage = document.getElementById('loading-image');
+        if (loadingImage && loadingImage.parentNode) {
+            // Remove the loading image element from the DOM
+            loadingImage.parentNode.removeChild(loadingImage);
+        }
+    }
+    
+    function delay(ms: number) {
+        // Helper function to introduce a delay using Promises
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }
+
 
 function requestPayAsync(orderId: string, params: RequestPayParams): Promise<any> {
     return new Promise((resolve, reject) => {

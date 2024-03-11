@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: calc(100vh - 4.5em);
+  padding-bottom: 2em;
   // background-color: aliceblue;
 }
 
