@@ -8,7 +8,7 @@ export type CategoryMenuItemProps = {
 export const CategoryMenuItem = (props: CategoryMenuItemProps) => {
     return (
         <>
-            <span className="CategoryMenuItem w-full py-3 text-[1rem] font-semibold"
+            <span className="CategoryMenuItem w-full py-3 text-[1rem] font-semibold cursor-pointer"
                   onClick={() => props.onClick(props.categoryId)}
             >{props.title}</span>
         </>

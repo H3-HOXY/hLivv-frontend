@@ -3,29 +3,60 @@ import {GetMore} from "./components/GetMore";
 import {useImage} from "../common/hooks/useImage";
 import {StoreBanner} from "./components/StoreBanner";
 import {CategoryMenu} from "./components/CategoryMenu";
-import {SortingMenu} from "./SortingMenu";
 import "./styles/Store.scss"
-import {Await, useLoaderData} from "react-router-dom";
+import {Await, useLoaderData, useSearchParams} from "react-router-dom";
 import React, {Suspense, useEffect, useState} from "react";
 import {ProductDto} from "../../api/Api";
 import {StoreListItemProps} from "./components/StoreListItem";
 import {CategoryMenuItemProps} from "./components/CategoryMenuItem";
 import {storeBannerItems} from "./data";
+import {Api} from "../../api/ApiWrapper";
+import {SortingMenu} from "./SortingMenu";
+import categoryData from "../../data/category.json"
 
 export const Store = () => {
     const image = useImage()
     const loaderData = useLoaderData() as { products: ProductDto[] }
     const [products, setProducts] = useState<ProductDto[]>([])
-    const [category, setCategory] = useState<string>("1")
+
+    const [searchParam, setSearchParam] = useSearchParams()
+    const [pageNo, setPageNo] = useState(0)
+    const [categoryId, setCategoryId] = useState<string>("")
 
     useEffect(() => {
-        // search category product
-    }, [category]);
+        fetchProducts().then()
+    }, [categoryId]);
+
 
     useEffect(() => {
-        if (!loaderData) return
-        setProducts([...products, ...loaderData.products])
-    }, [loaderData]);
+        fetchProducts().then()
+    }, []);
+
+    async function fetchProducts() {
+        let categoryId = undefined
+        try {
+            categoryId = searchParam.get("categoryId") ?? undefined
+        } catch (e) {
+        }
+        try {
+            const api = Api
+            if (categoryId === undefined) {
+                const products = await api.getProduct({pageNo: pageNo, pageSize: 20}, {})
+                setProducts(products.data)
+                setPageNo(pageNo + 1)
+                console.log(products)
+            } else {
+                const products = await api.getProductsWithCategory(categoryId, {
+                    pageNo: pageNo,
+                    pageSize: 20
+                }, {})
+                setProducts(products.data)
+                setPageNo(pageNo + 1)
+                console.log(products)
+            }
+        } catch (e) {
+        }
+    }
 
     const storeItemList = products.map(product => {
         return {
@@ -37,12 +68,19 @@ export const Store = () => {
         } as StoreListItemProps
     })
 
-    const categoryList = ["전체", "소파", "식탁", "침대", "거실장", "옷장", "화장대", "수납장", "책상", "키즈", "홈데코", "벽지"] .map((category, idx) => {
+    const categoryList = categoryData.map((category, idx) => {
         return {
-            categoryId: `${idx}`,
-            title: category
+            categoryId: `${category.id}`,
+            title: category.name
         } as CategoryMenuItemProps
     })
+    // const categoryList = [
+    //     "전체", "소파", "식탁", "침대", "거실장", "옷장", "화장대", "수납장", "책상", "키즈", "홈데코", "벽지"].map((category, idx) => {
+    //     return {
+    //         categoryId: `${idx}`,
+    //         title: category
+    //     } as CategoryMenuItemProps
+    // })
 
     return (
         <>
@@ -54,8 +92,12 @@ export const Store = () => {
 
                     {/*{카테고리 메뉴}*/}
                     <CategoryMenu categoryList={categoryList}
-                                  onClick={(categoryId: string) => setCategory(categoryId)}/>
-
+                                  onClick={(categoryId: string) => {
+                                      setCategoryId(categoryId)
+                                      searchParam.set("categoryId", categoryId)
+                                      setSearchParam(searchParam)
+                                      setPageNo(0)
+                                  }}/>
                     <SortingMenu/>
                     {/*{상품목록}*/}
                     <Suspense fallback={<div>loading</div>}>
