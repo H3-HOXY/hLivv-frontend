@@ -3,19 +3,10 @@ import {useRef, useState} from "react";
 import {useImage} from "../../../common/hooks/useImage";
 import ModalBase from "../../../../Components/ModalBase";
 import CardModal from "../../../../Components/CardModal";
-<<<<<<< HEAD
-import {getApi} from "../../../../api/ApiWrapper";
-
-interface State {
-  id: string;
-  value: "S" | "A" | "B" | "C";
-=======
-import {Form} from "react-router-dom";
 
 interface State {
   id: string;
   value: string;
->>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   label: string;
   desc: string;
 }
@@ -33,36 +24,6 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
 }) {
   const image = useImage()
 
-<<<<<<< HEAD
-  const onClickCardConfirm = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e?.preventDefault();
-    try{
-      const api = await getApi();
-      const response = await api.restoreRegister(
-        {
-          productId: productDto.id!!, 
-          pickUpDate:"", 
-          requestGrade: restoreGrade || "S", 
-          restoreDesc: restoreDesc?.toString() ?? "", 
-          whenRejected: false, 
-          restoreImageUrls: [restoreImgPath ?? ""]}
-      );
-
-      console.log('Restore submitted successfully', response);
-      // 모달을 닫고 캐시 비우기
-      onClickModalOff();
-      setImgFile(undefined);
-      setRestoreImgPath("");
-      if (imgRef.current) {
-        imgRef.current.value = "";
-      }
-    } catch (error) {
-      console.error('Error submitting restore', error);
-      // 에러 처리 로직 추가
-    } finally {
-
-    }
-=======
   const onClickCardConfirm = () => {
     // 모달을 닫고 캐시 비우기
     onClickModalOff();
@@ -72,7 +33,6 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
       imgRef.current.value = "";
     }
     alert('리스토어가 신청되었습니다.');
->>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   };
 
   const handleFormSubmit = (event: React.FormEvent) => {
@@ -87,11 +47,7 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
 
 
   // 상태 선택 기능
-<<<<<<< HEAD
-  const [restoreGrade, setRestoreGrade] = useState<"S" | "A" | "B" | "C">("S");
-=======
   const [restoreGrade, setRestoreGrade] = useState<string>();
->>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   // console.log(`Selected state: ${restoreGrade}`);
 
   // 사진 첨부 기능
@@ -105,7 +61,7 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
     if (imgRef.current && imgRef.current.files) {
       const img = imgRef.current.files[0];
       setImgFile(img);
-      
+
       //이미지 미리보기 기능
       const reader = new FileReader();
       reader.readAsDataURL(img);
@@ -116,101 +72,94 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
   };
 
   // 상품 설명
-<<<<<<< HEAD
-  const [restoreDesc, setRestoreDesc] = useState<String | undefined>(undefined);
-=======
   const [restoreDesc, setRestoreDesc] = useState<String>();
->>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   // console.log(restoreDesc);
-  
+
   return (
-    <ModalBase active={isActive} closeEvent={onClickModalOff}>
-      <CardModal closeEvent={onClickModalOff} title="리스토어 신청하기" actionMsg="확인" actionEvent={onClickCardConfirm}>
-        <div className="RestoreModal">
-          {/* 상품상태 */}
-          <div className="RestoreModalState">
-            <div className="RestoreModalStateTitle">제품상태</div>
-            <div className="RestoreModalStateContent">
-            <ul className="PreferenceTestRightAnswer space-y-4 mb-4">
-              {stateList.map((state) => (
-                <li key={state.id}>
-                  <input
-                    type="radio"
-                    id={state.id}
-                    name="state"
-                    value={state.value}
-                    className="hidden peer"
-                    onClick={() => setRestoreGrade(state.value)}
-                    required
-                  />
-                  <label
-                    htmlFor={state.id}
-                    className="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
-                    onClick={() => setRestoreGrade(state.value)}
-                  >
-                    <div className="block">
-                      <div className="w-full text-lg font-semibold">{state.label}</div>
-                      <div className="w-full text-lg font-semibold">{state.desc}</div>
-                    </div>
-                  </label>
-                </li>
-              ))}
-            </ul>
+      <ModalBase active={isActive} closeEvent={onClickModalOff}>
+        <CardModal closeEvent={onClickModalOff} title="리스토어 신청하기" actionMsg="확인" actionEvent={onClickCardConfirm}>
+          <div className="RestoreModal">
+            {/* 상품상태 */}
+            <div className="RestoreModalState">
+              <div className="RestoreModalStateTitle">제품상태</div>
+              <div className="RestoreModalStateContent">
+                <ul className="PreferenceTestRightAnswer space-y-4 mb-4">
+                  {stateList.map((state) => (
+                      <li key={state.id}>
+                        <input
+                            type="radio"
+                            id={state.id}
+                            name="state"
+                            value={state.value}
+                            className="hidden peer"
+                            onClick={() => setRestoreGrade(state.value)}
+                            required
+                        />
+                        <label
+                            htmlFor={state.id}
+                            className="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500"
+                            onClick={() => setRestoreGrade(state.value)}
+                        >
+                          <div className="block">
+                            <div className="w-full text-lg font-semibold">{state.label}</div>
+                            <div className="w-full text-lg font-semibold">{state.desc}</div>
+                          </div>
+                        </label>
+                      </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-          {/* 상품사진 */}
-          <div className="RestoreModalPic">
-            <div className="RestoreModalPicTitle">상품사진</div>
-            <div className="RestoreModalPicContent">
-              <div className="RestoreModalPicContentText">사진을 첨부해주세요.</div>
-              <div className="RestoreModalPicContentButton">
-                <label className="RestoreModalPicUploadPreviewLabel" htmlFor="photo">
-                  <img
-                    //사용자가 이미지 파일을 업로드하면 해당 이미지를 보여주고, 없으면 기본 이미지를 보여준다.
-                    className="RestoreModalPicUploadPreviewLImg"
-                    src={restoreImgPath ? restoreImgPath : image("upload.png")}
-                    alt="사진 첨부하기"
-                  />
-                </label>
-                <label className="RestoreModalPicUploadInputLabel" htmlFor="photo">
-                  사진 첨부하기
-                  <input
-                    className="RestoreModalPicUploadInput"
-                    type="file"
-                    id="photo"
-                    name="photo"
-                    accept=".png, .jpeg, .jpg"
-                    onChange={previewImage}
-                    ref={imgRef}
-                  />
-                  <input type="hidden" name="restoreImgPath" 
-<<<<<<< HEAD
-                  onChange={() => setRestoreImgPath(restoreImgPath)} />
-=======
-                  onChange={() => setRestoreGrade(restoreImgPath)} />
->>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
-                </label>
+            {/* 상품사진 */}
+            <div className="RestoreModalPic">
+              <div className="RestoreModalPicTitle">상품사진</div>
+              <div className="RestoreModalPicContent">
+                <div className="RestoreModalPicContentText">사진을 첨부해주세요.</div>
+                <div className="RestoreModalPicContentButton">
+                  <label className="RestoreModalPicUploadPreviewLabel" htmlFor="photo">
+                    <img
+                        //사용자가 이미지 파일을 업로드하면 해당 이미지를 보여주고, 없으면 기본 이미지를 보여준다.
+                        className="RestoreModalPicUploadPreviewLImg"
+                        src={restoreImgPath ? restoreImgPath : image("upload.png")}
+                        alt="사진 첨부하기"
+                    />
+                  </label>
+                  <label className="RestoreModalPicUploadInputLabel" htmlFor="photo">
+                    사진 첨부하기
+                    <input
+                        className="RestoreModalPicUploadInput"
+                        type="file"
+                        id="photo"
+                        name="photo"
+                        accept=".png, .jpeg, .jpg"
+                        onChange={previewImage}
+                        ref={imgRef}
+                    />
+                    <input type="hidden" name="restoreImgPath"
+                           onChange={() => setRestoreGrade(restoreImgPath)}/>
+                  </label>
+                </div>
+              </div>
+            </div>
+            {/* 상품설명 */}
+            <div className="RestoreModalDescription">
+              <div className="RestoreModalDescriptionTitle">상품설명</div>
+              <textarea
+                  className="RestoreModalDescriptionContent"
+                  placeholder="상품상태를 간략하게 설명해주세요."
+                  title="상품설명"
+                  onChange={(e) => setRestoreDesc(e.target.value)}
+              />
+            </div>
+            {/* 안내사항 */}
+            <div className="RestoreModalInfo">
+              <div className="RestoreModalInfoTitle">위의 조건을 충족하지 못하나요?</div>
+              <div className="RestoreModalInfoContent">조건에 맞지 않는 제품은 리스토어 판매가 어렵습니다.
+                <br/>H.Livv 리스토어 서비스는 가구에 제2의 삶을 불어 넣을 수 있는 선택 중 하나일 뿐입니다. 가구를 폐기할 때가 되었다면 다른 재활용 방법을 고려해보세요.
               </div>
             </div>
           </div>
-          {/* 상품설명 */}
-          <div className="RestoreModalDescription">
-            <div className="RestoreModalDescriptionTitle">상품설명</div>
-            <textarea 
-            className="RestoreModalDescriptionContent"
-            placeholder="상품상태를 간략하게 설명해주세요." 
-            title="상품설명"
-            onChange={(e) => setRestoreDesc(e.target.value)}
-            />
-          </div>
-          {/* 안내사항 */}
-          <div className="RestoreModalInfo">
-            <div className="RestoreModalInfoTitle">위의 조건을 충족하지 못하나요?</div>
-            <div className="RestoreModalInfoContent">조건에 맞지 않는 제품은 리스토어 판매가 어렵습니다. 
-            <br/>H.Livv 리스토어 서비스는 가구에 제2의 삶을 불어 넣을 수 있는 선택 중 하나일 뿐입니다. 가구를 폐기할 때가 되었다면 다른 재활용 방법을 고려해보세요.</div>
-          </div>
-        </div>
-      </CardModal>
-    </ModalBase>
+        </CardModal>
+      </ModalBase>
   )
 }
