@@ -11,6 +11,7 @@ import {getApi} from "../../api/ApiWrapper";
 import {OrderProductContainerContent} from "./components/OrderProductContainerContent";
 import {MyPoint} from "./components/MyPoint";
 import {FormMessage} from "../../common/FormMessage";
+import {useCurrencyFormat} from "../common/hooks/useCurrencyFormat";
 
 declare global {
     export interface Window {
@@ -25,6 +26,7 @@ initTE({Select});
 
 const emptyAddressInfo = {
     name: "",
+    addressId: 0,
     zipCode: "",
     streetAddress: "",
     detailedAddress: "",
@@ -64,6 +66,7 @@ const Order = () => {
 
     const [price, setPrice] = useState(50_000)
     const submit = useSubmit()
+    const format = useCurrencyFormat()
 
     useEffect(() => {
         const {products} = location.state || {};
@@ -111,10 +114,12 @@ const Order = () => {
             alert("개인정보 수집 이용 및 제 3자 제공에 동의해주세요.")
             return
         }
-        if (didAddressChanged(initialAddress, address)) {
+        let addressId = address.addressId
+
+        if (didAddressChanged(initialAddress, address) || initialAddress.zipCode === "") {
             try {
                 const api = await getApi()
-                await api.createAddress({
+                const newAddr = await api.createAddress({
                     zipCode: address.zipCode,
                     streetAddress: address.streetAddress,
                     detailedAddress: address.detailedAddress,
@@ -123,12 +128,14 @@ const Order = () => {
                     requestMsg: address.requestMsg,
                     defaultYn: true
                 })
+                console.log(newAddr)
+                addressId = newAddr.data.addressId!!
             } catch (e) {
             }
         }
 
         const orderReqDto: OrderReqDto = {
-            ...address,
+            addressId: addressId,
             orderPoint: orderPoint,
             productList: [...products.map((item) => {
                 return ({
@@ -163,6 +170,7 @@ const Order = () => {
         });
     };
 
+    const orderTotal = products.reduce((acc, item) => acc + (item.product.price!! * item.qty * (100 - (item.product.discountPercent ?? 0)) / 100), 0);
 
     return (
         <div className="Order max-w-7xl mx-auto px-4">
@@ -239,7 +247,8 @@ const Order = () => {
                         <div className="OrderAmountContentLeft">
                             <div className="OrderAmountContentLeftPay">
                                 <div className="OrderAmountContentLeftPayText">총 상품 금액</div>
-                                <div className="OrderAmountContentLeftPayNumber">26,900원</div>
+                                {/* 할인 금액을 적용한 것 */}
+                                <div className="OrderAmountContentLeftPayNumber">{format(orderTotal)}원</div>
                             </div>
                             <div className="OrderAmountContentLeftPay">
                                 <div className="OrderAmountContentLeftPayText">배송비</div>
@@ -256,7 +265,7 @@ const Order = () => {
                             <hr className="OrderAmountContentLeftLine"/>
                             <div className="OrderAmountContentLeftPay">
                                 <div className="OrderAmountContentLeftFinalPayText">최종 결제 금액</div>
-                                <div className="OrderAmountContentLeftFinalPayNumber">26,900원</div>
+                                <div className="OrderAmountContentLeftFinalPayNumber">{format(orderTotal)}원</div>
                             </div>
                         </div>
                         <div className="OrderAmountContentRight">
@@ -319,6 +328,7 @@ async function getMyAddress(name: string, address: AddressInfo, setInitialAddres
 
     setInitialAddress({
         name: name,
+        addressId: selectedAddress.addressId!!,
         zipCode: selectedAddress.zipCode!!!!,
         streetAddress: selectedAddress.streetAddress!!,
         detailedAddress: selectedAddress.detailedAddress!!,
@@ -328,6 +338,7 @@ async function getMyAddress(name: string, address: AddressInfo, setInitialAddres
     });
     setAddress({
         name: name,
+        addressId: selectedAddress.addressId!!,
         zipCode: selectedAddress.zipCode!!!!,
         streetAddress: selectedAddress.streetAddress!!,
         detailedAddress: selectedAddress.detailedAddress!!,

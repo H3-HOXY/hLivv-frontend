@@ -1,7 +1,9 @@
+const webpack = require('webpack');
+
 module.exports = {
-  style: {
-      postcssOptions: {
-          plugins: [require('tailwindcss'), require('autoprefixer')],
-      },
-  },
+    style: {
+        postcssOptions: {
+            plugins: [require('tailwindcss'), require('autoprefixer')],
+        },
+    },
 };

@@ -3,14 +3,15 @@ import {useImage} from "../../../common/hooks/useImage";
 import ImageSlider from "./ImageSlider";
 import QRCode from "qrcode.react";
 import React from "react";
-import {ProductDto} from "../../../../api/Api";
-import {AverageReviewScore} from "./AverageReviewScore";
+import {ProductDto, ReviewDto} from "../../../../api/Api";
 import {SelectedOption} from "./SelectedOptionItem";
 import {getApi} from "../../../../api/ApiWrapper";
 import {useCurrencyFormat} from "../../../common/hooks/useCurrencyFormat";
+import {AverageReviewScore} from "./AverageReviewScore";
 
 export type ProductInfoSectionProps = {
     productData: ProductDto
+    reviewData: ReviewDto[]
     selectedOptions: SelectedOption[]
     setSelectedOptions: React.Dispatch<React.SetStateAction<SelectedOption[]>>
 }
@@ -52,11 +53,19 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
 
                 {/* 평점 */}
                 <div className="mb-4">
-                    <AverageReviewScore star={4} reviewCount={100}/>
+                    <AverageReviewScore
+                        star={props.reviewData.reduce((acc, review) => acc + (review.star ?? 0), 0) / props.reviewData.length}
+                        reviewCount={props.reviewData.length}/>
                 </div>
 
                 {/* 상품가격 */}
                 <h2 className="text-3xl font-bold mb-4">{formatter(props.productData.price ?? 0)}원</h2>
+                {
+                    (props.productData.discountPercent !== undefined && props.productData.discountPercent > 0) ?
+                        <h2 className="text-3xl font-bold mb-4">{formatter((props.productData.price ?? 0) * ((100 - (props.productData.discountPercent ?? 0)) / 100 ?? 0))}원</h2>
+                        : <></>
+
+                }
 
                 {/* QR코드  */}
                 <QRCode className="mb-4" value={`${hostname}${location.pathname}`} size={100}/>

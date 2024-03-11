@@ -1,6 +1,7 @@
 import React from "react";
 
 export const DistributionBars = (props: { star: number }) => {
+    const pstar = isNaN(props.star) ? 0 : props.star
     return (
         <>
             {
@@ -10,9 +11,9 @@ export const DistributionBars = (props: { star: number }) => {
                             <div className="text-xl font-bold w-3/12 ">{star}점</div>
                             <div className="flex flex-row w-6/12 m-2.5 ml-4 bg-gray-200 rounded-2xl">
                                 <div className="w-9/12 bg-amber-800 rounded-2xl"
-                                     style={{width: `${props.star * 20}%`}}/>
+                                     style={{width: `${pstar * 20}%`}}/>
                             </div>
-                            <div className="w-3/12">{props.star * 3}</div>
+                            <div className="w-3/12">{pstar * 3}</div>
                         </div>)
                 })
             }

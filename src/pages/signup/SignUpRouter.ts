@@ -29,7 +29,7 @@ export async function signUpAction({request, params}) {
             email: email!!.toString(),
             loginPw: password!!.toString(),
             name: name!!.toString(),
-            phone: phone!!.toString(),
+            phone: phone!!.toString().replace(/-/g, ""),
             loginId: email!!.toString()
         })
         //validate the result

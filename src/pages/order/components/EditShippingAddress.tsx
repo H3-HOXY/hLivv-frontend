@@ -5,6 +5,7 @@ import CardModal from "../../../Components/CardModal";
 import DaumPostcode from "react-daum-postcode";
 
 export interface AddressInfo {
+    addressId: number
     name: string
     zipCode: string
     streetAddress: string

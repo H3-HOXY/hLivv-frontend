@@ -17,7 +17,7 @@ export const AverageRating = (props: { star: number }) => {
                     )
                 })
             }
-            <span className="ml-8 font-bold text-4xl">4.0</span>
+            <span className="ml-8 font-bold text-4xl">{isNaN(props.star) ? 0 : props.star}</span>
         </>
     )
 }
