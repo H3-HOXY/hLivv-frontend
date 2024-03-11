@@ -27,6 +27,24 @@ const Cart = () => {
         }
     }
 
+    const [products, setProducts] = useState<ProductDto[]>([])
+
+    useEffect(() => {
+        getProducts().then().catch()
+    }, [cartItem])
+
+    async function getProducts() {
+        const products: ProductDto[] = []
+        for (let item of cartItem) {
+            try {
+                const product = await Api.getProduct1(item.productId!!)
+                products.push(product.data as ProductDto)
+            } catch (e) {
+            }
+        }
+        setProducts(products)
+    }
+
     async function onCartUpdate(productId: number, qty: number) {
         try {
             const api = await getApi()
@@ -73,6 +91,12 @@ const Cart = () => {
         const data = await convertToCheckoutData(cartItem)
         navigate("/order", data)
     }
+
+    const discount = cartItem.map((item) => {
+        const discountRate = products.filter((product) => product.id === item.productId).map((product) => product.discountPercent!!)
+
+        return item.totalPrice!! * (discountRate.length === 0 ? 0 : discountRate[0] / 100)
+    }).reduce((acc, cur) => acc!! + cur!!, 0)
 
 
     return (
@@ -131,12 +155,14 @@ const Cart = () => {
                         </div>
                         <div className="CartPayContainLeftPay">
                             <div className="CartPayContainLeftText">총 할인 금액</div>
-                            <div className="CartPayContainLeftPayNumber">0원</div>
+                            <div className="CartPayContainLeftPayNumber">{formatter(discount)}원</div>
                         </div>
                         <hr className="CartPayContainLine"/>
                         <div className="CartPayContainLeftTotalPay">
                             <div className="CartPayContainLeftText">최종 결제 금액</div>
-                            <div className="CartPayContainLeftTotalPayNumber">{formatter(priceTotal ?? 0)}원</div>
+                            <div
+                                className="CartPayContainLeftTotalPayNumber">{formatter((priceTotal ?? 0) - discount)}원
+                            </div>
                         </div>
                     </div>
                     <div className="CartPayContainRight">

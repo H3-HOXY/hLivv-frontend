@@ -1,8 +1,8 @@
 import "./styles/Product.scss"
 import React, {useEffect, useRef, useState} from "react";
-import {IFrameSize, ProductDetailSection} from "./components/detail/ProductDetailSection";
+import {IFrameSize} from "./components/detail/ProductDetailSection";
 import {useLoaderData, useLocation} from "react-router-dom";
-import {ProductDto} from "../../api/Api";
+import {ProductDto, ReviewDto} from "../../api/Api";
 import {useDescriptionPage} from "../common/hooks/useDescriptionPage";
 import {ProductInfoSection} from "./components/info/ProductInfoSection";
 import {JumpToSection} from "./components/JumpToSection";
@@ -51,6 +51,17 @@ export const Product = () => {
             }))
         }
     }, [productData]);
+
+    const [reviews, setReviews] = useState<ReviewDto[]>([])
+    useEffect(() => {
+        async function fetchProductReviews() {
+            const api = Api
+            const reviews = (await api.getReviewsByProductId(productData.id!!)).data as ReviewDto[]
+            return reviews
+        }
+
+        fetchProductReviews().then(reviews => setReviews(reviews))
+    }, []);
     const image = useImage()
 
     const descriptionRef = useRef<HTMLIFrameElement>(null);
@@ -74,6 +85,7 @@ export const Product = () => {
             {/* 상품에 대한 정보 */}
             <div className="ProductInfo container mx-auto mt-8 p-4 flex flex-col md:flex-row">
                 <ProductInfoSection productData={productData}
+                                    reviewData={reviews}
                                     selectedOptions={selectedOption}
                                     setSelectedOptions={setSelectedOption}/>
             </div>
@@ -88,9 +100,11 @@ export const Product = () => {
                     (<>
                         {/* 일반 상품인 경우 -> 제품 설명 */}
                         <div className="ProductDetail container mx-auto" ref={descriptionRef}>
-                            <ProductDetailSection productLink={descriptionPage("P100001204.html")}
-                                                  iframeSize={iframeSize}
-                                                  setIFrameHeight={setIframeSize}/>
+                            <img
+                                src={`https://hlivv-image-bucket.s3.ap-northeast-2.amazonaws.com/product/${productData.id}.png`}/>
+                            {/*<ProductDetailSection productLink={descriptionPage("P100001204.html")}*/}
+                            {/*                      iframeSize={iframeSize}*/}
+                            {/*                      setIFrameHeight={setIframeSize}/>*/}
                         </div>
                     </>) :
                     (<>
@@ -103,7 +117,7 @@ export const Product = () => {
             {/* 리뷰 */}
             <div className="container mx-auto" ref={reviewRef}>
                 {
-                    productData.id != null ? <ReviewSection productId={productData.id}/> : <></>
+                    productData.id != null ? <ReviewSection reviews={reviews}/> : <></>
                 }
             </div>
         </div>

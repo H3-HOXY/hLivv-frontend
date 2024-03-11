@@ -1,29 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {AverageRating} from "./AverageRating";
 import {DistributionBars} from "./DistributionBars";
 import {UserReview} from "./UserReview";
 import {ReviewSortButtons} from "./ReviewSortButtons";
-import {Api} from "../../../../api/ApiWrapper";
 import {ReviewDto} from "../../../../api/Api";
 
-export const ReviewSection = ({productId}: { productId: number }) => {
-    const [reviews, setReviews] = useState<ReviewDto[]>([])
-    useEffect(() => {
-        async function fetchProductReviews() {
-            const api = Api
-            const reviews = (await api.getReviewsByProductId(productId)).data as ReviewDto[]
-            return reviews
-        }
-
-        fetchProductReviews().then(reviews => setReviews(reviews))
-    }, []);
+export const ReviewSection = ({reviews}: { reviews: ReviewDto[] }) => {
 
     const star = reviews.reduce((acc, review) => acc + (review.star ?? 0), 0) / reviews.length
 
     return (
         <div>
             <div className="text-2xl font-bold text-start">리뷰 &nbsp;
-                <span className="text-2xl font-bold text-amber-800">23</span>
+                <span className="text-2xl font-bold text-amber-800">{reviews.length} 개</span>
             </div>
             <div className="flex flex-row">
                 <div className="flex-1 flex flex-row items-center justify-center border-r-2 border-gray-200 ">
