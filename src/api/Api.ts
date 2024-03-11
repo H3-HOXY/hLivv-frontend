@@ -73,16 +73,16 @@ export interface RestoreDto {
   payback?: number;
   whenRejected?: boolean;
   restoreStatus?:
-    | "접수완료"
-    | "배송받는중"
-    | "검수중"
-    | "검수완료"
-    | "반송중"
-    | "리스토어완료"
-    | "접수취소"
-    | "폐기완료"
-    | "폐기대기"
-    | "반송완료";
+      | "접수완료"
+      | "배송받는중"
+      | "검수중"
+      | "검수완료"
+      | "반송중"
+      | "리스토어완료"
+      | "접수취소"
+      | "폐기완료"
+      | "폐기대기"
+      | "반송완료";
   restoreImageUrls?: string[];
 }
 
@@ -107,10 +107,10 @@ export interface ProductDto {
   category?: CategoryDto;
   productImages?: ProductImageDto[];
   productOptions?: ProductOptionDto[];
-  restore?: boolean;
   arSupported?: boolean;
   qrSupported?: boolean;
   eco?: boolean;
+  restore?: boolean;
 }
 
 export interface ProductImageDto {
@@ -181,6 +181,16 @@ export interface OrderResDto {
   products?: OrderProductResDto[];
 }
 
+export interface DeliveryDto {
+  /** @format int64 */
+  deliveryId?: number;
+  deliveryStatus?: "배송접수" | "배송중" | "배송완료" | "배송취소";
+  /** @format date */
+  deliveryStart?: string;
+  /** @format date */
+  deliveryEnd?: string;
+}
+
 export interface CouponDto {
   /** @format int32 */
   couponDuration?: number;
@@ -210,10 +220,10 @@ export interface CollaboDto {
   startDate?: string;
   /** @format date-time */
   endDate?: string;
-  restore?: boolean;
   arSupported?: boolean;
   qrSupported?: boolean;
   eco?: boolean;
+  restore?: boolean;
 }
 
 export interface ProductCollaboDto {
@@ -231,10 +241,15 @@ export interface CartDto {
   unitPrice?: number;
   /** @format int64 */
   totalPrice?: number;
+  /** @format int64 */
+  discountUnitPrice?: number;
   /** @format int32 */
   cartQty?: number;
   /** @format int32 */
   stockQuantity?: number;
+  eco?: boolean;
+  arSupported?: boolean;
+  qrSupported?: boolean;
 }
 
 export interface SignupDto {
@@ -289,13 +304,6 @@ export interface RestoreEmailDto {
   toEmail?: string;
 }
 
-export interface Request {
-  reviewText?: string;
-  reviewImages?: ReviewImageDto[];
-  /** @format int32 */
-  star?: number;
-}
-
 export interface ReviewImageDto {
   reviewImageUrl?: string;
 }
@@ -320,13 +328,9 @@ export interface OrderProductReqDto {
 }
 
 export interface OrderReqDto {
-  streetAddress?: string;
-  detailedAddress?: string;
-  zipCode?: string;
-  telephoneNumber?: string;
-  mobilePhoneNumber?: string;
+  /** @format int64 */
+  addressId?: number;
   requestMsg?: string;
-  order_id?: string;
   /** @format int64 */
   orderPoint?: number;
   /** @format date */
@@ -441,18 +445,18 @@ export interface PageableObject {
   /** @format int64 */
   offset?: number;
   sort?: SortObject;
-  unpaged?: boolean;
-  paged?: boolean;
   /** @format int32 */
   pageNumber?: number;
   /** @format int32 */
   pageSize?: number;
+  unpaged?: boolean;
+  paged?: boolean;
 }
 
 export interface SortObject {
   empty?: boolean;
-  unsorted?: boolean;
   sorted?: boolean;
+  unsorted?: boolean;
 }
 
 export interface MemberResponseDto {
@@ -481,6 +485,36 @@ export interface MemberGradeDto {
   grade?: "FLOWER" | "TREE" | "FOREST";
   /** @format int64 */
   cnt?: number;
+}
+
+export interface DeliveryResDto {
+  /** @format int64 */
+  orderId?: number;
+  /** @format int64 */
+  orderProductId?: number;
+  productName?: string;
+  /** @format int32 */
+  productQty?: number;
+  deliveryDto?: DeliveryDto;
+}
+
+export interface PageDeliveryResDto {
+  /** @format int64 */
+  totalElements?: number;
+  /** @format int32 */
+  totalPages?: number;
+  /** @format int32 */
+  size?: number;
+  content?: DeliveryResDto[];
+  /** @format int32 */
+  number?: number;
+  sort?: SortObject;
+  first?: boolean;
+  last?: boolean;
+  /** @format int32 */
+  numberOfElements?: number;
+  pageable?: PageableObject;
+  empty?: boolean;
 }
 
 export interface PageMemberCouponDto {
@@ -545,7 +579,7 @@ export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" 
 
 export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
   securityWorker?: (
-    securityData: SecurityDataType | null,
+      securityData: SecurityDataType | null,
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
@@ -565,8 +599,8 @@ export class HttpClient<SecurityDataType = unknown> {
   private secure?: boolean;
   private format?: ResponseType;
 
-  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://localhost:8080" });
+  constructor({securityWorker, secure, format, ...axiosConfig}: ApiConfig<SecurityDataType> = {}) {
+    this.instance = axios.create({...axiosConfig, baseURL: axiosConfig.baseURL || "/"});
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -574,6 +608,44 @@ export class HttpClient<SecurityDataType = unknown> {
 
   public setSecurityData = (data: SecurityDataType | null) => {
     this.securityData = data;
+  };
+
+  public request = async <T = any, _E = any>({
+                                               secure,
+                                               path,
+                                               type,
+                                               query,
+                                               format,
+                                               body,
+                                               ...params
+                                             }: FullRequestParams): Promise<AxiosResponse<T>> => {
+    const secureParams =
+        ((typeof secure === "boolean" ? secure : this.secure) &&
+            this.securityWorker &&
+            (await this.securityWorker(this.securityData))) ||
+        {};
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const responseFormat = format || this.format || undefined;
+
+    if (type === ContentType.FormData && body && body !== null && typeof body === "object") {
+      body = this.createFormData(body as Record<string, unknown>);
+    }
+
+    if (type === ContentType.Text && body && body !== null && typeof body !== "string") {
+      body = JSON.stringify(body);
+    }
+
+    return this.instance.request({
+      ...requestParams,
+      headers: {
+        ...(requestParams.headers || {}),
+        ...(type && type !== ContentType.FormData ? {"Content-Type": type} : {}),
+      },
+      params: query,
+      responseType: responseFormat,
+      data: body,
+      url: path,
+    });
   };
 
   protected mergeRequestParams(params1: AxiosRequestConfig, params2?: AxiosRequestConfig): AxiosRequestConfig {
@@ -612,50 +684,12 @@ export class HttpClient<SecurityDataType = unknown> {
       return formData;
     }, new FormData());
   }
-
-  public request = async <T = any, _E = any>({
-    secure,
-    path,
-    type,
-    query,
-    format,
-    body,
-    ...params
-  }: FullRequestParams): Promise<AxiosResponse<T>> => {
-    const secureParams =
-      ((typeof secure === "boolean" ? secure : this.secure) &&
-        this.securityWorker &&
-        (await this.securityWorker(this.securityData))) ||
-      {};
-    const requestParams = this.mergeRequestParams(params, secureParams);
-    const responseFormat = format || this.format || undefined;
-
-    if (type === ContentType.FormData && body && body !== null && typeof body === "object") {
-      body = this.createFormData(body as Record<string, unknown>);
-    }
-
-    if (type === ContentType.Text && body && body !== null && typeof body !== "string") {
-      body = JSON.stringify(body);
-    }
-
-    return this.instance.request({
-      ...requestParams,
-      headers: {
-        ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
-      },
-      params: query,
-      responseType: responseFormat,
-      data: body,
-      url: path,
-    });
-  };
 }
 
 /**
  * @title 현대IT&E 3차 프로젝트 API 명세서
  * @version v1
- * @baseUrl http://localhost:8080
+ * @baseUrl /
  *
  * 현대IT&E 3차 프로젝트에 사용되는 API 명세서
  */
@@ -671,15 +705,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateMember: (data: MemberDto, params: RequestParams = {}) =>
-      this.request<MemberDto, ErrorDto>({
-        path: `/api/updateMember`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberDto, ErrorDto>({
+          path: `/api/updateMember`,
+          method: "PUT",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -691,13 +725,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getOneRestore: (restoreId: number, params: RequestParams = {}) =>
-      this.request<RestoreDto, ErrorDto>({
-        path: `/api/restore/${restoreId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<RestoreDto, ErrorDto>({
+          path: `/api/restore/${restoreId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -709,15 +743,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateRestore: (restoreId: number, data: RestoreDto, params: RequestParams = {}) =>
-      this.request<RestoreDto, ErrorDto>({
-        path: `/api/restore/${restoreId}`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<RestoreDto, ErrorDto>({
+          path: `/api/restore/${restoreId}`,
+          method: "PUT",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -729,13 +763,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getProduct1: (productId: number, params: RequestParams = {}) =>
-      this.request<ProductDto, ErrorDto>({
-        path: `/api/product/${productId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto, ErrorDto>({
+          path: `/api/product/${productId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -747,15 +781,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateProduct: (productId: number, data: ProductDto, params: RequestParams = {}) =>
-      this.request<ProductDto, ErrorDto>({
-        path: `/api/product/${productId}`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto, ErrorDto>({
+          path: `/api/product/${productId}`,
+          method: "PUT",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -767,13 +801,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     validatePayment: (orderId: string, impUid: string, params: RequestParams = {}) =>
-      this.request<OrderResDto, ErrorDto>({
-        path: `/api/order/payment/${orderId}/${impUid}`,
-        method: "PUT",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<OrderResDto, ErrorDto>({
+          path: `/api/order/payment/${orderId}/${impUid}`,
+          method: "PUT",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -785,13 +819,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     requestCancelPaymentByOrder: (orderId: string, params: RequestParams = {}) =>
-      this.request<OrderResDto, ErrorDto>({
-        path: `/api/order/payment/cancel/${orderId}`,
-        method: "PUT",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<OrderResDto, ErrorDto>({
+          path: `/api/order/payment/cancel/${orderId}`,
+          method: "PUT",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -803,13 +837,49 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     requestCancelPayment: (orderId: string, impUid: string, params: RequestParams = {}) =>
-      this.request<OrderResDto, ErrorDto>({
-        path: `/api/order/payment/cancel/${orderId}/${impUid}`,
-        method: "PUT",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<OrderResDto, ErrorDto>({
+          path: `/api/order/payment/cancel/${orderId}/${impUid}`,
+          method: "PUT",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 배송 API
+     * @name UpdateDeliveryToInProgress
+     * @summary 배송중 업데이트
+     * @request PUT:/api/delivery/{deliveryId}/progress
+     * @secure
+     */
+    updateDeliveryToInProgress: (deliveryId: number, params: RequestParams = {}) =>
+        this.request<DeliveryDto, ErrorDto>({
+          path: `/api/delivery/${deliveryId}/progress`,
+          method: "PUT",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 배송 API
+     * @name UpdateDeliveryToCompleted
+     * @summary 배송완료 업데이트
+     * @request PUT:/api/delivery/{deliveryId}/completed
+     * @secure
+     */
+    updateDeliveryToCompleted: (deliveryId: number, params: RequestParams = {}) =>
+        this.request<DeliveryDto, ErrorDto>({
+          path: `/api/delivery/${deliveryId}/completed`,
+          method: "PUT",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -821,13 +891,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCouponBy: (couponId: number, params: RequestParams = {}) =>
-      this.request<CouponDto, ErrorDto>({
-        path: `/api/coupons/${couponId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CouponDto, ErrorDto>({
+          path: `/api/coupons/${couponId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -839,15 +909,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateCoupon: (couponId: number, data: CouponDto, params: RequestParams = {}) =>
-      this.request<CouponDto, ErrorDto>({
-        path: `/api/coupons/${couponId}`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<CouponDto, ErrorDto>({
+          path: `/api/coupons/${couponId}`,
+          method: "PUT",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -859,13 +929,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     issueCoupon: (couponId: number, params: RequestParams = {}) =>
-      this.request<MemberCouponDto, ErrorDto>({
-        path: `/api/coupons/${couponId}`,
-        method: "POST",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberCouponDto, ErrorDto>({
+          path: `/api/coupons/${couponId}`,
+          method: "POST",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -877,12 +947,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     deleteCoupon: (couponId: number, params: RequestParams = {}) =>
-      this.request<void, ErrorDto>({
-        path: `/api/coupons/${couponId}`,
-        method: "DELETE",
-        secure: true,
-        ...params,
-      }),
+        this.request<void, ErrorDto>({
+          path: `/api/coupons/${couponId}`,
+          method: "DELETE",
+          secure: true,
+          ...params,
+        }),
 
     /**
      * No description
@@ -893,37 +963,37 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCollaboProducts: (
-      query?: {
-        /**
-         * 몇번째 페이지
-         * @format int32
-         * @min 0
-         * @default 1
-         * @example 1
-         */
-        pageNo?: number;
-        /**
-         * 한번에 조회할 항목의 개수
-         * @format int32
-         * @min 10
-         * @max 20
-         * @default 20
-         * @example 20
-         */
-        pageSize?: number;
-        /** @default "PRICE_DESC" */
-        sortCriteria?: "NEWEST" | "POPULAR" | "PRICE_ASC" | "PRICE_DESC" | "REVIEWS";
-      },
-      params: RequestParams = {},
+        query?: {
+          /**
+           * 몇번째 페이지
+           * @format int32
+           * @min 0
+           * @default 1
+           * @example 1
+           */
+          pageNo?: number;
+          /**
+           * 한번에 조회할 항목의 개수
+           * @format int32
+           * @min 10
+           * @max 20
+           * @default 20
+           * @example 20
+           */
+          pageSize?: number;
+          /** @default "PRICE_DESC" */
+          sortCriteria?: "NEWEST" | "POPULAR" | "PRICE_ASC" | "PRICE_DESC" | "REVIEWS";
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<CollaboDto[], ErrorDto>({
-        path: `/api/collabo`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CollaboDto[], ErrorDto>({
+          path: `/api/collabo`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -935,15 +1005,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateCollaboProduct: (data: CollaboDto, params: RequestParams = {}) =>
-      this.request<CollaboDto, ErrorDto>({
-        path: `/api/collabo`,
-        method: "PUT",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<CollaboDto, ErrorDto>({
+          path: `/api/collabo`,
+          method: "PUT",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -955,15 +1025,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createCollaboProduct: (data: CollaboDto, params: RequestParams = {}) =>
-      this.request<CollaboDto, ErrorDto>({
-        path: `/api/collabo`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<CollaboDto, ErrorDto>({
+          path: `/api/collabo`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -975,21 +1045,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateCart: (
-      productId: number,
-      query: {
-        /** @format int32 */
-        qty: number;
-      },
-      params: RequestParams = {},
+        productId: number,
+        query: {
+          /** @format int32 */
+          qty: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<CartDto, ErrorDto>({
-        path: `/api/cart/${productId}`,
-        method: "PUT",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CartDto, ErrorDto>({
+          path: `/api/cart/${productId}`,
+          method: "PUT",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1001,21 +1071,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     addProductToCart: (
-      productId: number,
-      query: {
-        /** @format int32 */
-        qty: number;
-      },
-      params: RequestParams = {},
+        productId: number,
+        query: {
+          /** @format int32 */
+          qty: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<CartDto, ErrorDto>({
-        path: `/api/cart/${productId}`,
-        method: "POST",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CartDto, ErrorDto>({
+          path: `/api/cart/${productId}`,
+          method: "POST",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1027,12 +1097,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     deleteFromCart: (productId: number, params: RequestParams = {}) =>
-      this.request<void, ErrorDto>({
-        path: `/api/cart/${productId}`,
-        method: "DELETE",
-        secure: true,
-        ...params,
-      }),
+        this.request<void, ErrorDto>({
+          path: `/api/cart/${productId}`,
+          method: "DELETE",
+          secure: true,
+          ...params,
+        }),
 
     /**
      * No description
@@ -1044,15 +1114,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     signup: (data: SignupDto, params: RequestParams = {}) =>
-      this.request<MemberDto, ErrorDto>({
-        path: `/api/signup`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberDto, ErrorDto>({
+          path: `/api/signup`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1064,15 +1134,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     signupDataGen: (data: SignupDataGenDto[], params: RequestParams = {}) =>
-      this.request<string, ErrorDto>({
-        path: `/api/signup-data-gen`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<string, ErrorDto>({
+          path: `/api/signup-data-gen`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1084,15 +1154,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     restoreRegister: (data: RestoreRegisterDto, params: RequestParams = {}) =>
-      this.request<RestoreDto, ErrorDto>({
-        path: `/api/restore`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<RestoreDto, ErrorDto>({
+          path: `/api/restore`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1148,33 +1218,33 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getProduct: (
-      query?: {
-        /**
-         * @format int32
-         * @min 0
-         * @default 1
-         */
-        pageNo?: number;
-        /**
-         * @format int32
-         * @min 10
-         * @max 20
-         * @default 20
-         */
-        pageSize?: number;
-        /** @default "PRICE_DESC" */
-        sortCriteria?: "NEWEST" | "POPULAR" | "PRICE_ASC" | "PRICE_DESC" | "REVIEWS";
-      },
-      params: RequestParams = {},
+        query?: {
+          /**
+           * @format int32
+           * @min 0
+           * @default 1
+           */
+          pageNo?: number;
+          /**
+           * @format int32
+           * @min 10
+           * @max 20
+           * @default 20
+           */
+          pageSize?: number;
+          /** @default "PRICE_DESC" */
+          sortCriteria?: "NEWEST" | "POPULAR" | "PRICE_ASC" | "PRICE_DESC" | "REVIEWS";
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<ProductDto[], ErrorDto>({
-        path: `/api/product`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto[], ErrorDto>({
+          path: `/api/product`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1186,15 +1256,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createProduct: (data: ProductDto, params: RequestParams = {}) =>
-      this.request<ProductDto, ErrorDto>({
-        path: `/api/product`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto, ErrorDto>({
+          path: `/api/product`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1206,13 +1276,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getReviewsByProductId: (productId: number, params: RequestParams = {}) =>
-      this.request<ReviewDto[], ErrorDto>({
-        path: `/api/product/${productId}/review`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<ReviewDto[], ErrorDto>({
+          path: `/api/product/${productId}/review`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1224,25 +1294,28 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     writeReviewToProduct: (
-      productId: number,
-      query: {
-        writeReviewRequest: Request;
-      },
-      data: {
-        imageFiles: File[];
-      },
-      params: RequestParams = {},
+        productId: number,
+        query: {
+          reviewText: string;
+          /** @format int32 */
+          star: number;
+          reviewImages: ReviewImageDto[];
+        },
+        data: {
+          imageFiles?: File[];
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<Response, ErrorDto>({
-        path: `/api/product/${productId}/review`,
-        method: "POST",
-        query: query,
-        body: data,
-        secure: true,
-        type: ContentType.FormData,
-        format: "json",
-        ...params,
-      }),
+        this.request<Response, ErrorDto>({
+          path: `/api/product/${productId}/review`,
+          method: "POST",
+          query: query,
+          body: data,
+          secure: true,
+          type: ContentType.FormData,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1254,22 +1327,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createOrder: (data: OrderReqDto, params: RequestParams = {}) =>
-      this.request<OrderResDto, ErrorDto>({
-        path: `/api/order`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<OrderResDto, ErrorDto>({
+          path: `/api/order`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
      *
-     * @tags 메시지 전송 API
+     * @tags message-transfer-controller
      * @name TransferRestoreMessage
-     * @summary 문자 메시지 전송
      * @request POST:/api/messageTransfer
      * @secure
      */
@@ -1318,15 +1390,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getSelectedItems: (data: number[], params: RequestParams = {}) =>
-      this.request<CartDto[], ErrorDto>({
-        path: `/api/member/cart/order`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<CartDto[], ErrorDto>({
+          path: `/api/member/cart/order`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1338,15 +1410,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     authorize: (data: LoginDto, params: RequestParams = {}) =>
-      this.request<TokenDto, ErrorDto>({
-        path: `/api/login`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<TokenDto, ErrorDto>({
+          path: `/api/login`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1358,13 +1430,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getAllCoupon: (params: RequestParams = {}) =>
-      this.request<CouponDto[], ErrorDto>({
-        path: `/api/coupons`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CouponDto[], ErrorDto>({
+          path: `/api/coupons`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1376,15 +1448,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     saveCoupon: (data: CouponDto, params: RequestParams = {}) =>
-      this.request<CouponDto, ErrorDto>({
-        path: `/api/coupons`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<CouponDto, ErrorDto>({
+          path: `/api/coupons`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1396,13 +1468,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCategories: (params: RequestParams = {}) =>
-      this.request<CategoryDto[], ErrorDto>({
-        path: `/api/category`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CategoryDto[], ErrorDto>({
+          path: `/api/category`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1414,15 +1486,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     addCategory: (data: CategoryDto, params: RequestParams = {}) =>
-      this.request<CategoryDto, ErrorDto>({
-        path: `/api/category`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<CategoryDto, ErrorDto>({
+          path: `/api/category`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1505,13 +1577,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getMyRestores: (memberId: number, params: RequestParams = {}) =>
-      this.request<RestoreDto[], ErrorDto>({
-        path: `/api/restore/list/${memberId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<RestoreDto[], ErrorDto>({
+          path: `/api/restore/list/${memberId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1525,11 +1597,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getTodayOrder: (params: RequestParams = {}) =>
         this.request<MonthlyOrderSummaryDto, ErrorDto>({
           path: `/api/order/total/today`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1543,11 +1615,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getMonthlyOrder: (params: RequestParams = {}) =>
         this.request<MonthlyOrderSummaryDto[], ErrorDto>({
           path: `/api/order/total/month`,
-        method: "GET",
-        secure: true,
+          method: "GET",
+          secure: true,
           format: "json",
-        ...params,
-      }),
+          ...params,
+        }),
 
     /**
      * No description
@@ -1559,13 +1631,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getMyUserInfo: (params: RequestParams = {}) =>
-      this.request<MemberDto, ErrorDto>({
-        path: `/api/member`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberDto, ErrorDto>({
+          path: `/api/member`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1577,40 +1649,58 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getUserInfo: (loginId: string, params: RequestParams = {}) =>
-      this.request<MemberDto, ErrorDto>({
-        path: `/api/member/${loginId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberDto, ErrorDto>({
+          path: `/api/member/${loginId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
      *
      * @tags 회원 API
      * @name GetOrders
-     * @summary 로그인 된 멤버 주문 목록 조회
+     * @summary 전체 주문 목록 조회
      * @request GET:/api/member/order
      * @secure
      */
     getOrders: (
-      query: {
-        /** @format int32 */
-        page: number;
-        /** @format int32 */
-        pageSize: number;
-      },
-      params: RequestParams = {},
+        query: {
+          /** @format int32 */
+          page: number;
+          /** @format int32 */
+          pageSize: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<PageOrderResDto, ErrorDto>({
-        path: `/api/member/order`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<PageOrderResDto, ErrorDto>({
+          path: `/api/member/order`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
+     * @name GetOrder
+     * @summary 주문 조회
+     * @request GET:/api/member/order/{orderId}
+     * @secure
+     */
+    getOrder: (orderId: number, params: RequestParams = {}) =>
+        this.request<OrderResDto, ErrorDto>({
+          path: `/api/member/order/${orderId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1621,13 +1711,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getMyUserInfo1: (params: RequestParams = {}) =>
-      this.request<MemberResponseDto, ErrorDto>({
-        path: `/api/member/mypage`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberResponseDto, ErrorDto>({
+          path: `/api/member/mypage`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1669,28 +1759,127 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags 회원 API
+     * @name GetDeliveries
+     * @summary 전체 배송 목록 조회
+     * @request GET:/api/member/delivery
+     * @secure
+     */
+    getDeliveries: (
+        query: {
+          /** @format int32 */
+          page: number;
+          /** @format int32 */
+          pageSize: number;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<PageDeliveryResDto, ErrorDto>({
+          path: `/api/member/delivery`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
+     * @name GetDelivery
+     * @summary 배송 조회
+     * @request GET:/api/member/delivery/{deliveryId}
+     * @secure
+     */
+    getDelivery: (deliveryId: number, params: RequestParams = {}) =>
+        this.request<DeliveryResDto[], ErrorDto>({
+          path: `/api/member/delivery/${deliveryId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
+     * @name GetProgressDeliveries
+     * @summary 배송 중 목록 조회
+     * @request GET:/api/member/delivery/progress
+     * @secure
+     */
+    getProgressDeliveries: (
+        query: {
+          /** @format int32 */
+          page: number;
+          /** @format int32 */
+          pageSize: number;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<PageDeliveryResDto, ErrorDto>({
+          path: `/api/member/delivery/progress`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
+     * @name GetCompletedDeliveries
+     * @summary 배송 완료 목록 조회
+     * @request GET:/api/member/delivery/completed
+     * @secure
+     */
+    getCompletedDeliveries: (
+        query: {
+          /** @format int32 */
+          page: number;
+          /** @format int32 */
+          pageSize: number;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<PageDeliveryResDto, ErrorDto>({
+          path: `/api/member/delivery/completed`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
      * @name GetUnusedCoupons
      * @summary 로그인 된 멤버 미사용 쿠폰 조회
      * @request GET:/api/member/coupons
      * @secure
      */
     getUnusedCoupons: (
-      query: {
-        /** @format int32 */
-        page: number;
-        /** @format int32 */
-        pageSize: number;
-      },
-      params: RequestParams = {},
+        query: {
+          /** @format int32 */
+          page: number;
+          /** @format int32 */
+          pageSize: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<PageMemberCouponDto, ErrorDto>({
-        path: `/api/member/coupons`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<PageMemberCouponDto, ErrorDto>({
+          path: `/api/member/coupons`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1702,40 +1891,57 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCarts: (
-      query: {
-        /** @format int32 */
-        page: number;
-        /** @format int32 */
-        pageSize: number;
-      },
-      params: RequestParams = {},
+        query: {
+          /** @format int32 */
+          page: number;
+          /** @format int32 */
+          pageSize: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<PageCartDto, ErrorDto>({
-        path: `/api/member/cart`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<PageCartDto, ErrorDto>({
+          path: `/api/member/cart`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 회원 API
+     * @name GetAllCarts
+     * @summary 로그인 된 멤버 주문 목록 조회
+     * @request GET:/api/member/cart/all
+     * @secure
+     */
+    getAllCarts: (params: RequestParams = {}) =>
+        this.request<CartDto[], ErrorDto>({
+          path: `/api/member/cart/all`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
      *
      * @tags 인증 API
      * @name HelloCurr
-     * @summary 현재 로그인 된 유저 ID 조회
      * @request GET:/api/login/member
      * @secure
      */
     helloCurr: (params: RequestParams = {}) =>
-      this.request<string, ErrorDto>({
-        path: `/api/login/member`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<string, ErrorDto>({
+          path: `/api/login/member`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1747,13 +1953,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCollaboProduct: (productId: number, params: RequestParams = {}) =>
-      this.request<CollaboDto, ErrorDto>({
-        path: `/api/collabo/${productId}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<CollaboDto, ErrorDto>({
+          path: `/api/collabo/${productId}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1765,13 +1971,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCollaboProductItems: (productId: number, params: RequestParams = {}) =>
-      this.request<ProductDto[], ErrorDto>({
-        path: `/api/collabo/${productId}/items`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto[], ErrorDto>({
+          path: `/api/collabo/${productId}/items`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1783,34 +1989,34 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getProductsWithCategory: (
-      categoryId: string,
-      query?: {
-        /**
-         * @format int32
-         * @min 0
-         * @default 1
-         */
-        pageNo?: number;
-        /**
-         * @format int32
-         * @min 10
-         * @max 20
-         * @default 20
-         */
-        pageSize?: number;
-        /** @default "PRICE_DESC" */
-        sortCriteria?: "NEWEST" | "POPULAR" | "PRICE_ASC" | "PRICE_DESC" | "REVIEWS";
-      },
-      params: RequestParams = {},
+        categoryId: string,
+        query?: {
+          /**
+           * @format int32
+           * @min 0
+           * @default 1
+           */
+          pageNo?: number;
+          /**
+           * @format int32
+           * @min 10
+           * @max 20
+           * @default 20
+           */
+          pageSize?: number;
+          /** @default "PRICE_DESC" */
+          sortCriteria?: "NEWEST" | "POPULAR" | "PRICE_ASC" | "PRICE_DESC" | "REVIEWS";
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<ProductDto[], ErrorDto>({
-        path: `/api/category/${categoryId}/products`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto[], ErrorDto>({
+          path: `/api/category/${categoryId}/products`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1847,6 +2053,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
           format: "json",
           ...params,
         }),
+
+    /**
+     * No description
+     *
+     * @tags 장바구니 API
+     * @name DeleteListFromCart
+     * @request DELETE:/api/cart
+     * @secure
+     */
+    deleteListFromCart: (data: number[], params: RequestParams = {}) =>
+        this.request<void, ErrorDto>({
+          path: `/api/cart`,
+          method: "DELETE",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          ...params,
+        }),
   };
   backoffice = {
     /**
@@ -1859,15 +2083,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateRestore1: (data: RestoreDto, params: RequestParams = {}) =>
-      this.request<RestoreDto, ErrorDto>({
-        path: `/backoffice/api/updateRestore`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<RestoreDto, ErrorDto>({
+          path: `/backoffice/api/updateRestore`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1879,15 +2103,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateProduct1: (data: ProductDto, params: RequestParams = {}) =>
-      this.request<ProductDto, ErrorDto>({
-        path: `/backoffice/api/updateProduct`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductDto, ErrorDto>({
+          path: `/backoffice/api/updateProduct`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1899,15 +2123,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateMember1: (data: MemberDto, params: RequestParams = {}) =>
-      this.request<MemberDto, ErrorDto>({
-        path: `/backoffice/api/updateMember`,
-        method: "POST",
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberDto, ErrorDto>({
+          path: `/backoffice/api/updateMember`,
+          method: "POST",
+          body: data,
+          secure: true,
+          type: ContentType.Json,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1955,13 +2179,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getMemberById: (id: number, params: RequestParams = {}) =>
-      this.request<MemberDto, ErrorDto>({
-        path: `/backoffice/api/member/${id}`,
-        method: "GET",
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<MemberDto, ErrorDto>({
+          path: `/backoffice/api/member/${id}`,
+          method: "GET",
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1973,20 +2197,20 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getRestoreById: (
-      query: {
-        /** @format int64 */
-        id: number;
-      },
-      params: RequestParams = {},
+        query: {
+          /** @format int64 */
+          id: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<RestoreDto, ErrorDto>({
-        path: `/backoffice/api/getRestore`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<RestoreDto, ErrorDto>({
+          path: `/backoffice/api/getRestore`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -1998,20 +2222,20 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getRestoreImages: (
-      query: {
-        /** @format int64 */
-        id: number;
-      },
-      params: RequestParams = {},
+        query: {
+          /** @format int64 */
+          id: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<string[], ErrorDto>({
-        path: `/backoffice/api/getRestoreImageUrls`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<string[], ErrorDto>({
+          path: `/backoffice/api/getRestoreImageUrls`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
 
     /**
      * No description
@@ -2023,19 +2247,19 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getProductImages: (
-      query: {
-        /** @format int64 */
-        id: number;
-      },
-      params: RequestParams = {},
+        query: {
+          /** @format int64 */
+          id: number;
+        },
+        params: RequestParams = {},
     ) =>
-      this.request<ProductImageDto[], ErrorDto>({
-        path: `/backoffice/api/getProductImageUrls`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
+        this.request<ProductImageDto[], ErrorDto>({
+          path: `/backoffice/api/getProductImageUrls`,
+          method: "GET",
+          query: query,
+          secure: true,
+          format: "json",
+          ...params,
+        }),
   };
 }
