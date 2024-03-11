@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import "../Components_scss/Coupon.scss";
+import { useEffect, useState } from 'react';
+import {getApi} from "../../api/ApiWrapper";
+import {CouponDto} from "../../api/Api";
+import {useNavigate} from "react-router-dom";
+import "../../Components_scss/Coupon.scss";
 
 interface Coupon {
   id: string;
@@ -19,6 +22,8 @@ const couponList: Coupon[] = [
 ];
 
 const Coupon = () => {
+  const [couponInfo, setCouponInfo] = useState<CouponDto[] | null>(null)
+  const navigate = useNavigate()
   // couponList의 복사본을 만들어 상태를 관리합니다.
   const [coupons, setCoupons] = useState([...couponList]);
   // state가 true인 것만 필터링
@@ -43,6 +48,20 @@ const Coupon = () => {
       )
     );
   };
+
+  useEffect(() => {
+    const getMyInfo = async () => {
+        try {
+            const api = await getApi();
+            const res = await api.getAllCoupon();
+            setCouponInfo(res.data);
+        } catch (e) {
+            navigate("/mypage/coupon");
+            throw e;
+        }
+    }
+    getMyInfo().then();
+  }, []);
 
   return (
     <div className="Coupon">
