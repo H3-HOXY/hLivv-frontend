@@ -3,11 +3,19 @@ import {useRef, useState} from "react";
 import {useImage} from "../../../common/hooks/useImage";
 import ModalBase from "../../../../Components/ModalBase";
 import CardModal from "../../../../Components/CardModal";
+<<<<<<< HEAD
 import {getApi} from "../../../../api/ApiWrapper";
 
 interface State {
   id: string;
   value: "S" | "A" | "B" | "C";
+=======
+import {Form} from "react-router-dom";
+
+interface State {
+  id: string;
+  value: string;
+>>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   label: string;
   desc: string;
 }
@@ -25,6 +33,7 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
 }) {
   const image = useImage()
 
+<<<<<<< HEAD
   const onClickCardConfirm = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.preventDefault();
     try{
@@ -53,6 +62,17 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
     } finally {
 
     }
+=======
+  const onClickCardConfirm = () => {
+    // 모달을 닫고 캐시 비우기
+    onClickModalOff();
+    setImgFile(undefined);
+    setRestoreImgPath("");
+    if (imgRef.current) {
+      imgRef.current.value = "";
+    }
+    alert('리스토어가 신청되었습니다.');
+>>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   };
 
   const handleFormSubmit = (event: React.FormEvent) => {
@@ -67,7 +87,11 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
 
 
   // 상태 선택 기능
+<<<<<<< HEAD
   const [restoreGrade, setRestoreGrade] = useState<"S" | "A" | "B" | "C">("S");
+=======
+  const [restoreGrade, setRestoreGrade] = useState<string>();
+>>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   // console.log(`Selected state: ${restoreGrade}`);
 
   // 사진 첨부 기능
@@ -92,7 +116,11 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
   };
 
   // 상품 설명
+<<<<<<< HEAD
   const [restoreDesc, setRestoreDesc] = useState<String | undefined>(undefined);
+=======
+  const [restoreDesc, setRestoreDesc] = useState<String>();
+>>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
   // console.log(restoreDesc);
   
   return (
@@ -156,7 +184,11 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
                     ref={imgRef}
                   />
                   <input type="hidden" name="restoreImgPath" 
+<<<<<<< HEAD
                   onChange={() => setRestoreImgPath(restoreImgPath)} />
+=======
+                  onChange={() => setRestoreGrade(restoreImgPath)} />
+>>>>>>> 0eebc65b46e46a69fd14e4ef908c3b919eb6c3de
                 </label>
               </div>
             </div>

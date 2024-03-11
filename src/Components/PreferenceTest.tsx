@@ -68,17 +68,10 @@ const PreferenceTest = () => {
   const handleQuestionSelection = (questionId: string, currentQuestionId: number) => {
     const nextQuestionId = currentQuestionId + 1;
     // 선택한 답변을 answers 상태에 저장
-    // setAnswers((prevAnswers) => ({
-    //   ...prevAnswers,
-    //   QuestionData: [...prevAnswers.QuestionData, questionId],
-    // }));
-    answers.QuestionData[currentQuestionId] = questionId
-    setAnswers(
-      {
-        QuestionData:answers.QuestionData
-      }
-    )
-    console.log(currentQuestionId)
+    setAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      QuestionData: [...prevAnswers.QuestionData, questionId],
+    }));
     console.log(`Selected job: ${questionId}`);
   };
 
