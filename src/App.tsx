@@ -15,7 +15,7 @@ import {Logout} from "./pages/logout/Logout";
 import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
 import ProfileEdit from "./pages/mypage/ProfileEdit";
-import MyRestore from "./Components/MyRestore";
+import MyRestore from "./pages/mypage/myrestore/MyRestore";
 import ReviewWrite from "./Components/Review";
 import MypageHome from "./pages/mypage/home/MypageHome";
 import MyReview from "./Components/MyReview";
@@ -36,12 +36,14 @@ import PreferenceTestResult from "./Components/PreferenceTestResult";
 import InteriorRecommend from "./Components/InteriorRecommend";
 import BuyDetail from "./pages/mypage/buyDetail/BuyDetail";
 import MyRestoreDetail from "./Components/MyRestoreDetail";
-import Coupon from "./Components/Coupon";
+import Coupon from "./pages/mypage/Coupon";
 import {orderAction} from "./pages/order/OrderRouter";
 import Order from "./pages/order/Order";
 import {storeLoader} from "./pages/store/StoreRouter";
 import {editProfileAction} from "./pages/mypage/MyPageRouter";
 import {collaboLoader} from "./pages/collabo/CollaboRouter";
+import { myRestoreAction } from "./pages/mypage/myrestore/MyRestoreRouter";
+import axios from "axios";
 
 
 const App = () => {

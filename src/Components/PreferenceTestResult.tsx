@@ -1,6 +1,8 @@
 import "../Components_scss/PreferenceTestResult.scss"
-import React, { PureComponent } from 'react';
+import React, { useEffect, PureComponent } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useNavigate, useLocation } from 'react-router-dom';
+import ResultData from "../result.json"
 
 const data = [
   {
@@ -22,6 +24,15 @@ const data = [
 ];
 
 const PreferenceTestResult = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const selectedAnswers = location.state?.answers;
+  
+  useEffect(()=>{
+    // 콘솔에 선택된 답변 출력
+    console.log('Selected answers:', selectedAnswers);
+  },[])
+
   return (
     <div className="PreferenceTestResult">
       <div className="PreferenceTestResultContent">

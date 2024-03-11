@@ -21,7 +21,7 @@ const CardModal = ({ closeEvent, title, children, actionMsg, actionEvent }: Card
           <button onClick={closeEvent}>
             닫기
           </button>
-          <button onClick={actionEvent}>
+          <button onClick={actionEvent} type='submit'>
             {actionMsg}
           </button>
         </div>
