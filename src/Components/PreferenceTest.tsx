@@ -47,6 +47,7 @@ const PreferenceTest = () => {
       // currentIdx가 10일 때, 결과 페이지로 이동
       navigate('/preference/testresult', { state: { answers } });
     } else {
+      console.log(answers.QuestionData)
       // 그 외의 경우에는 currentIdx를 증가시킴
       setCurrentIdx(currentIdx + 1);
     }
@@ -67,10 +68,17 @@ const PreferenceTest = () => {
   const handleQuestionSelection = (questionId: string, currentQuestionId: number) => {
     const nextQuestionId = currentQuestionId + 1;
     // 선택한 답변을 answers 상태에 저장
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      QuestionData: [...prevAnswers.QuestionData, questionId],
-    }));
+    // setAnswers((prevAnswers) => ({
+    //   ...prevAnswers,
+    //   QuestionData: [...prevAnswers.QuestionData, questionId],
+    // }));
+    answers.QuestionData[currentQuestionId] = questionId
+    setAnswers(
+      {
+        QuestionData:answers.QuestionData
+      }
+    )
+    console.log(currentQuestionId)
     console.log(`Selected job: ${questionId}`);
   };
 

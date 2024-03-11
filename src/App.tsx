@@ -42,7 +42,6 @@ import Order from "./pages/order/Order";
 import {storeLoader} from "./pages/store/StoreRouter";
 import {editProfileAction} from "./pages/mypage/MyPageRouter";
 import {collaboLoader} from "./pages/collabo/CollaboRouter";
-import { myRestoreAction } from "./pages/mypage/myrestore/MyRestoreRouter";
 import axios from "axios";
 
 

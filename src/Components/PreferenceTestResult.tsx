@@ -27,7 +27,17 @@ const PreferenceTestResult = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const selectedAnswers = location.state?.answers;
-  
+  useEffect(()=>{
+  const ary = [...selectedAnswers.QuestionData]
+    if(ary.length > 0){
+      const a = ary.filter(item=>item === 'a').length
+      const b = ary.filter(item=>item === 'b').length
+      const c = ary.filter(item=>item === 'c').length
+      const d = ary.filter(item=>item === 'd').length
+      console.log(`${a} ${b} ${c} ${d}`)
+    }
+    
+  },[selectedAnswers])
   useEffect(()=>{
     // 콘솔에 선택된 답변 출력
     console.log('Selected answers:', selectedAnswers);

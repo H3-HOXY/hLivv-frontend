@@ -3,11 +3,11 @@ import {useRef, useState} from "react";
 import {useImage} from "../../../common/hooks/useImage";
 import ModalBase from "../../../../Components/ModalBase";
 import CardModal from "../../../../Components/CardModal";
-import {Form} from "react-router-dom";
+import {getApi} from "../../../../api/ApiWrapper";
 
 interface State {
   id: string;
-  value: string;
+  value: "S" | "A" | "B" | "C";
   label: string;
   desc: string;
 }
@@ -25,15 +25,34 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
 }) {
   const image = useImage()
 
-  const onClickCardConfirm = () => {
-    // 모달을 닫고 캐시 비우기
-    onClickModalOff();
-    setImgFile(undefined);
-    setRestoreImgPath("");
-    if (imgRef.current) {
-      imgRef.current.value = "";
+  const onClickCardConfirm = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e?.preventDefault();
+    try{
+      const api = await getApi();
+      const response = await api.restoreRegister(
+        {
+          productId: productDto.id!!, 
+          pickUpDate:"", 
+          requestGrade: restoreGrade || "S", 
+          restoreDesc: restoreDesc?.toString() ?? "", 
+          whenRejected: false, 
+          restoreImageUrls: [restoreImgPath ?? ""]}
+      );
+
+      console.log('Restore submitted successfully', response);
+      // 모달을 닫고 캐시 비우기
+      onClickModalOff();
+      setImgFile(undefined);
+      setRestoreImgPath("");
+      if (imgRef.current) {
+        imgRef.current.value = "";
+      }
+    } catch (error) {
+      console.error('Error submitting restore', error);
+      // 에러 처리 로직 추가
+    } finally {
+
     }
-    alert('리스토어가 신청되었습니다.');
   };
 
   const handleFormSubmit = (event: React.FormEvent) => {
@@ -48,7 +67,7 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
 
 
   // 상태 선택 기능
-  const [restoreGrade, setRestoreGrade] = useState<string>();
+  const [restoreGrade, setRestoreGrade] = useState<"S" | "A" | "B" | "C">("S");
   // console.log(`Selected state: ${restoreGrade}`);
 
   // 사진 첨부 기능
@@ -73,7 +92,7 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
   };
 
   // 상품 설명
-  const [restoreDesc, setRestoreDesc] = useState<String>();
+  const [restoreDesc, setRestoreDesc] = useState<String | undefined>(undefined);
   // console.log(restoreDesc);
   
   return (
@@ -137,7 +156,7 @@ export function MyRestoreModal({productDto, isActive, onClickModalOff}: {
                     ref={imgRef}
                   />
                   <input type="hidden" name="restoreImgPath" 
-                  onChange={() => setRestoreGrade(restoreImgPath)} />
+                  onChange={() => setRestoreImgPath(restoreImgPath)} />
                 </label>
               </div>
             </div>
