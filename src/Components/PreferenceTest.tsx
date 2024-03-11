@@ -47,6 +47,7 @@ const PreferenceTest = () => {
       // currentIdx가 10일 때, 결과 페이지로 이동
       navigate('/preference/testresult', { state: { answers } });
     } else {
+      console.log(answers.QuestionData)
       // 그 외의 경우에는 currentIdx를 증가시킴
       setCurrentIdx(currentIdx + 1);
     }
