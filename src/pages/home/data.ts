@@ -14,6 +14,6 @@ export const categoryItems: CategoryItemProps[] = [
 ];
 
 export const homeBannerItems: HomeSliderItemProps[] = [
-    {img: "banner.png", title: "banner1"},
+    {img: "홈배너흰디.png", title: "banner1"},
     {img: "couponbanner.png", title: "banner2"},
 ]

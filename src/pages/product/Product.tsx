@@ -81,43 +81,44 @@ export const Product = () => {
 
     return (
         <div className="Product">
+            <div className="ProductWrapper">
+                {/* 상품에 대한 정보 */}
+                <div className="ProductInfo container mx-auto mt-8 p-4 flex flex-col md:flex-row">
+                    <ProductInfoSection productData={productData}
+                                        reviewData={reviews}
+                                        selectedOptions={selectedOption}
+                                        setSelectedOptions={setSelectedOption}/>
+                </div>
 
-            {/* 상품에 대한 정보 */}
-            <div className="ProductInfo container mx-auto mt-8 p-4 flex flex-col md:flex-row">
-                <ProductInfoSection productData={productData}
-                                    reviewData={reviews}
-                                    selectedOptions={selectedOption}
-                                    setSelectedOptions={setSelectedOption}/>
-            </div>
-
-            <div
-                className="flex w-full flex-row justify-center px-32 py-6 border-t-2 border-t-gray-200 border-b-2 border-b-gray-200"
-                style={{background: "#FAFAFA"}}>
-                <JumpToSection sections={sections}/>
-            </div>
-            {
-                productData.productType === "PRODUCT" ?
-                    (<>
-                        {/* 일반 상품인 경우 -> 제품 설명 */}
-                        <div className="ProductDetail container mx-auto" ref={descriptionRef}>
-                            <img alt="" src={`https://hlivv-image-bucket.s3.ap-northeast-2.amazonaws.com/product/${productData.id}.png`}/>
-                            {/*<ProductDetailSection productLink={descriptionPage("P100001204.html")}*/}
-                            {/*                      iframeSize={iframeSize}*/}
-                            {/*                      setIFrameHeight={setIframeSize}/>*/}
-                        </div>
-                    </>) :
-                    (<>
-                        {/* 콜라보 상품인 경우 -> 콜라보 상품 목록 */}
-                        <StoreList itemProps={collaboProducts}/>
-                    </>)
-            }
-
-
-            {/* 리뷰 */}
-            <div className="container mx-auto" ref={reviewRef}>
+                <div
+                    className="flex w-full flex-row justify-center px-32 py-6 border-t-2 border-t-gray-200 border-b-2 border-b-gray-200"
+                    style={{background: "#FAFAFA"}}>
+                    <JumpToSection sections={sections}/>
+                </div>
                 {
-                    productData.id != null ? <ReviewSection reviews={reviews}/> : <></>
+                    productData.productType === "PRODUCT" ?
+                        (<>
+                            {/* 일반 상품인 경우 -> 제품 설명 */}
+                            <div className="ProductDetail container mx-auto" ref={descriptionRef}>
+                                <img alt="" src={`https://hlivv-image-bucket.s3.ap-northeast-2.amazonaws.com/product/${productData.id}.png`}/>
+                                {/*<ProductDetailSection productLink={descriptionPage("P100001204.html")}*/}
+                                {/*                      iframeSize={iframeSize}*/}
+                                {/*                      setIFrameHeight={setIframeSize}/>*/}
+                            </div>
+                        </>) :
+                        (<>
+                            {/* 콜라보 상품인 경우 -> 콜라보 상품 목록 */}
+                            <StoreList itemProps={collaboProducts}/>
+                        </>)
                 }
+
+
+                {/* 리뷰 */}
+                <div className="container mx-auto" ref={reviewRef}>
+                    {
+                        productData.id != null ? <ReviewSection reviews={reviews}/> : <></>
+                    }
+                </div>
             </div>
         </div>
     )

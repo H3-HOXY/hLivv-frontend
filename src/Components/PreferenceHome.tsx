@@ -6,7 +6,9 @@ const Preference = () => {
   return (
     <div className="Preference">
       <div className="PreferenceWrapper">
-        <img className="PreferenceLeftImg" src={image("취향메인이미지.png")} title="pic"></img>
+        <div className="PreferenceLeft">
+          <img className="PreferenceLeftImg" src={image("취향메인이미지.png")} title="pic"></img>
+        </div>
         <div className="PreferenceRight">
           <img className="PreferenceRightImg" src={image("취향설명이미지.png")} title="pic"></img>
           <a href="/preference/keywordselect">

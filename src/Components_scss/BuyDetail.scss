@@ -1,6 +1,6 @@
 .BuyDetail{
   width: 100%;
-  height: calc(100vh - 4.5em);
+  min-height: calc(100vh - 4.5em);
   // background-color: yellow;
   display: flex;
   justify-content: center;

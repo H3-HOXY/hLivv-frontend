@@ -21,7 +21,7 @@ export function MyRestoreItem({productDto}: {productDto: ProductDto}) {
   }
   const productImage = (productDto.productImages == null) ? "" : productDto.productImages[0].imageUrl
   return (
-    <div className="MyRestoreContentItem">
+    <div className="MyRestoreContentItem mt-8">
       <img className="MyRestoreContentItemImg cursor-pointer"
       // src={image("베스트1.jpeg")} 
       src={productImage}

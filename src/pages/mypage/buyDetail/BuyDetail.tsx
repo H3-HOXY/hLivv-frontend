@@ -40,7 +40,7 @@ const BuyDetail = () => {
         <div className="BuyDetail">
             <div className="BuyDetailWrapper">
                 <div className="BuyDetailTitle">구매내역</div>
-                <div className="BuyDetailContent">
+                <div className="BuyDetailContent pb-20">
                     {/* 리뷰 아이템 */}
                     {
                         orderHistoryItem.map((item, index) => {

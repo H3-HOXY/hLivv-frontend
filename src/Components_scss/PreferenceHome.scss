@@ -1,29 +1,44 @@
+.Preference{
+  min-height: calc(100vh - 4.5em);
+}
+
 .PreferenceWrapper{
   width: 80%;
+  height: 100%;
   // background-color: antiquewhite;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5%;
+}
+
+.PreferenceLeft{
+  width: 45%;
+  height: 35vh;
+  margin: 0 5%;
+  // background-color: #9A452B;
 }
 
 .PreferenceLeftImg{
-  width: 45%;
-  height: 25em;
+  width: 100%;
+  height: 100%;
   margin: 0 5%;
 }
 
 .PreferenceRight{
   width: 45%;
-  height: 25em;
+  height: 35vh;
   margin: 0 5%;
+  // background-color: #9A452B;
+  margin-bottom: 5%;
 }
 
 .PreferenceRightImg{
   width: 100%;
-  height: 18em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
 }
 
 .PreferenceBtn{

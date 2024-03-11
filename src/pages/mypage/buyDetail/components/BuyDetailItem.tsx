@@ -18,7 +18,7 @@ export function BuyDetailItem({productDto}: { productDto: ProductDto }) {
     }
 
     const productImage = (productDto.productImages == null) ? "" : productDto.productImages[0].imageUrl
-    return (<div className="BuyDetailContentItem">
+    return (<div className="BuyDetailContentItem mt-8">
         <img className="BuyDetailContentItemImg cursor-pointer"
              src={productImage}
              title="pic"
