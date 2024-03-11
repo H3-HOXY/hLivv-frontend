@@ -59,7 +59,7 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                 </div>
 
                 {/* 상품가격 */}
-                <h2 className="text-3xl font-bold mb-4">{formatter(props.productData.price ?? 0)}원</h2>
+                <h2 className={"text-3xl font-bold mb-4" + props.productData.discountPercent !== undefined ? " line-through" : ""}>{formatter(props.productData.price ?? 0)}원</h2>
                 {
                     (props.productData.discountPercent !== undefined && props.productData.discountPercent > 0) ?
                         <h2 className="text-3xl font-bold mb-4">{formatter((props.productData.price ?? 0) * ((100 - (props.productData.discountPercent ?? 0)) / 100 ?? 0))}원</h2>

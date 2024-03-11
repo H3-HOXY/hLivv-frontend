@@ -37,12 +37,9 @@ export function ReviewModal({productDto, isActive, onClickModalOff}: {
             const api = await getApi();
             // @ts-ignore
             const response = await api.writeReviewToProduct(productDto.id!!,
-                {
-                    // @ts-ignore
-                    star: score,
-                    reviewText: reviewText
-                },
-                {imageFiles: [imgFile]});
+                {reviewText: reviewText, star: score, reviewImages: []},
+                {imageFiles: imgFile != null ? [imgFile] : []}
+            );
 
             console.log('Review submitted successfully', response);
             // 성공적으로 제출 후 필요한 로직 추가 (예: 폼 초기화, 성공 메시지 표시 등)
