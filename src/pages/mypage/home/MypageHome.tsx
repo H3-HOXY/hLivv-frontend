@@ -82,12 +82,11 @@ const MypageHome = () => {
                     <div className="MypageType">
                         <div className="MypageTypeTitle">나의 인테리어 유형</div>
                         <div className="MypageTypeContain">
-                            <div className="MypageTypeContainLeft">
-                                <div className="MypageTypeContainLeftKind">유형</div>
-                                <div
-                                    className="MypageTypeContainLeftKindDescription">{convertInteriorTypeEnumToKor(memberInfo?.interiorType ?? "")}</div>
-                            </div>
-                            <div className="MypageTypeContainRight">
+                            <div className="MypageTypeContainWrapper">
+                                <div className="MypageTypeContainWrapperType">
+                                    <div className="MypageTypeContainLeftKind mr-2">유형 |</div>
+                                    <div className="MypageTypeContainLeftKindDescription">{convertInteriorTypeEnumToKor(memberInfo?.interiorType ?? "")}</div>
+                                </div>
                                 <div className="MypageTypeContainRightInterior">인테리어 취향 진단</div>
                                 <div className="MypageTypeContainRightDescription">{
                                     diagnosisText
