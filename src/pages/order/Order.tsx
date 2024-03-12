@@ -3,7 +3,7 @@ import {initTE, Select} from "tw-elements";
 import React, {useEffect, useState} from "react"
 import {useActionData, useLocation, useSubmit} from "react-router-dom";
 import {RequestPayParams} from "./types/RequestPayParams";
-import {AddressDto, OrderReqDto, ProductDto} from "../../api/Api";
+import {AddressDto, MemberCouponDto, OrderReqDto, ProductDto} from "../../api/Api";
 import {Iamport} from "./types/Iamport";
 import {BuyerInfo, EditBuyerInfo} from "./components/EditBuyerInfo";
 import {AddressInfo, EditShippingAddress} from "./components/EditShippingAddress";
@@ -55,6 +55,12 @@ const Order = () => {
     const [initialAddress, setInitialAddress] = useState<AddressInfo>({...emptyAddressInfo});
     const [address, setAddress] = useState<AddressInfo>({...emptyAddressInfo});
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>("신용카드")
+    const [coupons, setCoupons] = useState<MemberCouponDto[]>([{
+        couponId: -1,
+        couponDesc: "쿠폰을 선택해주세요." as string,
+        discountRate: 0 as number
+    }])
+    const [selectedCoupon, setSelectedCoupon] = useState<number | undefined>()
 
     const [buyerInfo, setBuyerInfo] = useState<BuyerInfo>({
         name: "",
@@ -64,7 +70,6 @@ const Order = () => {
         points: 0
     });
 
-    const [price, setPrice] = useState(50_000)
     const submit = useSubmit()
     const format = useCurrencyFormat()
 
@@ -88,17 +93,27 @@ const Order = () => {
     useEffect(handleResponse, [response])
     //결제모듈 초기화
     useEffect(() => {
-        initIamport()
-        getMyInfo(buyerInfo, setBuyerInfo).then((name) => {
-            getMyAddress(name, address, setInitialAddress, setAddress).then(() => {
-            }).catch(() => {
-                setAddress({...address, requestMsg: "부재시 경비실에 맡겨주세요."})
-            })
-        }).catch(() => {
-            setBuyerInfo({...buyerInfo, emailProvider: "naver.com"})
-        })
+            initIamport()
+            getMyInfo(buyerInfo, setBuyerInfo).then((name) => {
+                getMyAddress(name, address, setInitialAddress, setAddress).then(() => {
+                }).catch(() => {
+                    setAddress({...address, requestMsg: "부재시 경비실에 맡겨주세요."})
+                })
+                getMyCoupons().then((dto) => {
+                    if (dto && dto.length > 0) {
+                        coupons.push(...dto)
+                        setCoupons(coupons)
+                        setSelectedCoupon(0)
+                    }
 
-    }, []);
+                })
+            }).catch(() => {
+                setBuyerInfo({...buyerInfo, emailProvider: "naver.com"})
+            })
+
+        }, []
+    )
+    ;
 
     const handleSubmit = async () => {
 
@@ -134,7 +149,7 @@ const Order = () => {
             }
         }
 
-        const orderReqDto: OrderReqDto = {
+        let orderReqDto: OrderReqDto = {
             addressId: addressId,
             orderPoint: orderPoint,
             productList: [...products.map((item) => {
@@ -144,6 +159,9 @@ const Order = () => {
                 })
             })]
         };
+        if (selectedCoupon !== undefined && selectedCoupon !== -1) {
+            orderReqDto.couponId = coupons[selectedCoupon].couponId!!
+        }
 
         // RequestPayParams 객체 생성
         const requestPayParams: RequestPayParams = {
@@ -171,7 +189,7 @@ const Order = () => {
     };
 
     const orderTotal = products.reduce((acc, item) => acc + (item.product.price!! * item.qty * (100 - (item.product.discountPercent ?? 0)) / 100), 0);
-
+    const finalOrderTotal = (selectedCoupon === undefined ? orderTotal : (orderTotal * ((100 - (coupons[selectedCoupon].discountRate ?? 0)) / 100))) - orderPoint
     return (
         <div className="Order max-w-7xl mx-auto px-4">
             <div className="OrderTitle">주문/결제</div>
@@ -195,6 +213,7 @@ const Order = () => {
                                 return (
                                     <OrderProductContainerContent productName={product.name!!}
                                                                   productImage={image}
+                                                                  discountPercent={product.discountPercent ?? undefined}
                                                                   unitPrice={product.price!!}
                                                                   productQty={qty}/>
                                 )
@@ -207,11 +226,26 @@ const Order = () => {
                 <div className="OrderCoupon">
                     <div className="OrderCouponTitle">
                         <div className="OrderCouponTitleLeft">쿠폰</div>
-                        <div className="OrderCouponTitleRight">사용가능한 쿠폰이 없어요.</div>
+                        {
+                            coupons.length > 0 ? <div className="OrderCouponTitleRight">사용가능한 쿠폰이 있어요.</div> :
+                                <div className="OrderCouponTitleRight">사용가능한 쿠폰이 없어요.</div>
+                        }
                     </div>
                     <hr className="OrderLine"/>
-                    <select className="OrderCouponOption" title="coupon">
-                        <option></option>
+                    <select className="OrderCouponOption" title="coupon" onChange={(e) => {
+                        if (e.target.value !== "-1") {
+                            setSelectedCoupon(Number(e.target.value))
+                        }
+                    }}>
+                        {
+                            coupons.map((coupon, idx) => {
+                                return (
+                                    <option value={idx}
+                                            selected={(selectedCoupon === undefined) ? false : (selectedCoupon === coupon.couponId)}>
+                                        {coupon.couponDesc}</option>
+                                )
+                            })
+                        }
                     </select>
                 </div>
 
@@ -256,16 +290,22 @@ const Order = () => {
                             </div>
                             <div className="OrderAmountContentLeftPay">
                                 <div className="OrderAmountContentLeftPayText">쿠폰 사용</div>
-                                <div className="OrderAmountContentLeftPayNumber">0원</div>
+                                <div
+                                    className="OrderAmountContentLeftPayNumber">{format(
+                                    (selectedCoupon === undefined ? 0 : orderTotal * ((coupons[selectedCoupon].discountRate ?? 0) / 100))
+                                )}원
+                                </div>
                             </div>
                             <div className="OrderAmountContentLeftPay">
                                 <div className="OrderAmountContentLeftPayText">포인트 사용</div>
-                                <div className="OrderAmountContentLeftPayNumber">0원</div>
+                                <div className="OrderAmountContentLeftPayNumber">{orderPoint}원</div>
                             </div>
                             <hr className="OrderAmountContentLeftLine"/>
                             <div className="OrderAmountContentLeftPay">
                                 <div className="OrderAmountContentLeftFinalPayText">최종 결제 금액</div>
-                                <div className="OrderAmountContentLeftFinalPayNumber">{format(orderTotal)}원</div>
+                                <div className="OrderAmountContentLeftFinalPayNumber">{
+                                    format(finalOrderTotal)}원
+                                </div>
                             </div>
                         </div>
                         <div className="OrderAmountContentRight">
@@ -346,6 +386,17 @@ async function getMyAddress(name: string, address: AddressInfo, setInitialAddres
         mobilePhoneNumber: selectedAddress.mobilePhoneNumber!!,
         requestMsg: selectedAddress.requestMsg!!
     });
+}
+
+async function getMyCoupons() {
+    try {
+        const api = await getApi()
+        const coupons = await api.getUnusedCoupons({page: 0, pageSize: 10})
+        return coupons.data.content
+    } catch (e) {
+
+    }
+
 }
 
 async function getMyInfo(buyerInfo: BuyerInfo, setBuyerInfo: React.Dispatch<React.SetStateAction<BuyerInfo>>) {

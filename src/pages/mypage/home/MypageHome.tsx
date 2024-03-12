@@ -7,6 +7,8 @@ import diagnosis from "../../../result.json";
 
 const MypageHome = () => {
     const [memberInfo, setMemberInfo] = useState<MemberDto | null>(null)
+    const [couponCount, setCouponCount] = useState<number>(0)
+    const [orderCount, setOrderCount] = useState<number>(0)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -21,6 +23,14 @@ const MypageHome = () => {
             }
         }
         getMyInfo().then();
+        getMyCoupons().then((count) => {
+            if (count === undefined) return
+            setCouponCount(count)
+        })
+        getMyOrders().then((count) => {
+            if (count === undefined) return
+            setOrderCount(count)
+        })
     }, []);
     const filteredDiagnosis = diagnosis.filter(item => {
         return item.id === convertInteriorTypeEnumToCode(memberInfo?.interiorType ?? "")
@@ -50,7 +60,7 @@ const MypageHome = () => {
                             </div>
                             <div className="ProfileCoupon">
                                 <img src="img/coupon.png" title="pic"></img>
-                                <div className="ProfileCouponNumber">쿠폰 0</div>
+                                <div className="ProfileCouponNumber">쿠폰 {couponCount}</div>
                             </div>
                         </div>
                     </div>
@@ -61,7 +71,7 @@ const MypageHome = () => {
                         <div className="MypageBuyContain">
                             <div className="MypageBuyItem">
                                 <div className="MypageBuyItemTitle">주문내역</div>
-                                <div className="MypageBuyItemContent">0</div>
+                                <div className="MypageBuyItemContent">{orderCount}</div>
                             </div>
                             <div className="MypageBuyItem">
                                 <div className="MypageBuyItemTitle">배송중</div>
@@ -109,10 +119,32 @@ const convertInteriorTypeEnumToKor = (type: string) => {
     if (type === "FALL") return "가을"
     return "유형설명"
 }
+
 const convertInteriorTypeEnumToCode = (type: string) => {
     if (type === "WINTER") return "d"
     if (type === "SPRING") return "c"
     if (type === "SUMMER") return "b"
     if (type === "FALL") return "a"
     return ""
+}
+
+async function getMyCoupons() {
+    try {
+        const api = await getApi()
+        const coupons = await api.getUnusedCoupons({page: 0, pageSize: 100})
+        return coupons.data.content?.length ?? 0
+
+    } catch (e) {
+        return undefined
+    }
+}
+
+async function getMyOrders() {
+    try {
+        const api = await getApi()
+        const orders = await api.getOrders({page: 0, pageSize: 100})
+        return orders.data.content?.length ?? 0
+    } catch (e) {
+        return undefined
+    }
 }
