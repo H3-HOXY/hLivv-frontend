@@ -8,13 +8,14 @@ import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
 import {GetMore} from "../store/components/GetMore";
 import "./styles/Collabo.scss"
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useSearchParams} from "react-router-dom";
 import {CollaboDto} from "../../api/Api";
 import React, {useEffect, useState} from "react";
 import {StoreListItemProps} from "../store/components/StoreListItem";
 import {collaboCategory} from "./data";
 import {CategoryMenu} from "../store/components/CategoryMenu";
 import {CategoryMenuItemProps} from "../store/components/CategoryMenuItem";
+import {Api} from "../../api/ApiWrapper";
 
 export const Collabo = () => {
     const image = useImage()
@@ -22,15 +23,50 @@ export const Collabo = () => {
     const [products, setProducts] = useState<CollaboDto[]>([])
     const [category, setCategory] = useState<string>("1")
 
+    const [searchParam, setSearchParam] = useSearchParams()
+    const [pageNo, setPageNo] = useState(0)
+    const [categoryId, setCategoryId] = useState<string>("")
+
     useEffect(() => {
         if (collaboCategory.filter(item => item.id === category).length === 0) setCategory("1")
         // search category product
     }, [category]);
 
+    // useEffect(() => {
+    //     if (!loaderData) return
+    //     setProducts([...products, ...loaderData.collaboProducts])
+    // }, [loaderData]);
+
     useEffect(() => {
-        if (!loaderData) return
-        setProducts([...products, ...loaderData.collaboProducts])
-    }, [loaderData]);
+        fetchCollaboProduct().then()
+    }, []);
+
+    async function fetchCollaboProduct() {
+        let categoryId = undefined
+        try {
+            categoryId = searchParam.get("categoryId") ?? undefined
+        } catch (e) {
+        }
+        try {
+            const api = Api
+            if (categoryId === undefined) {
+                const products = await api.getCollaboProducts({pageNo: pageNo, pageSize: 20}, {})
+                setProducts(products.data)
+                setPageNo(pageNo + 1)
+                console.log(products)
+            } else {
+                const products = await api.getCollaboProducts({
+                    pageNo: pageNo,
+                    pageSize: 20
+                }, {})
+                setProducts(products.data)
+                setPageNo(pageNo + 1)
+                console.log(products)
+            }
+        } catch (e) {
+        }
+    }
+
 
     const storeItemList = products.map(product => {
         return {
