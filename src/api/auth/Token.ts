@@ -1,3 +1,7 @@
+/**
+ * @author 이호연
+ */
+
 export const setAuthToken = (token: string) => {
     localStorage.setItem('token', token);
 }

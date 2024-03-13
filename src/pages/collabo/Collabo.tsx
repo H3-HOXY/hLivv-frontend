@@ -1,12 +1,5 @@
 import {useImage} from "../common/hooks/useImage";
 
-/**
- * @since
- * @author 이호연
- */
-/**
- * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
- */
 import {StoreBannerNoSlide} from "../store/components/StoreBanner";
 import {SortingMenu} from "../store/SortingMenu";
 import {StoreList} from "../store/components/StoreList";
@@ -20,6 +13,12 @@ import {collaboCategory} from "./data";
 import {CategoryMenu} from "../store/components/CategoryMenu";
 import {CategoryMenuItemProps} from "../store/components/CategoryMenuItem";
 import {Api} from "../../api/ApiWrapper";
+
+/**
+ * @since
+ * @author 이호연
+ * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
+ */
 
 export const Collabo = () => {
     const image = useImage()

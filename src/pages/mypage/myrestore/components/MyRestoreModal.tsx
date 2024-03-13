@@ -7,7 +7,7 @@ import {getApi} from "../../../../api/ApiWrapper";
 
 /**
  * @since
- * @author 최정윤
+ * @author 최정윤, 이호연
  */
 
 interface State {

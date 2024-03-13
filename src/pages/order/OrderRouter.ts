@@ -6,8 +6,8 @@ import {RequestPayParams} from "./types/RequestPayParams";
 import {RequestPayResponse} from "./types/RequestPayResponse";
 
 /**
- * @since 
- * @author 이호연
+ * @since
+ * @author 이호연, 반정현
  */
 
 //@ts-ignore

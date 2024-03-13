@@ -14,8 +14,8 @@ import {FormMessage} from "../../common/FormMessage";
 import {useCurrencyFormat} from "../common/hooks/useCurrencyFormat";
 
 /**
- * @since 
- * @author 이호연, 최정윤
+ * @since
+ * @author 이호연, 최정윤, 반정현
  */
 
 declare global {
