@@ -2,6 +2,11 @@ import {useNavigate} from "react-router-dom";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 import "../styles/Store.scss"
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type StoreListItemProps = {
     image: string,
     title: string,

@@ -1,5 +1,10 @@
-import "../../../Components_scss/Order.scss"
+import "../styles/Order.scss"
 import React from "react";
+
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
 
 export interface BuyerInfo {
     name: string

@@ -1,6 +1,11 @@
 import {useImage} from "../../../common/hooks/useImage";
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const AverageRating = (props: { star: number }) => {
     const image = useImage()
     return (

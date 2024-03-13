@@ -1,6 +1,11 @@
 import {useImage} from "../../../common/hooks/useImage";
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type AverageReviewScoreProps = {
     star: number
     reviewCount: number

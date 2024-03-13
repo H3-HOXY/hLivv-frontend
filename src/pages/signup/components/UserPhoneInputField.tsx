@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export type UserPhoneInputFieldProps = {
     userPhone: string | undefined,
     setUserPhone: (value: (((prevState: (string | undefined)) => (string | undefined)) | string | undefined)) => void

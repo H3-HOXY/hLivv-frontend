@@ -1,6 +1,11 @@
-import "../Components_scss/KeywordSelect.scss"
-import { useImage } from "../pages/common/hooks/useImage";
+import "./styles/KeywordSelect.scss"
+import { useImage } from "../common/hooks/useImage";
 import React, { useState } from 'react';
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 interface Keyword {
   id: string;
@@ -106,7 +111,10 @@ const Preference = () => {
             <button className="PreferenceKeywordPrev" title="이전">이전</button>
           </a>
           <a href="/preference/colorselect">
-            <button className="PreferenceKeywordNext" title="다음">다음</button>
+          <button
+            className={`PreferenceKeywordNext bg-gray-100 text-gray-500 ${selectedKeyword ? 'bg-white border border-black text-black' : 'dark:bg-gray-600 dark:text-white'}`}
+            title="다음"
+          >다음</button>
           </a>
         </div>
       </div>

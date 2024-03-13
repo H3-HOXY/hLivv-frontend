@@ -1,4 +1,4 @@
-import "../../../Components_scss/MyRestore.scss"
+import "../styles/MyRestore.scss"
 import {useImage} from "../../common/hooks/useImage";
 import { useEffect, useRef, useState } from "react"
 import { useActionData} from "react-router-dom";
@@ -6,6 +6,11 @@ import {FormMessage} from "../../../common/FormMessage";
 import {getApi} from "../../../api/ApiWrapper";
 import {PageOrderResDto, ProductDto} from "../../../api/Api";
 import { MyRestoreItem } from "./components/MyRestoreItem";
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const MyRestore = () => {
   const image = useImage()

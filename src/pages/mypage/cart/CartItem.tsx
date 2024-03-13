@@ -6,6 +6,10 @@ import {CartItemQuantity} from "./CartItemQuantity";
 import {useNavigate} from "react-router-dom";
 import {Api} from "../../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 export const CartItem = ({item, checked, onCartUpdate, onChange}: {
     item: CartDto,

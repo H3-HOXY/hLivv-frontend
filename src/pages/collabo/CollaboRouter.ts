@@ -2,6 +2,11 @@ import {CollaboDto} from "../../api/Api";
 import {defer} from "react-router-dom";
 import {Api} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 //@ts-ignore
 export async function collaboLoader({request, params}) {
     try {

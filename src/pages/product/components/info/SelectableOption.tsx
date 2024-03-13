@@ -2,6 +2,11 @@ import React from "react";
 
 import {SelectedOption} from "./SelectedOptionItem";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type SelectableOptionProps = {
     selectedOption: SelectedOption[]
     setSelectedOption: React.Dispatch<React.SetStateAction<SelectedOption[]>>

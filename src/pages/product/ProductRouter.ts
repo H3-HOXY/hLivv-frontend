@@ -3,6 +3,11 @@ import {MemberNotLoggedInError} from "../../api/auth/Errors";
 import {ProductDto} from "../../api/Api";
 import {Api} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 //@ts-ignore
 export async function productLoader({request, params}) {
     try {

@@ -3,6 +3,11 @@ import {MemberNotLoggedInError} from "../../api/auth/Errors";
 import {ProductDto} from "../../api/Api";
 import {Api} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type HomeLoaderData = {
     bestProduct: ProductDto[],
     newProduct: ProductDto[]

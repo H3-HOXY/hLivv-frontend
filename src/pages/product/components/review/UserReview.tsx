@@ -2,6 +2,11 @@ import {useImage} from "../../../common/hooks/useImage";
 import React from "react";
 import {ReviewDto} from "../../../../api/Api";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const UserReview = ({reviewDto}: { reviewDto: ReviewDto }) => {
     const image = useImage()
     const star = reviewDto.star!!;

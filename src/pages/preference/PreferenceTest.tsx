@@ -1,8 +1,13 @@
-import "../Components_scss/PreferenceTest.scss"
-import {useImage} from "../pages/common/hooks/useImage";
+import "./styles/PreferenceTest.scss"
+import {useImage} from "../common/hooks/useImage";
 import {useNavigate} from 'react-router-dom';
-import QuestionData from "../question.json"
+import QuestionData from "../../question.json"
 import {useEffect, useState} from "react";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 type Answers = {
     QuestionData: string[]

@@ -1,8 +1,13 @@
-import "../Components_scss/Review.scss"
-import { useImage } from "../pages/common/hooks/useImage";
+import "../styles/Review.scss"
+import { useImage } from "../../common/hooks/useImage";
 import { useRef, useState } from "react"
-import ModalBase from './ModalBase';
-import CardModal from './CardModal';
+import ModalBase from '../ModalBase';
+import CardModal from '../CardModal';
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const Review = () => {
   const image = useImage()

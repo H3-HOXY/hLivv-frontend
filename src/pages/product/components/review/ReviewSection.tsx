@@ -5,6 +5,11 @@ import {UserReview} from "./UserReview";
 import {ReviewSortButtons} from "./ReviewSortButtons";
 import {ReviewDto} from "../../../../api/Api";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const ReviewSection = ({reviews}: { reviews: ReviewDto[] }) => {
 
     const star = reviews.reduce((acc, review) => acc + (review.star ?? 0), 0) / reviews.length

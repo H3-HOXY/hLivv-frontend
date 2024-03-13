@@ -1,5 +1,10 @@
-import "../Components_scss/PreferenceHome.scss"
-import { useImage } from "../pages/common/hooks/useImage";
+import "./styles/PreferenceHome.scss"
+import { useImage } from "../common/hooks/useImage";
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const Preference = () => {
   const image = useImage()

@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export enum CurrencyFormat {
     KRW = "KRW",
     USD = "USD"

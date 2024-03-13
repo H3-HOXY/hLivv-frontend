@@ -12,6 +12,11 @@ import {StoreListItemProps} from "./components/StoreListItem";
 import {CategoryMenuItemProps} from "./components/CategoryMenuItem";
 import {storeBannerItems} from "./data";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const Store = () => {
     const image = useImage()
     const loaderData = useLoaderData() as { products: ProductDto[] }

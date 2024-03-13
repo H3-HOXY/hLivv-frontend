@@ -1,9 +1,14 @@
-import "../Components_scss/PreferenceTestResult.scss"
+import "./styles/PreferenceTestResult.scss"
 import React, {useEffect, useState} from 'react';
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 import {useLocation, useNavigate} from 'react-router-dom';
-import result from '../result.json'
-import {getApi} from "../api/ApiWrapper";
+import result from '../../result.json'
+import {getApi} from "../../api/ApiWrapper";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 type UVData = {
     name: string,

@@ -1,10 +1,15 @@
-import "../../../Components_scss/Cart.scss"
+import "../styles/Cart.scss"
 import {CartItem} from "./CartItem";
 import {useEffect, useState} from "react";
 import {Api, getApi} from "../../../api/ApiWrapper";
 import {CartDto, ProductDto} from "../../../api/Api";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 import {useNavigate} from "react-router-dom";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 const Cart = () => {
     const [cartItem, setCartItem] = useState<CartDto[]>([])

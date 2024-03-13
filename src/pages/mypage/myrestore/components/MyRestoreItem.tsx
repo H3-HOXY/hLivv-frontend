@@ -3,7 +3,11 @@ import {useState, useRef} from "react";
 import { useImage } from "../../../common/hooks/useImage";
 import {useNavigate} from "react-router-dom";
 import { MyRestoreModal } from "./MyRestoreModal";
-import MyRestoreDetail from "../../../../Components/MyRestoreDetail";
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 export function MyRestoreItem({productDto}: {productDto: ProductDto}) {
   const image = useImage()

@@ -1,5 +1,10 @@
 import {useImage} from "../../common/hooks/useImage";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const RoundedButton = (props: { title: string, arrow?: boolean }) => {
     const image = useImage()
     return (

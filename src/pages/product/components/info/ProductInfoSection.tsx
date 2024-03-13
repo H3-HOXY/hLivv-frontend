@@ -9,6 +9,11 @@ import {SelectedOption} from "./SelectedOptionItem";
 import {getApi} from "../../../../api/ApiWrapper";
 import {useCurrencyFormat} from "../../../common/hooks/useCurrencyFormat";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type ProductInfoSectionProps = {
     productData: ProductDto
     reviewData: ReviewDto[]

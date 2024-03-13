@@ -1,4 +1,9 @@
-import "../../Components_scss/PasswordEdit.scss"
+import "./styles/PasswordEdit.scss"
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const PasswordEdit = () => {
   return (

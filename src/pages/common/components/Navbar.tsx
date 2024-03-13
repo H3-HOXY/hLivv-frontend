@@ -4,6 +4,11 @@ import classNames from 'classnames';
 import "../styles/Navbar.scss";
 import {useImage} from "../hooks/useImage";
 
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 export type NavbarProps = {
     marginTop: string,
     setMarginTop: React.Dispatch<React.SetStateAction<string>>,

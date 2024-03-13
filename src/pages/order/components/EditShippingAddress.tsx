@@ -1,8 +1,13 @@
-import "../../../Components_scss/Order.scss"
+import "../styles/Order.scss"
 import React, {useState} from "react";
-import ModalBase from "../../../Components/ModalBase";
-import CardModal from "../../../Components/CardModal";
+import ModalBase from "../../mypage/ModalBase";
+import CardModal from "../../mypage/CardModal";
 import DaumPostcode from "react-daum-postcode";
+
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
 
 export interface AddressInfo {
     addressId: number

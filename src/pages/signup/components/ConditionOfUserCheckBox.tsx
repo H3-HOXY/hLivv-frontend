@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export type ConditionOfUserCheckBoxProps = {
     conditionOfUse: boolean,
     setConditionOfUse: (value: (((prevState: boolean) => boolean) | boolean)) => void

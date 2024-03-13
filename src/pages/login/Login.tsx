@@ -9,6 +9,10 @@ import {RememberMeCheckBox} from "./components/RememberMeCheckBox";
 import {PrintFormMessage} from "./components/PrintFormMessage";
 import {loadUserEmailFromLocalStorage} from "../../api/auth/UserInfo";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
 
 const Login = () => {
 

@@ -1,5 +1,10 @@
-import "../Components_scss/InteriorRecommend.scss"
-import { useImage } from "../pages/common/hooks/useImage";
+import "./styles/InteriorRecommend.scss"
+import { useImage } from "../../pages/common/hooks/useImage";
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const InteriorRecommend = () => {
   const image = useImage()

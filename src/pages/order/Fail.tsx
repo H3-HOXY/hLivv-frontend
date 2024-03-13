@@ -1,5 +1,10 @@
 import { useSearchParams } from "react-router-dom"
-import "../Components_scss/Fail.scss"
+import "./styles/Fail.scss"
+
+/**
+ * @since 
+ * @author 이호연
+ */
 
 const Fail = () => {
   const [searchParams] = useSearchParams()

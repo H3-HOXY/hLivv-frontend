@@ -1,4 +1,4 @@
-import "../../Components_scss/Order.scss"
+import "./styles/Order.scss"
 import {initTE, Select} from "tw-elements";
 import React, {useEffect, useState} from "react"
 import {useActionData, useLocation, useSubmit} from "react-router-dom";
@@ -12,6 +12,11 @@ import {OrderProductContainerContent} from "./components/OrderProductContainerCo
 import {MyPoint} from "./components/MyPoint";
 import {FormMessage} from "../../common/FormMessage";
 import {useCurrencyFormat} from "../common/hooks/useCurrencyFormat";
+
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
 
 declare global {
     export interface Window {

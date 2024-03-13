@@ -1,6 +1,11 @@
 import Slider from "react-slick";
 import { useImage } from "../../common/hooks/useImage";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type CollaboBannerProps = {
     image: string
     alt: string

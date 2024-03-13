@@ -2,6 +2,11 @@ import {FormMessage} from "../../../common/FormMessage";
 import {Api} from "../../../api/ApiWrapper";
 import {getAuthToken} from "../../../api/auth/Token";
 
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 // @ts-ignore
 export async function myRestoreAction({request, params}) {
   const formData = await request.formData()

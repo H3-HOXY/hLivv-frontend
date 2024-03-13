@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type SelectedOption = {
     index: number
     label: string

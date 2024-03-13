@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export function SignUpSubmitButton() {
     return <button
         type="submit"

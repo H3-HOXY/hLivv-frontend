@@ -1,6 +1,10 @@
 import {FormMessage} from "../../common/FormMessage";
 import {Api} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
 
 //@ts-ignore
 export async function signUpAction({request, params}) {

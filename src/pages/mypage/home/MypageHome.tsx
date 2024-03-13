@@ -1,9 +1,14 @@
-import "../../../Components_scss/MypageHome.scss"
+import "../styles/MypageHome.scss"
 import {useEffect, useState} from "react";
 import {getApi} from "../../../api/ApiWrapper";
 import {MemberDto} from "../../../api/Api";
 import {useNavigate} from "react-router-dom";
 import diagnosis from "../../../result.json";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 const MypageHome = () => {
     const [memberInfo, setMemberInfo] = useState<MemberDto | null>(null)

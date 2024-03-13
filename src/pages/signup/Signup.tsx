@@ -10,6 +10,11 @@ import {PersonalInfoCheckBox} from "./components/PersonalInfoCheckBox";
 import {SignUpSubmitButton} from "./components/SignUpSubmitButton";
 import {FormMessage} from "../../common/FormMessage";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 const Signup = () => {
     const [userEmail, setUserEmail] = useState<string>()
     const [userPassword, setUserPassword] = useState<string>()

@@ -1,6 +1,11 @@
 import {FormMessage} from "../../common/FormMessage";
 import {getApi} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 // @ts-ignore
 export const editProfileAction = async ({request, params}) => {
     try {

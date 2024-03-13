@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
-import "../../Components_scss/Sidebar.scss";
+import "./styles/Sidebar.scss";
 import {FaInfoCircle, FaShoppingCart} from "react-icons/fa";
 import {IoPersonCircle} from "react-icons/io5";
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const Sidebar = () => {
     const [showMyInfoDropdown, setShowMyInfoDropdown] = useState(false);

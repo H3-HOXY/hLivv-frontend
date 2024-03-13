@@ -1,5 +1,10 @@
 import {useState} from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type ImageData = {
     id: number;
     imageUrl: string;

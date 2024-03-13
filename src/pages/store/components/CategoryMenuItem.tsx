@@ -1,5 +1,10 @@
 import "../styles/CategoryMenuItem.scss"
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type CategoryMenuItemProps = {
     title: string
     categoryId: string
