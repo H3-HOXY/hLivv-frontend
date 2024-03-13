@@ -53,9 +53,10 @@ export const NewItemContainer = (props: NewItemContainerProps) => {
                                         <img
                                             src={`${product.productImages!![0].imageUrl}`}
                                             title="pic"
+                                            className="cursor-pointer"
                                             alt={`${product.id}`}/>
                                         <div className="NewItemWrapperText text-start">
-                                            <div className={"truncate w-full"}>{product.name}</div>
+                                            <div className={"truncate w-full cursor-pointer"}>{product.name}</div>
                                             <div>{formatter(product.price ?? 0)}원</div>
                                         </div>
                                     </div>
