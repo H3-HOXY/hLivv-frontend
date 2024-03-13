@@ -3,7 +3,7 @@ import React from "react";
 import { useImage } from "../../common/hooks/useImage";
 
 /*
-홈 배너
+    홈 배너
     @since 2024.02.15
     @author 최정윤, 이호연
 */
