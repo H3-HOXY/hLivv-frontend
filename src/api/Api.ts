@@ -363,6 +363,7 @@ export interface TokenDto {
 }
 
 export interface MemberCouponDto {
+  couponId: number;
   /** @format date */
   expireDate?: string;
   couponDesc?: string;

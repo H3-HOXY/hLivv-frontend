@@ -1,32 +1,22 @@
 export const collaboCategory = [
     {
-        id: "1",
-        name: '전체',
-        image: 'collabo/All.png'
+        id: "C000000001",
+        name: '봄',
+        image: 'collabo/spring.png'
     },
     {
-        id: "2",
-        name: '공부방',
-        image: 'collabo/Study.png'
+        id: "C000000002",
+        name: '여름',
+        image: 'collabo/summer.png'
     },
     {
-        id: "3",
-        name: '거실',
-        image: 'collabo/LivingRoom.png'
+        id: "C000000003",
+        name: '가을',
+        image: 'collabo/autumn.png'
     },
     {
-        id: "4",
-        name: '주방',
-        image: 'collabo/Kitchen.png'
-    },
-    {
-        id: "5",
-        name: '자녀방',
-        image: 'collabo/Kids.png'
-    },
-    {
-        id: "6",
-        name: '침실',
-        image: 'collabo/BedRoom.png'
-    },
+        id: "C000000004",
+        name: '겨울',
+        image: 'collabo/winter.png'
+    }
 ]
