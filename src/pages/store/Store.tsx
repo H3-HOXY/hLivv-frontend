@@ -15,7 +15,7 @@ import {SortingMenu} from "./SortingMenu";
 import categoryData from "../../data/category.json"
 
 /**
- * @since 
+ * @since
  * @author 이호연
  */
 
@@ -109,4 +109,4 @@ export const Store = () => {
         </>
     )
 }
-
+// @ts-ignore

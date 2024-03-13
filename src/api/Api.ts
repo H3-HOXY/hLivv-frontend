@@ -1168,6 +1168,43 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags 리스토어 API
+     * @name RestoreRegister1
+     * @summary 리스토어 등록
+     * @request POST:/api/restore2
+     * @secure
+     */
+    restoreRegister1: (
+        query: {
+          /** @format int64 */
+          productId: number;
+          /** @format date-time */
+          pickUpDate?: string;
+          requestGrade: "S" | "A" | "B" | "C";
+          restoreDesc?: string;
+          whenRejected: boolean;
+          restoreImageUrls?: string[];
+        },
+        data: {
+          /** @format binary */
+          imageFile?: File;
+        },
+        params: RequestParams = {},
+    ) =>
+        this.request<RestoreDto, ErrorDto>({
+          path: `/api/restore2`,
+          method: "POST",
+          query: query,
+          body: data,
+          secure: true,
+          type: ContentType.FormData,
+          format: "json",
+          ...params,
+        }),
+
+    /**
+     * No description
+     *
+     * @tags 리스토어 API
      * @name UpdateRestore2
      * @summary 리스토어 포인트 지급 상태 업데이트
      * @request POST:/api/restore/rewarded/{restoreId}
