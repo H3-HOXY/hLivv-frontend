@@ -31,13 +31,10 @@ export function BuyDetailItem({productDto}: { productDto: ProductDto }) {
         <div className="BuyDetailContentItemDetail">
             <div className="BuyDetailContentItemDetailText">
                 <div className="BuyDetailContentItemDetailTextLeft">
-                    {/*<div className="BuyDetailContentItemDetailBrand">코이</div>*/}
                     <div className="BuyDetailContentItemDetailName cursor-pointer"
                          onClick={goToProduct}>
                         {productDto.name}</div>
-                    {/*<div className="BuyDetailContentItemDetailInfo">사이즈: 1200 / 색상: 화이트</div>*/}
                 </div>
-                {/*<div className="BuyDetailContentItemDetailPoint">포토 500P | 일반 100P</div>*/}
             </div>
             <button onClick={onClickModalOn} className="BuyDetailContentItemDetailBtn" title="리뷰쓰기">리뷰쓰기</button>
             <ReviewModal productDto={productDto} isActive={isActive} onClickModalOff={onClickModalOff}/>

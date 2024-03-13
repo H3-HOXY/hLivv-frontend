@@ -48,13 +48,8 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
             setLoading(true);
             await api.addProductToCart(props.productData.id!!, {qty: 1})
             navigate("/mypage/cart");
-            // 3초간 로딩 화면 표시
-            // setTimeout(() => {
-            //     setLoading(false); // 로딩 상태를 false로 변경
-            //     navigate("/mypage/cart");
-            // }, 3000);
         } catch (e) {
-            // setLoading(false); // 에러 발생 시에도 로딩 상태를 false로 변경
+
         }
     }
     const onBuyNowClicked = () => {
@@ -69,12 +64,6 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
       };
     return (
         <>
-            {/* {loading && (
-                <div className="loading-overlay">
-                    <p>장바구니로 이동중...</p>
-                    <img className="loading-image" src={image("cart.gif")} alt="Loading" />
-                </div>
-            )} */}
             <ImageSlider images={
                 props.productData.productImages!!.map((item, idx) => {
                     return {id: idx, imageUrl: item.imageUrl!!}
@@ -130,15 +119,6 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                     data-modal-toggle="popup-modal"
                     onClick={handleToggleModal}/>
                     <BuyNowButton onClick={onBuyNowClicked}/>
-                    {/* <button
-                        data-modal-target="popup-modal"
-                        data-modal-toggle="popup-modal"
-                        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button"
-                        onClick={handleToggleModal}
-                    >
-                        Toggle modal
-                    </button> */}
                 </div>
             </div>
 
@@ -172,9 +152,6 @@ export const ProductInfoSection = (props: ProductInfoSectionProps) => {
                             <span className="sr-only">Close modal</span>
                         </button>
                         <div className="p-4 md:p-5 text-center">
-                            {/* <svg className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                            </svg> */}
                             <h3 className="mt-6 mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">장바구니에 담았습니다.</h3>
                             <button 
                             onClick={onCartClicked}

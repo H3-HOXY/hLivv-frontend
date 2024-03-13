@@ -1,7 +1,6 @@
 .PreferenceTest{
   width: 100%;
   min-height: calc(100vh - 4.5em);
-  // background-color: aqua;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +9,6 @@
 .PreferenceTestWrapper{
   width: 70%;
   height: 100%;
-  // background-color: red;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +18,6 @@
 .PreferenceTestContent{
   width: 100%;
   display: flex;
-  // background-color: yellow;
   justify-content: space-between;
 }
 

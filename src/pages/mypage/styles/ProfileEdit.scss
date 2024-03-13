@@ -1,5 +1,4 @@
 .ProfileEdit{
-  // background-color: aqua;
   width: 100%;
   min-height: calc(100vh - 4.5em);
   display: flex;
@@ -10,7 +9,6 @@
 .ProfileEditWrapper{
   width: 70%;
   height: 100%;
-  // background-color: antiquewhite;
   margin: 6em 0;
   display: flex;
   flex-direction: column;
@@ -22,7 +20,6 @@
   flex-direction: column;
   align-items: start;
   width: 100%;
-  // background-color: aquamarine;
 }
 
 .ProfileEditTitle{

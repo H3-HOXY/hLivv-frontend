@@ -1,7 +1,6 @@
 .MyRestore{
   width: 100%;
   min-height: calc(100vh - 4.5em);
-  // background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,22 +57,18 @@
 .MyRestoreContentItemText{
   width: 70%;
   height: 100%;
-  // background-color: #9A452B;
   margin: 0 3%;
 }
 
 .BuyDetailContentItemDetailTextLeft{
   height: 100%;
-  // background-color: antiquewhite;
 }
 
 .MyRestoreContentItemBrand{
-  // margin-top: 0.5em;
   color: #B9B9B9;
 }
 
 .MyRestoreContentItemName{
-  // margin-top: 0.5em;
   font-weight: 800;
 }
 
@@ -111,12 +106,10 @@
 .RestoreModalPic{
   margin-top: 2em;
   width: 100%;
-  // background-color: skyblue;
 }
 
 .RestoreModalPicContent{
   width: 100%;
-  // background-color: lightcoral;
 }
 
 .RestoreModalPicContentText{
@@ -140,13 +133,13 @@
 .RestoreModalPicUploadInputLabel{
   all: unset;
   width: 100%;
-  padding: 0.8em 7em; /*padding를 주어 텍스트를 바탕으로 주변이 10px만큼 떨어지도록 설정*/
-  text-align: center; /*버튼에서 텍스트가 가운데 있도록 설정*/
-  background-color: white;; /*배경 색을 설정(원하는 걸로 바꿔도 됨)*/
-  color: #B57341; /*글자 색*/
-  font-weight: 600; /*폰트 사이즈를 500으로 바꿈*/
+  padding: 0.8em 7em;
+  text-align: center;
+  background-color: white;
+  color: #B57341;
+  font-weight: 600; 
   cursor: pointer; 
-  border-radius: 5px; /*버튼의 둥근 정도를 설정*/
+  border-radius: 5px;
   transition: opacity linear 0.1s;
   border: 1.5px solid #B57341;
 }

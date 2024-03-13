@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: start;
   width: 100%;
-  // background-color: aliceblue;
 }
 
 .OrderTitle{
@@ -20,7 +19,6 @@
 }
 
 // 배송지
-
 .OrderDestination{
   display: flex;
   flex-direction: column;
@@ -33,7 +31,6 @@
   align-items: center;
   width: 100%;
   margin-top: 0.8em;
-  // background-color: #9E9E9E;
 }
 
 .OrderDestinationTitleLeft{
@@ -114,14 +111,12 @@
 }
 
 // 주문자
-
 .OrderCustomer{
   display: flex;
   flex-direction: column;
   align-items: start;
   margin-top: 3em;
   width: 100%;
-  // background-color: red;
 }
 
 .OrderCustomerTitle{
@@ -134,7 +129,6 @@
   align-items: center;
   width: 100%;
   height: 3em;
-  // background-color: purple;
   margin-bottom: 1em;
 }
 
@@ -165,7 +159,6 @@
 }
 
 // 주문상품
-
 .OrderProduct{
   margin-top: 3em;
   display: flex;
@@ -214,7 +207,6 @@
 
 
 // 쿠폰
-
 .OrderCoupon{
   margin-top: 3em;
 }
@@ -240,7 +232,6 @@
 }
 
 // 포인트
-
 .OrderPoint{
   margin-top: 3em;
 }
@@ -298,7 +289,6 @@
 }
 
 // 결제수단
-
 .OrderMethod{
   margin-top: 3em;
 }
@@ -315,7 +305,6 @@
 }
 
 // 결제금액
-
 .OrderAmount{
   margin-top: 3em;
   margin-bottom: 5em;
