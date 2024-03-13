@@ -34,15 +34,23 @@ export const Collabo = () => {
     useEffect(() => {
         if (collaboCategory.filter(item => item.id === category).length === 0) setCategory("C000000001")
         // search category product
+        fetchCollaboProduct().then()
+        setPageNo(0)
+
     }, [category]);
 
     // useEffect(() => {
     //     if (!loaderData) return
     //     setProducts([...products, ...loaderData.collaboProducts])
     // }, [loaderData]);
-
+    //
     useEffect(() => {
-        fetchCollaboProduct().then()
+        let categoryId = searchParam.get("categoryId") ?? undefined
+        if (categoryId === undefined) {
+            setCategory("C000000001")
+        } else {
+            setCategory(categoryId as "C000000001" | "C000000002" | "C000000003" | "C000000004")
+        }
     }, []);
 
     async function fetchCollaboProduct() {
@@ -54,13 +62,16 @@ export const Collabo = () => {
         try {
             const api = Api
             if (categoryId === undefined) {
-                const products = await api.getCollaboProducts({pageNo: pageNo, pageSize: 20}, {})
+                const products = await api.getCollaboProductsByCategoryId(category.toString(), {
+                    pageNo: 0,
+                    pageSize: 20
+                }, {})
                 setProducts(products.data)
                 setPageNo(pageNo + 1)
                 console.log(products)
             } else {
-                const products = await api.getCollaboProducts({
-                    pageNo: pageNo,
+                const products = await api.getCollaboProductsByCategoryId(category.toString(), {
+                    pageNo: 0,
                     pageSize: 20
                 }, {})
                 setProducts(products.data)
