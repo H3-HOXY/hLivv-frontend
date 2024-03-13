@@ -6,11 +6,6 @@ import styled from '@emotion/styled';
  * @author 최정윤
  */
 
-/**
- * @since 
- * @author 최정윤
- */
-
 export type CardModalProps = {
   active: boolean;
   closeEvent: (e?: React.MouseEvent<HTMLButtonElement>) => void;

@@ -65,6 +65,7 @@ const Preference = () => {
               ))}
             </div>
         </div>
+
         <div className="PreferenceKeywordMove">
           <a href="/preference">
             <button className="PreferenceKeywordPrev" title="이전">이전</button>
