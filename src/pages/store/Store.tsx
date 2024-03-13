@@ -79,20 +79,12 @@ export const Store = () => {
             title: category.name
         } as CategoryMenuItemProps
     })
-    // const categoryList = [
-    //     "전체", "소파", "식탁", "침대", "거실장", "옷장", "화장대", "수납장", "책상", "키즈", "홈데코", "벽지"].map((category, idx) => {
-    //     return {
-    //         categoryId: `${idx}`,
-    //         title: category
-    //     } as CategoryMenuItemProps
-    // })
 
     return (
         <>
             <div className="Store">
                 <div className="StoreWrapper container mx-auto p-12">
                     <div className="StoreTitle">STORE</div>
-                    {/* <StoreBanner image={image("ARKA.png")} alt={"ARKA"}/> */}
                     <StoreBanner sliderItems={storeBannerItems}/>
 
                     {/*{카테고리 메뉴}*/}

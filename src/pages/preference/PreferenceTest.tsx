@@ -35,17 +35,6 @@ const PreferenceTest = () => {
         }
     }, [currentIdx])
 
-  // 다음 버튼을 눌렀을 때
-//   const handleNextButtonClick = () => {
-//     if (currentIdx === 10) {
-//       // currentIdx가 10일 때, 결과 페이지로 이동
-//       navigate('/preference/testresult', { state: { answers } });
-//     } else {
-//       console.log(answers.QuestionData)
-//       // 그 외의 경우에는 currentIdx를 증가시킴
-//       setCurrentIdx(currentIdx + 1);
-//     }
-//   };
     // 다음 버튼을 눌렀을 때
     const handleNextButtonClick = () => {
         setAnswers(prevAnswers => {
@@ -119,16 +108,12 @@ const PreferenceTest = () => {
                     </div>
                 </div>
                 <div className="PreferenceTestMove">
-                    {/* <a href="/preference/colorselect"> */}
                     <button className="PreferenceTestPrevBtn" title="이전"
                             onClick={handlePrevButtonClick}>이전
                     </button>
-                    {/* </a> */}
-                    {/* <a href="/preference/testresult"> */}
                     <button className="PreferenceTestNextBtn" title="다음"
                             onClick={handleNextButtonClick}>다음
                     </button>
-                    {/* </a> */}
                 </div>
             </div>
         </div>

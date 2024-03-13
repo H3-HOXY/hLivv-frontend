@@ -26,7 +26,6 @@ export const CategoryMenu = (props: CategoryMenuProps) => {
                         return (
                             <div key={idx}>
                                 <div className="grid pt-0 md:grid-cols-6 justify-items-center items-center px-2 pb-0">
-                                    {/*<span className="text-xs font-semibold"/>*/}
                                     {array.map((item, idx) => (
                                         <CategoryMenuItem key={idx}
                                                           title={item.title}

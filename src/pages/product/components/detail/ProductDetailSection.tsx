@@ -31,11 +31,9 @@ export const ProductDetailSection = (props: ProductDetailSectionProps) => {
             totalHeight += element.clientHeight; // 요소의 높이를 가져와서 합산합니다.
         });
 
-        // const iframeHeight = document.documentElement.scrollHeight;
         const iframeHeight = totalHeight
         const iframeWidth = document.body.scrollWidth;
 
-        // document.body.style.height = iframeHeight + "px";
         props.setIFrameHeight({width: iframeWidth, height: iframeHeight})
     };
 

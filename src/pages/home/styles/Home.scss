@@ -14,8 +14,6 @@
 }
 
 .HomeWrapper {
-  // background-color: antiquewhite;
-  // height: calc(100vh - 4.5rem);
   margin-bottom: 5em;
 }
 
@@ -74,7 +72,6 @@
 .HomeBannerWrapper {
   margin-top: 3.5em;
   display: flex;
-  // background-color: deepskyblue;
 }
 
 .HomeBanner {
@@ -83,22 +80,17 @@
   width: 100%;
   height: 20em;;
   margin-top: 6em;
-  // background-color: aqua;
 }
 
 .HomeSlider {
   width: 100%;
   height: 100%;
   margin: 0 2%;
-  // background-color: blueviolet;
   border-radius: 20px;
 }
 
 .HomeSliderItem {
   display: flex;
-  // background-color: antiquewhite;
-  // background-image: url('img/리바트.png');
-  // background-size:contain;
   width: 100vw;
   height: 22em;
   border-radius: 20px;
@@ -120,7 +112,6 @@
   align-items: start;
   margin-top: 5em;
   font-weight: 500;
-  // background-color: antiquewhite;
 }
 
 .CategoryTitle, .BestTitle, .NewProduct {
@@ -142,8 +133,6 @@
   height: 5em;
   background-color: #F8F8F8;
   margin-top: 1em;
-  // background-image: url('img/interior.jpg');
-  // background-size: cover;
   img {
     width: 100%;
     height: 100%;
@@ -165,7 +154,6 @@
   align-items: start;
   margin-top: 5em;
   width: 100%;
-  // background-color: antiquewhite;
 }
 
 .BestContent, .NewContent {
@@ -180,12 +168,9 @@
 .BestSlider, .NewSlider {
   width: 100%;
   height: 100%;
-  // background-color: aqua;
 }
 
 .BestItem {
-  // background-color: aquamarine;
-  // border: 3px solid red;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,7 +220,6 @@
   align-items: start;
   margin-top: 2em;
   width: 100%;
-  // background-color: antiquewhite;
 }
 
 .NewItem {

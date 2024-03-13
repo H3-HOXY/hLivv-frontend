@@ -1,7 +1,5 @@
 .Store{
   width: 100%;
-  // height: calc(100vh - 4.5em);
-  // background-color: antiquewhite;
 }
 
 .StoreWrapper{
@@ -10,7 +8,6 @@
 
 .StoreTitle{
   font-family: S-CoreDream-3Light;
-  // margin-top: 0.5em;
   font-weight: 900;
   font-size: 3em;
 }
@@ -19,7 +16,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  // background-color: antiquewhite;
   margin-top: 1em;
   margin-bottom: 2em;
 }
@@ -31,19 +27,12 @@
 .StoreSlider{
   width: 100%;
   height: 100%;
-  // margin: 0 2%;
-  // background-color: blueviolet;
-  // border-radius: 20px;
 }
 
 .StoreSliderItem{
   display: flex;
-  // background-color: antiquewhite;
-  // background-image: url('img/리바트.png');
-  // background-size:contain;
   width: 100vw;
   height: 22em;
-  // border-radius: 20px;
   img{
     width: 100%;
     height: 100%;

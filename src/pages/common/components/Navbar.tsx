@@ -48,9 +48,6 @@ const Navbar = (props: NavbarProps) => {
                             </Link>
                         </div>
                         <div className="navbarmenu hidden md:flex items-center space-x-1">
-                            {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/intro">
-                                INTRO
-                            </Link> */}
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/store">
                                 쇼핑
                             </Link>
@@ -63,14 +60,10 @@ const Navbar = (props: NavbarProps) => {
                             <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/restore">
                                 리스토어
                             </Link>
-                            {/* <Link className="py-5 px-3 text-gray-700 hover:text-red-900" to="/raffle">
-                                RAFFLE
-                            </Link> */}
                         </div>
                     </div>
 
                     {/* 메뉴2 */}
-                    {/* Menu for authenticated users */}
                     {props.authentication && (
                         <div className="navbarauth hidden md:flex items-center space-x-1">
                             <Link className="py-5 px-3" to="/logout">
@@ -142,9 +135,6 @@ const Navbar = (props: NavbarProps) => {
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200 z-50" to="/">
                     홈
                 </Link>
-                {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/intro">
-                    INTRO
-                </Link> */}
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/store">
                     쇼핑
                 </Link>
@@ -157,9 +147,6 @@ const Navbar = (props: NavbarProps) => {
                 <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/restore">
                     리스토어
                 </Link>
-                {/* <Link className="block py-2 px-4 text-sm hover:bg-gray-200" to="/raffle">
-                    RAFFLE
-                </Link> */}
             </div>
         </nav>
     );

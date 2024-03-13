@@ -14,9 +14,6 @@ import Footer from "../common/components/Footer";
     <Sidebar/>
     <div className="Mypage">
       <Outlet/>
-      {/* <div className="MypageFooter">
-        <Footer />
-      </div> */}
     </div>
     </>
  );

@@ -132,7 +132,6 @@ export function EditShippingAddress(props: EditShippingAddress) {
                         경비실에 맡겨주세요.
                     </option>
                 </select>
-                {/*<button className="OrderDestinationContentBtn" onClick={clickHandler} title="클릭">주소지저장</button>*/}
             </div>
         </div>
     )
