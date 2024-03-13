@@ -22,7 +22,7 @@ const couponList: Coupon[] = [
   { id: '1', title: '이안가구 비밀 쿠폰 5%', value: 5, date: '2024년 03월 3일까지', condition: '1원 이상 구매시', state: true},
   { id: '2', title: '추천가구 주문 쿠폰 10%', value: 10, date: '2024년 03월 3일까지', condition: '1원 이상 구매시', state: true},
   { id: '3', title: '봄맞이 장바구니 쿠폰 5%', value: 5, date: '2024년 03월 3일까지', condition: '1원 이상 구매시', state: false},
-  { id: '4', title: '신규 가입 고객 쿠폰 25%', value: 25, date: '2024년 03월 3일까지', condition: '1원 이상 구매시', state: false},
+  { id: '4', title: '신규 가입 고객 쿠폰 25%', value: 5, date: '2024년 03월 3일까지', condition: '1원 이상 구매시', state: false},
   { id: '5', title: '세계가구 특별 추가할인쿠폰 10%', value: 10, date: '2024년 03월 3일까지', condition: '1원 이상 구매시', state: false},
 ];
 
