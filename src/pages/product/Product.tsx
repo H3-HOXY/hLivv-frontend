@@ -106,9 +106,6 @@ export const Product = () => {
                             {/* 일반 상품인 경우 -> 제품 설명 */}
                             <div className="ProductDetail container mx-auto" ref={descriptionRef}>
                                 <img alt="" src={`https://hlivv-image-bucket.s3.ap-northeast-2.amazonaws.com/product/${productData.id}.png`}/>
-                                {/*<ProductDetailSection productLink={descriptionPage("P100001204.html")}*/}
-                                {/*                      iframeSize={iframeSize}*/}
-                                {/*                      setIFrameHeight={setIframeSize}/>*/}
                             </div>
                         </>) :
                         (<>

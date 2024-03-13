@@ -44,8 +44,6 @@
 }
 
 .ColorSelectContentLine{
-  // display: flex;
-  // justify-content: space-between;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   height: 90%;
@@ -74,8 +72,6 @@
 }
 
 .ColorSelectNextBtn{
-  // background-color: #F7F7F7;
-  // color: #999999;
   width: 40%;
   height: 3em;
   border-radius: 35px;

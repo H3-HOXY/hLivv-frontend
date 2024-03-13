@@ -19,8 +19,6 @@ export const OrderProductContainerContent = (props: OrderProductContainerContent
         <img className="OrderProductContainerContentImg mr-2" alt="logo" src={props.productImage}/>
         <div className="OrderProductContainerContentRight">
             <div className="OrderProductContainerContentRightName">{props.productName}</div>
-            {/*<div className="OrderProductContainerContentRightSize">사이즈 1200</div>*/}
-            {/*<div className="OrderProductContainerContentRightColor">색상 화이트</div>*/}
             <div className="OrderProductContainerContentRightPrice">{format(props.unitPrice)}원 | {props.productQty}개
             </div>
         </div>

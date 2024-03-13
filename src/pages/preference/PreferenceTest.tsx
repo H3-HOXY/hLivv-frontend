@@ -119,16 +119,12 @@ const PreferenceTest = () => {
                     </div>
                 </div>
                 <div className="PreferenceTestMove">
-                    {/* <a href="/preference/colorselect"> */}
                     <button className="PreferenceTestPrevBtn" title="이전"
                             onClick={handlePrevButtonClick}>이전
                     </button>
-                    {/* </a> */}
-                    {/* <a href="/preference/testresult"> */}
                     <button className="PreferenceTestNextBtn" title="다음"
                             onClick={handleNextButtonClick}>다음
                     </button>
-                    {/* </a> */}
                 </div>
             </div>
         </div>

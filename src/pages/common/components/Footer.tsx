@@ -7,18 +7,13 @@ const Footer = () => {
   return (
     <footer className="Footer flex flex-col items-center bg-neutral-900 text-center text-white">
       <div className="container px-6 pt-6">
-        {/* Social media icons container */}
         <div className="mb-6 flex justify-center">
-          {/* Social media icons (You can customize the links and icons) */}
-          <a href="#!" className="social-icon"> {/* Add your link */}
+          <a href="#!" className="social-icon">
             <svg className="icon" fill="currentColor" viewBox="0 0 24 24">
-              {/* Add your SVG path */}
             </svg>
           </a>
-          {/* Add more social media icons as needed */}
         </div>
 
-        {/* Newsletter sign-up form */}
         <div>
           <form action="">
             <div className="gird-cols-1 grid items-center justify-center gap-4 md:grid-cols-3">
@@ -28,7 +23,6 @@ const Footer = () => {
                 </p>
               </div>
 
-              {/* Newsletter sign-up input field */}
               <div className="relative md:mb-6" data-te-input-wrapper-init>
                 <input
                   type="text"
@@ -44,7 +38,6 @@ const Footer = () => {
                 </label>
               </div>
 
-              {/* Newsletter sign-up submit button */}
               <div className="mb-6 md:mr-auto">
                 <button
                   type="submit"
@@ -58,21 +51,14 @@ const Footer = () => {
             </div>
           </form>
         </div>
-
-        {/* Copyright information */}
         <div className="mb-6">
           <p>
-            {/* Add your copyright information */}
           </p>
         </div>
-
-        {/* Links section */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4">
-          {/* Add your links here */}
         </div>
       </div>
 
-      {/* Copyright section */}
       <div
         className="w-full p-4 text-center"
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
