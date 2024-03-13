@@ -1,13 +1,13 @@
 import {CategoryMenuItem, CategoryMenuItemProps} from "./CategoryMenuItem";
 
 /**
- * @since 
+ * @since
  * @author 이호연
  */
 
 export type CategoryMenuProps = {
     categoryList: CategoryMenuItemProps[]
-    onClick: (categoryId: string) => void
+    onClick: (categoryId: "C000000001" | "C000000002" | "C000000003" | "C000000004") => void
 }
 export const CategoryMenu = (props: CategoryMenuProps) => {
     const slicedList = Array<{ categoryId: string, title: string }[]>();
@@ -30,7 +30,10 @@ export const CategoryMenu = (props: CategoryMenuProps) => {
                                         <CategoryMenuItem key={idx}
                                                           title={item.title}
                                                           categoryId={item.categoryId}
-                                                          onClick={props.onClick}
+                                                          onClick={() => {
+                                                              let category = item.categoryId as "C000000001" | "C000000002" | "C000000003" | "C000000004"
+                                                              props.onClick(category)
+                                                          }}
                                         />)
                                     )}
                                 </div>

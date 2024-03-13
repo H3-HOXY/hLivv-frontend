@@ -1,10 +1,9 @@
 import {useImage} from "../common/hooks/useImage";
 
 /**
- * @since 
+ * @since
  * @author 이호연
  */
-
 /**
  * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
  */
@@ -26,14 +25,14 @@ export const Collabo = () => {
     const image = useImage()
     const loaderData = useLoaderData() as { collaboProducts: CollaboDto[] }
     const [products, setProducts] = useState<CollaboDto[]>([])
-    const [category, setCategory] = useState<string>("1")
+    const [category, setCategory] = useState<"C000000001" | "C000000002" | "C000000003" | "C000000004">("C000000001")
 
     const [searchParam, setSearchParam] = useSearchParams()
     const [pageNo, setPageNo] = useState(0)
     const [categoryId, setCategoryId] = useState<string>("")
 
     useEffect(() => {
-        if (collaboCategory.filter(item => item.id === category).length === 0) setCategory("1")
+        if (collaboCategory.filter(item => item.id === category).length === 0) setCategory("C000000001")
         // search category product
     }, [category]);
 
@@ -103,7 +102,7 @@ export const Collabo = () => {
 
                     {/*{카테고리 메뉴}*/}
                     <CategoryMenu categoryList={categoryList}
-                                  onClick={(categoryId: string) => setCategory(categoryId)}/>
+                                  onClick={(categoryId: "C000000001" | "C000000002" | "C000000003" | "C000000004") => setCategory(categoryId)}/>
                     <SortingMenu/>
 
                     {/*{상품목록}*/}
