@@ -1,8 +1,13 @@
-import "../Components_scss/PreferenceTest.scss"
-import {useImage} from "../pages/common/hooks/useImage";
+import "./styles/PreferenceTest.scss"
+import {useImage} from "../common/hooks/useImage";
 import {useNavigate} from 'react-router-dom';
-import QuestionData from "../question.json"
+import QuestionData from "../../question.json"
 import {useEffect, useState} from "react";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 type Answers = {
     QuestionData: string[]
@@ -14,8 +19,10 @@ const PreferenceTest = () => {
     const [currentIdx, setCurrentIdx] = useState<number>(0)
     const [answers, setAnswers] = useState<Answers>({QuestionData: Array(QuestionData.length)} as Answers)
     const [selectedAnswer, setSelectedAnswer] = useState<'a' | 'b' | 'c' | 'd'>('a')
+    const [isRadioDisabled, setIsRadioDisabled] = useState(false);
 
     useEffect(() => {
+        setIsRadioDisabled(false);
         if (QuestionData !== undefined && currentIdx < QuestionData.length) {
             const currentQuestion = QuestionData[currentIdx];
             if (currentQuestion) { // 추가된 부분: 현재 질문이 정의되어 있는지 검사
@@ -28,6 +35,17 @@ const PreferenceTest = () => {
         }
     }, [currentIdx])
 
+  // 다음 버튼을 눌렀을 때
+//   const handleNextButtonClick = () => {
+//     if (currentIdx === 10) {
+//       // currentIdx가 10일 때, 결과 페이지로 이동
+//       navigate('/preference/testresult', { state: { answers } });
+//     } else {
+//       console.log(answers.QuestionData)
+//       // 그 외의 경우에는 currentIdx를 증가시킴
+//       setCurrentIdx(currentIdx + 1);
+//     }
+//   };
     // 다음 버튼을 눌렀을 때
     const handleNextButtonClick = () => {
         setAnswers(prevAnswers => {
@@ -36,6 +54,8 @@ const PreferenceTest = () => {
             return {QuestionData: newAnswers};
         });
 
+        setSelectedAnswer('a');
+
         if (currentIdx === 10) {
             // currentIdx가 10일 때, 결과 페이지로 이동
             answers.QuestionData[currentIdx] = selectedAnswer;
@@ -43,6 +63,7 @@ const PreferenceTest = () => {
         } else {
             // 그 외의 경우에는 currentIdx를 증가시킴
             setCurrentIdx(currentIdx + 1);
+            setIsRadioDisabled(false);
         }
     };
 
@@ -80,7 +101,7 @@ const PreferenceTest = () => {
                                         name="job"
                                         value={job.id}
                                         checked={answers.QuestionData[currentIdx] === job.id || job.id === selectedAnswer}
-                                        className="hidden peer ${isRadioDisabled ? 'disabled' : ''}"
+                                        className={`hidden peer ${isRadioDisabled ? 'disabled' : ''}`}
                                         onChange={() => handleQuestionSelection(job.id, currentIdx)}
                                         required
                                     />

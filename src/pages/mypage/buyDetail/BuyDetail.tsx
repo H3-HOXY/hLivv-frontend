@@ -1,9 +1,14 @@
-import "../../../Components_scss/BuyDetail.scss"
+import "../styles/BuyDetail.scss"
 import {useImage} from "../../common/hooks/useImage";
 import {useEffect, useState} from "react"
 import {getApi} from "../../../api/ApiWrapper";
 import {PageOrderResDto, ProductDto} from "../../../api/Api";
 import {BuyDetailItem} from "./components/BuyDetailItem";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 const BuyDetail = () => {
     const image = useImage()

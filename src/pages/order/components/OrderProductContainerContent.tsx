@@ -1,6 +1,10 @@
 import React from "react";
 import {useCurrencyFormat} from "../../common/hooks/useCurrencyFormat";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
 
 export type OrderProductContainerContentProps = {
     productName: string;

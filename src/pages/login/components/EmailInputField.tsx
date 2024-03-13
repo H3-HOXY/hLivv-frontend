@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export type EmailInputFieldProps = {
     userEmail: string,
     setUserEmail: (value: (((prevState: string) => string) | string)) => void

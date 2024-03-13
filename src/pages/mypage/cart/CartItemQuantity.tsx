@@ -1,5 +1,10 @@
 import {CartDto} from "../../../api/Api";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export function CartItemQuantity({cartItem, changeQty}: {
     cartItem: CartDto,
     changeQty: (productId: number, qty: number) => void

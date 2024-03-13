@@ -1,5 +1,10 @@
 import { useSearchParams } from "react-router-dom"
-import "../Components_scss/Success.scss"
+import "./styles/Success.scss"
+
+/**
+ * @since 
+ * @author 이호연
+ */
 
 const Success = () => {
   const [searchParams] = useSearchParams()

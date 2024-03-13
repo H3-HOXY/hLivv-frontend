@@ -17,7 +17,7 @@ import {useData} from "../common/hooks/useData";
 
 /**
  * @since 2024.02.14
- * @author 최정윤
+ * @author 최정윤, 이호연
  */
 
 const Home = () => {

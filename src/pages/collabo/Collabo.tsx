@@ -1,6 +1,11 @@
 import {useImage} from "../common/hooks/useImage";
 
 /**
+ * @since 
+ * @author 이호연
+ */
+
+/**
  * 상당수의 컴포넌트는 /pages/store의 컴포넌트를 재활용하고 있습니다.
  */
 import {StoreBannerNoSlide} from "../store/components/StoreBanner";

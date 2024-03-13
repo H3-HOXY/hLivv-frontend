@@ -14,6 +14,11 @@ import {Api} from "../../api/ApiWrapper";
 import {SortingMenu} from "./SortingMenu";
 import categoryData from "../../data/category.json"
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const Store = () => {
     const image = useImage()
     const loaderData = useLoaderData() as { products: ProductDto[] }

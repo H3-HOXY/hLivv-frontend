@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export type UserPasswordInputFieldProps = {
     name: string,
     title: string,

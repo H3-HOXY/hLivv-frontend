@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 const Footer = () => {
   return (
     <footer className="Footer flex flex-col items-center bg-neutral-900 text-center text-white">

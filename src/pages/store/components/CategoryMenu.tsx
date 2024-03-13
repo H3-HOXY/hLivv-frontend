@@ -1,5 +1,9 @@
 import {CategoryMenuItem, CategoryMenuItemProps} from "./CategoryMenuItem";
 
+/**
+ * @since 
+ * @author 이호연
+ */
 
 export type CategoryMenuProps = {
     categoryList: CategoryMenuItemProps[]

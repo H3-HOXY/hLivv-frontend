@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export type PasswordInputFieldProps = {
     password: string | undefined
     setPassword: (value: (((prevState: (string | undefined)) => (string | undefined)) | string | undefined)) => void

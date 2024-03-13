@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 type JumpToSectionItemProps = {
     menu: string
     onClick: () => void

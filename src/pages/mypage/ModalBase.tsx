@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 export type ModalBaseProps = {
   active: boolean;
   closeEvent?: (e?: React.MouseEvent<HTMLDivElement>) => void;

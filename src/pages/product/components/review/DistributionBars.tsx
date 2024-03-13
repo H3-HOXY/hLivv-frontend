@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const DistributionBars = (props: { star: number }) => {
     const pstar = isNaN(props.star) ? 0 : props.star
     return (

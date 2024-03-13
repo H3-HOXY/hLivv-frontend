@@ -12,6 +12,7 @@ type BestItemContainerProps = {
 /* 홈 베스트 상품
     @since 2024.02.19
     @author 최정윤, 이호연 */
+    
 export const BestItemContainer = (props: BestItemContainerProps) => {
     const [isDragging, setDragging] = useState(false)
     const navigate = useNavigate()

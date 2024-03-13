@@ -1,4 +1,9 @@
-import "../../Components_scss/ProfileEdit.scss"
+import "./styles/ProfileEdit.scss"
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 const ProfileEdit = () => {
   return (

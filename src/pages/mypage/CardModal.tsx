@@ -2,6 +2,11 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 // import Button from './Button';
 
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 export type CardModalProps = {
   active: boolean;
   closeEvent: (e?: React.MouseEvent<HTMLButtonElement>) => void;

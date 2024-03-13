@@ -1,5 +1,10 @@
 import React, {ReactEventHandler, useRef} from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type IFrameSize = {
     width: number,
     height: number

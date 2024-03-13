@@ -1,6 +1,11 @@
 import {SelectedOption, SelectedOptionItem} from "./SelectedOptionItem";
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type SelectedOptionsProps = {
     selectedOptions: SelectedOption[]
     whenQuantityChanged: (changedOption: SelectedOption) => void

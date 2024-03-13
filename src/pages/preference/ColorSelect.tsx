@@ -1,5 +1,12 @@
-import "../Components_scss/ColorSelect.scss"
-import { useImage } from "../pages/common/hooks/useImage";
+import "./styles/ColorSelect.scss"
+import { useImage } from "../common/hooks/useImage";
+import React, { useState } from 'react';
+
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 interface Keyword {
   id: string;
   label: string;
@@ -23,7 +30,9 @@ const keywordList: Keyword[] = [
 
 const Preference = () => {
   const image = useImage()
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
   const handleKeywordSelection = (jobId: string) => {
+    setSelectedKeyword(jobId);
     console.log(`Selected job: ${jobId}`);
   };
 
@@ -87,7 +96,10 @@ const Preference = () => {
             <button className="ColorSelectPrevBtn" title="이전">이전</button>
           </a>
           <a href="/preference/preferencetest">
-            <button className="ColorSelectNextBtn" title="다음">다음</button>
+            <button
+              className={`PreferenceKeywordNext bg-gray-100 text-gray-500 ${selectedKeyword ? 'bg-white border border-black text-black' : 'dark:bg-gray-600 dark:text-white'}`}
+              title="다음"
+            >다음</button>
           </a>
         </div>
       </div>

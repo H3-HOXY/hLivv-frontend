@@ -13,6 +13,11 @@ import {StoreList} from "../store/components/StoreList";
 import {StoreListItemProps} from "../store/components/StoreListItem";
 import {Api} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export const Product = () => {
     const productData = useLoaderData() as ProductDto
     const [iframeSize, setIframeSize] = useState<IFrameSize>({width: 500, height: 1000})

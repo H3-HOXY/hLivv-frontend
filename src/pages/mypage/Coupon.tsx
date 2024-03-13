@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import {getApi} from "../../api/ApiWrapper";
 import {CouponDto} from "../../api/Api";
 import {useNavigate} from "react-router-dom";
-import "../../Components_scss/Coupon.scss";
+import "./styles/Coupon.scss";
+
+/**
+ * @since 
+ * @author 최정윤
+ */
 
 interface Coupon {
   id: string;

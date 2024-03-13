@@ -1,5 +1,10 @@
 import {StoreListItem, StoreListItemProps} from "./StoreListItem";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export type StoreListProps = {
     itemProps: StoreListItemProps[]
 }

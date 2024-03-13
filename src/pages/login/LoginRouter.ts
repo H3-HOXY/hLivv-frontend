@@ -3,6 +3,11 @@ import {FormMessage} from "../../common/FormMessage";
 import {saveUserEmailToLocalStorage} from "../../api/auth/UserInfo";
 import {Api} from "../../api/ApiWrapper";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export async function loginLoader() {
 
 }

@@ -1,9 +1,14 @@
-import "../../../Components_scss/MypageHome.scss"
+import "../styles/MypageHome.scss"
 import {useEffect, useState} from "react";
 import {getApi} from "../../../api/ApiWrapper";
 import {MemberDto} from "../../../api/Api";
 import {useNavigate} from "react-router-dom";
 import diagnosis from "../../../result.json";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 const MypageHome = () => {
     const [memberInfo, setMemberInfo] = useState<MemberDto | null>(null)
@@ -82,12 +87,11 @@ const MypageHome = () => {
                     <div className="MypageType">
                         <div className="MypageTypeTitle">나의 인테리어 유형</div>
                         <div className="MypageTypeContain">
-                            <div className="MypageTypeContainLeft">
-                                <div className="MypageTypeContainLeftKind">유형</div>
-                                <div
-                                    className="MypageTypeContainLeftKindDescription">{convertInteriorTypeEnumToKor(memberInfo?.interiorType ?? "")}</div>
-                            </div>
-                            <div className="MypageTypeContainRight">
+                            <div className="MypageTypeContainWrapper">
+                                <div className="MypageTypeContainWrapperType">
+                                    <div className="MypageTypeContainLeftKind mr-2">유형 |</div>
+                                    <div className="MypageTypeContainLeftKindDescription">{convertInteriorTypeEnumToKor(memberInfo?.interiorType ?? "")}</div>
+                                </div>
                                 <div className="MypageTypeContainRightInterior">인테리어 취향 진단</div>
                                 <div className="MypageTypeContainRightDescription">{
                                     diagnosisText

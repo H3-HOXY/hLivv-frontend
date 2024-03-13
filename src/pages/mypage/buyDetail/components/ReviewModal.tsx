@@ -1,9 +1,14 @@
 import {ProductDto} from "../../../../api/Api";
 import {useRef, useState} from "react";
 import {useImage} from "../../../common/hooks/useImage";
-import ModalBase from "../../../../Components/ModalBase";
-import CardModal from "../../../../Components/CardModal";
+import ModalBase from "../../ModalBase";
+import CardModal from "../../CardModal";
 import {getApi} from "../../../../api/ApiWrapper";
+
+/**
+ * @since 
+ * @author 최정윤, 이호연
+ */
 
 export function ReviewModal({productDto, isActive, onClickModalOff}: {
     productDto: ProductDto,

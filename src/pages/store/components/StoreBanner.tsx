@@ -1,6 +1,11 @@
 import Slider from "react-slick";
 import {useImage} from "../../common/hooks/useImage";
 
+/**
+ * @since 
+ * @author 최정윤
+ */
+
 export type StoreSliderProps = {
     sliderItems: StoreSliderItemProps[]
 }

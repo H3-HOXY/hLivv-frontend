@@ -1,5 +1,10 @@
 import React from "react";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export function MyPoint({myPoint, orderPoint, setOrderPoint}: {
     myPoint: number,
     orderPoint: number,

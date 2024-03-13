@@ -1,9 +1,7 @@
 import {createBrowserRouter, Route, RouterProvider, Routes} from "react-router-dom";
 import './App.css';
-import Intro from "./Components/Intro";
-import Success from "./Components/Success";
-import Fail from "./Components/Fail";
-import Raffle from "./Components/Raffle";
+import Success from "./pages/order/Success";
+import Fail from "./pages/order/Fail";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Mypage from "./pages/mypage/Mypage";
@@ -16,26 +14,23 @@ import {PageFrame} from "./pages/common/PageFrame";
 import {Product} from "./pages/product/Product";
 import ProfileEdit from "./pages/mypage/ProfileEdit";
 import MyRestore from "./pages/mypage/myrestore/MyRestore";
-import ReviewWrite from "./Components/Review";
+import ReviewWrite from "./pages/mypage/buyDetail/Review";
 import MypageHome from "./pages/mypage/home/MypageHome";
-import MyReview from "./Components/MyReview";
 import PasswordEdit from "./pages/mypage/PasswordEdit";
 import {productLoader} from "./pages/product/ProductRouter";
-import Preference from "./Components/Preference";
+import Preference from "./pages/preference/Preference";
 import React from "react";
 import {Store} from "./pages/store/Store";
 import {Collabo} from "./pages/collabo/Collabo";
 import Cart from "./pages/mypage/cart/Cart";
-import Restore from "./Components/Restore";
-import KeywordSelect from "./Components/KeywordSelect";
-import PreferenceHome from "./Components/PreferenceHome";
-import ColorSelect from "./Components/ColorSelect";
-import Modal from "./Components/Modal";
-import PreferenceTest from "./Components/PreferenceTest";
-import PreferenceTestResult from "./Components/PreferenceTestResult";
-import InteriorRecommend from "./Components/InteriorRecommend";
+import Restore from "./pages/restore/Restore";
+import KeywordSelect from "./pages/preference/KeywordSelect";
+import PreferenceHome from "./pages/preference/PreferenceHome";
+import ColorSelect from "./pages/preference/ColorSelect";
+import PreferenceTest from "./pages/preference/PreferenceTest";
+import PreferenceTestResult from "./pages/preference/PreferenceTestResult";
+import InteriorRecommend from "./pages/preference/InteriorRecommend";
 import BuyDetail from "./pages/mypage/buyDetail/BuyDetail";
-import MyRestoreDetail from "./Components/MyRestoreDetail";
 import Coupon from "./pages/mypage/Coupon";
 import {orderAction} from "./pages/order/OrderRouter";
 import Order from "./pages/order/Order";
@@ -44,6 +39,10 @@ import {editProfileAction} from "./pages/mypage/MyPageRouter";
 import {collaboLoader} from "./pages/collabo/CollaboRouter";
 import axios from "axios";
 
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
 
 const App = () => {
     return (
@@ -110,10 +109,8 @@ function mypageRoutes() {
             {path: "/mypage/cart", element: <Cart/>},
             {path: "/mypage/buydetail", element: <BuyDetail/>},
             {path: "/mypage/myrestore", element: <MyRestore/>},
-            {path: "/mypage/myrestoredetail", element: <MyRestoreDetail/>},
             {path: "/mypage/coupon", element: <Coupon/>},
             {path: "/mypage/reviewwrite", element: <ReviewWrite/>},
-            {path: "/mypage/myreview", element: <MyReview/>},
         ]
     }
     return {
@@ -146,11 +143,8 @@ function RootRoutes() {
     return (
         <Routes>
             <Route element={<PageFrame/>}>
-                <Route path="/intro" element={<Intro/>}/>
                 <Route path="/collabo" element={<Collabo/>}/>
                 <Route path="/restore" element={<Restore/>}/>
-                <Route path="/raffle" element={<Raffle/>}/>
-                <Route path="/modal" element={<Modal/>}/>
             </Route>
         </Routes>
     )

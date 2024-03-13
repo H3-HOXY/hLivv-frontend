@@ -1,3 +1,8 @@
+/**
+ * @since 
+ * @author 이호연, 최정윤
+ */
+
 export type UserEmailInputFieldProps = {
     userEmail: string | undefined,
     setUserEmail: (value: (((prevState: (string | undefined)) => (string | undefined)) | string | undefined)) => void

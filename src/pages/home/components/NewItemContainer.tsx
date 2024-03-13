@@ -11,6 +11,7 @@ export type NewItemContainerProps = {
 /* 홈 신상품
     @since 2024.02.19
     @author 최정윤, 이호연 */
+    
 export const NewItemContainer = (props: NewItemContainerProps) => {
     const navigate = useNavigate()
     const [isDragging, setDragging] = useState(false)

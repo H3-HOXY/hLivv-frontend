@@ -6,6 +6,11 @@ import Navbar from "./components/Navbar";
 import {Outlet, useLocation} from "react-router-dom";
 import Footer from "./components/Footer";
 
+/**
+ * @since 
+ * @author 이호연
+ */
+
 export function PageFrame() {
     const [authentication, setAuthentication] = useState(isAuthenticated())
     const [marginTop, setMarginTop] = useState<string>("3em")
