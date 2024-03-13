@@ -1,3 +1,6 @@
+/**
+ * @author 반정현
+ */
 export interface RequestPayAdditionalResponse {
     apply_num?: string
     vbank_num?: string

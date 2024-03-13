@@ -1,5 +1,9 @@
 import {RequestPayAdditionalResponse} from "./RequestPayAdditionalResponse";
 
+
+/**
+ * @author 반정현
+ */
 export interface RequestPayResponse extends RequestPayAdditionalResponse {
     success: boolean
     error_code: string

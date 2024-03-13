@@ -1,5 +1,10 @@
 import {getApi} from "../ApiWrapper";
 
+/**
+ * 사용자 인증 토큰을 저장 및 불러오는 함수들을 제공합니다.
+ * @author 이호연
+ */
+
 export const loadUserEmailFromLocalStorage = () => {
     return localStorage.getItem("email")
 }

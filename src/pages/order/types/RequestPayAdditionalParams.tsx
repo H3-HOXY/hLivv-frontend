@@ -1,3 +1,6 @@
+/**
+ * @author 반정현
+ */
 export interface RequestPayAdditionalParams {
     digital?: boolean
     vbank_due?: string

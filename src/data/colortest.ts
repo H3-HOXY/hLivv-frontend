@@ -1,3 +1,6 @@
+/**
+ * @author 최정윤
+ */
 const ColorTest = [
   {	question: "1. 저녁 식사에 손님을 초대한다면, 가장 마음에 드는 방법은 무엇인가?",
     answer: [
