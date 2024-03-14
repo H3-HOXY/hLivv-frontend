@@ -4,7 +4,7 @@ import {ProductDto} from "../../api/Api";
 import {Api} from "../../api/ApiWrapper";
 
 /**
- * @since 
+ * @since
  * @author 이호연
  */
 
@@ -17,8 +17,8 @@ export type HomeLoaderData = {
 export async function homeLoader() {
     try {
         const api = Api
-        const bestProduct = await api.getProduct({pageNo: 0, pageSize: 20}, {})
-        const newProduct = await api.getProduct({pageNo: 0, pageSize: 20}, {})
+        const bestProduct = await api.getProduct({pageNo: 0, pageSize: 20, sortCriteria: "PRICE_ASC"}, {})
+        const newProduct = await api.getProduct({pageNo: 0, pageSize: 20, sortCriteria: "PRICE_DESC"}, {})
 
         return defer({
             bestProduct: bestProduct.data,
