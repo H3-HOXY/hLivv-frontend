@@ -19,7 +19,7 @@ const Footer = () => {
             <div className="gird-cols-1 grid items-center justify-center gap-4 md:grid-cols-3">
               <div className="md:mb-6 md:ml-auto">
                 <p>
-                  <strong>고객센터 1577-3332 (유료)</strong>
+                  <strong>H.Livv</strong>
                 </p>
               </div>
 
@@ -34,7 +34,7 @@ const Footer = () => {
                   htmlFor="exampleFormControlInput1"
                   className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-200 transition-all duration-200 ease-out [...]"
                 >
-                  T. 제휴/대리점 개설문의 02-3480-8000 | F. 02-6442-8081 | M. livartcs@hyundailivart.co.kr
+                  현대백화점 인테리어 통합 서비스 H.Livv에 오신걸 환영합니다.
                 </label>
               </div>
 

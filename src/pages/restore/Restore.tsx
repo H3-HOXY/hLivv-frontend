@@ -14,9 +14,9 @@ const Restore = () => {
           <div className="RestoreIntroContent">
             <p className="RestoreIntroContentText">더 이상 사용하지 않는 가구를 H.Livv에 다시 가져오세요.
             리스토어(Restore) 서비스를 통해 H.Livv는 중고가구를 직접 매입하여 제품의 수명을 연장시키고, 사원순환을 실천합니다.</p>
-            <p className="RestoreIntroContentText">바이백 서비스를 이용하면 더 안전하고 간편하게 중고가구를 거리하고 환불카드를 받을 수 있습니다.
+            <p className="RestoreIntroContentText">리스토어 서비스를 이용하면 더 안전하고 간편하게 중고가구를 거리하고 환불카드를 받을 수 있습니다.
             H.Livv에 매입된 중고가구는 자원순환 허브에서 다른 고객에게 재판매되어 새로운 삶을 얻게 됩니다.
-            환경을 생각하며 모두가 행복해지는 H.Livv의 바이백 서비스를 이용해보세요.</p>
+            환경을 생각하며 모두가 행복해지는 H.Livv의 리스토어 서비스를 이용해보세요.</p>
           </div>
           <div className="RestoreIntroInfo">서비스 이용안내 | 접수가능 제품 기준 | 자주 묻는 질문</div>
         </div>
@@ -35,9 +35,9 @@ const Restore = () => {
             <p className="RestoreHowToUseContentMainText">3. 가까운 현대백화점 매장에 방문하세요.</p>
             <p className="RestoreHowToUseContentText">조립된 상태의 가구와 예상 견적서를 H.Livv 매장 내 교환 & 환불 코너에 가져가세요.</p>
             <p className="RestoreHowToUseContentMainText">4. 판매 가능한 가구가 맞는지 확인하세요</p>
-            <p className="RestoreHowToUseContentText">완전히 조립되고, 개조되지 않은 IKEA 가구만 매입 가능합니다. 접수 가능/불가능 제품 목록을 미리 확인하세요.</p>
+            <p className="RestoreHowToUseContentText">완전히 조립되고, 개조되지 않은 H.Livv 가구만 매입 가능합니다. 접수 가능/불가능 제품 목록을 미리 확인하세요.</p>
             <p className="RestoreHowToUseContentMainText">5 . 판매 가능한 가구가 맞는지 확인하세요</p>
-            <p className="RestoreHowToUseContentText">완전히 조립되고, 개조되지 않은 IKEA 가구만 매입 가능합니다. 접수 가능/불가능 제품 목록을 미리 확인하세요.</p>
+            <p className="RestoreHowToUseContentText">완전히 조립되고, 개조되지 않은 H.Livv 가구만 매입 가능합니다. 접수 가능/불가능 제품 목록을 미리 확인하세요.</p>
           </div>
         </div>
       </div>
