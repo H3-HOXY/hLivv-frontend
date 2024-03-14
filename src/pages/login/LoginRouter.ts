@@ -4,7 +4,7 @@ import {saveUserEmailToLocalStorage} from "../../api/auth/UserInfo";
 import {Api} from "../../api/ApiWrapper";
 
 /**
- * @since 
+ * @since
  * @author 이호연
  */
 
@@ -36,7 +36,7 @@ export async function loginAction({request, params}) {
 
     } catch (e) {
         //@ts-ignore
-        if (e.response && e.response && e.response.status === 401) return createFormMessage("이메일 또는 비밀번호가 일치하지 않습니다.", 401)
-        return FormMessage.createFormMessage(`${e}`, 500)
+        if (e.response && e.response && e.response.status) return FormMessage.createFormMessage("이메일 또는 비밀번호가 일치하지 않습니다.", 401)
+        // return FormMessage.createFormMessage(`${e}`, 500)
     }
 }
