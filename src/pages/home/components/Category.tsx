@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 /*
 홈 카테고리
         @since 2024.02.19
-        @author 최정윤
+        @author 최정윤, 이호연
 */
 export type CategoryProps = {
     categoryItems: CategoryItemProps[]

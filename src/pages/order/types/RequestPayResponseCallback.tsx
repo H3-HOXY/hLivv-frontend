@@ -2,6 +2,9 @@ import {RequestPayResponse} from "./RequestPayResponse";
 
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void
 
+/**
+ * @author 반정현
+ */
 export function isRequestPayResponse(obj: any): obj is RequestPayResponse {
     return (
         obj !== null &&

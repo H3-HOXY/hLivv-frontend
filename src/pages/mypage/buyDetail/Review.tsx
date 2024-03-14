@@ -1,12 +1,12 @@
 import "../styles/Review.scss"
-import { useImage } from "../../common/hooks/useImage";
-import { useRef, useState } from "react"
+import {useImage} from "../../common/hooks/useImage";
+import {useRef, useState} from "react"
 import ModalBase from '../ModalBase';
 import CardModal from '../CardModal';
 
 /**
- * @since 
- * @author 최정윤
+ * @since
+ * @author 최정윤, 이호연(API 연결)
  */
 
 const Review = () => {

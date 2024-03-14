@@ -1,6 +1,10 @@
 import {RequestPayAdditionalParams} from "./RequestPayAdditionalParams";
 import {Display} from "./Display";
 
+
+/**
+ * @author 반정현
+ */
 export interface RequestPayParams extends RequestPayAdditionalParams {
     pg?: string
     pay_method: string
