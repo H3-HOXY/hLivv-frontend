@@ -177,12 +177,12 @@ const Cart = () => {
                                 <div className="">개인정보 수집 이용 및 제3자 제공 동의 (필수)</div>
                             </div>
                             <div className="CartPayContainRightDescription">본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.</div>
-                            <div className="CartPayContainRightDescription">(주)버킷플레이스는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한
+                            <div className="CartPayContainRightDescription">hLivv는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한
                                 상품정보
                                 및 거래 등에 대해 책임을 지지 않습니다.
                             </div>
                         </div>
-                        <div>(단, (주)버킷플레이스가 판매자로 등록 판매한 상품은 판매자로서 책임을 부담합니다)</div>
+                        <div>(단, hLivv가 판매자로 등록 판매한 상품은 판매자로서 책임을 부담합니다)</div>
                         <div className="CartPayContainRightBtn"
                              onClick={onBuyNowClicked}>{cartItem.length}개 상품 구매하기
                         </div>
