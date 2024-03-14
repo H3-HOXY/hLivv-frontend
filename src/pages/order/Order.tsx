@@ -164,7 +164,7 @@ const Order = () => {
                 })
             })]
         };
-        if (selectedCoupon !== undefined && selectedCoupon !== -1) {
+        if (selectedCoupon !== undefined && coupons[selectedCoupon].couponId !== -1) {
             orderReqDto.couponId = coupons[selectedCoupon].couponId!!
         }
 
@@ -340,8 +340,8 @@ const Order = () => {
                                         이용 및 제 3자 제공 동의 (필수)</label>
                                 </div>
                                 <div className="OrderAmountContentRightContent">
-                                    (주)버킷플레이스는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한
-                                    상품정보 및 거래 등에 대해 책임을 지지 않습니다 (단, (주)버킷플레이스가 판매자로
+                                    hLivv는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한
+                                    상품정보 및 거래 등에 대해 책임을 지지 않습니다 (단, hLivv가 판매자로
                                     등록 판매한 상품은 판매자로서 책임을 부담합니다)
                                 </div>
                                 <button
